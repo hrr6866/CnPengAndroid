@@ -75,7 +75,12 @@ public class ClTbVpRbFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 
                 mLayoutManager.getOrientation());
+
+        //        com.cnpeng.cnpeng_demos2017_01.utils.DividerItemDecoration mDividerItemDecoration = new com.cnpeng
+        //                .cnpeng_demos2017_01.utils.DividerItemDecoration(getActivity(), 1);
+
         recyclerView.addItemDecoration(mDividerItemDecoration);
+
         recyclerView.setLayoutManager(mLayoutManager);
 
         rvAdapter = new ClTbVpRvRecyclerViewAdapter(items, getActivity());

@@ -1,6 +1,10 @@
 package com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV;
 
+import android.app.IntentService;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -105,3 +109,6 @@ public class ClTbVpRvActivity extends AppCompatActivity {
         });
     }
 }
+
+
+
