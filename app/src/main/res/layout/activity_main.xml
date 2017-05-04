@@ -407,7 +407,7 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b04_lv上拉时展示一个悬浮条固定在屏幕顶端"/>
-            
+
             <Button
                 android:id="@+id/bt_suspendAndLv2"
                 android:layout_width="match_parent"
@@ -422,7 +422,7 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b05_关闭AlertDialog"/>
-            
+
             <Button
                 android:id="@+id/bt_objectAnimator"
                 android:layout_width="match_parent"
@@ -444,7 +444,13 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b08_布局协调者实现标题滚出的效果"/>
-
+            <Button
+                android:id="@+id/bt_textureView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b09_TextureView展示拍照预览"/>
         </LinearLayout>
     </ScrollView>
 </layout>

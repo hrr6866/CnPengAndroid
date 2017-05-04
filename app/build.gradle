@@ -6,10 +6,10 @@ android {
     defaultConfig {
         applicationId "com.cnpeng.cnpeng_demos2017_01"
         minSdkVersion 16
+        versionName "1.0"
 //        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
