@@ -99,19 +99,18 @@ public class ClTbVpRbFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //                //模拟更新数据，并关闭刷新
-                //                for (int i = 0; i < 10; i++) {
-                //                    items.add("下拉出来的数据" + i);
-                //                }
-                //                new Handler().postDelayed(new Runnable() {
-                //                    @Override
-                //                    public void run() {
-                //                        swipeRefreshLayout.setRefreshing(false);    //关闭刷新
-                //                    }
-                //                }, 2500);
-                //
-                //                rvAdapter.setNewList(items);
+                //模拟更新数据，并关闭刷新
+                for (int i = 0; i < 10; i++) {
+                    items.add("下拉出来的数据" + i);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);    //关闭刷新
+                    }
+                }, 2500);
 
+                rvAdapter.setNewList(items);
             }
         });
     }

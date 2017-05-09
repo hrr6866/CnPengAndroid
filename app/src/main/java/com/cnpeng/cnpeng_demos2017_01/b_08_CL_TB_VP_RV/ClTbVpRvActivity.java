@@ -86,6 +86,8 @@ public class ClTbVpRvActivity extends AppCompatActivity {
                     tv_titleBar.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable
                             (android.R.drawable.ic_search_category_default), null);
                     appBar_clTbVpRv.removeAllViews();
+
+                    appBar_clTbVpRv.removeOnOffsetChangedListener(this);    //达到条件后，移除监听
                 }
 
                 //使用这种方式，既能滚出去也能滚回来，但是在RV滚到顶端时会停住，再次下拉才能显示AppBar
