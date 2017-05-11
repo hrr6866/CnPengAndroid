@@ -111,5 +111,6 @@
         <activity android:name=".b_08_CL_TB_VP_RV.ClTbVpRvActivity"
                   android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".b_09_TextureView.TextureViewActivity"></activity>
+        <activity android:name=".b_10_AndroidDrawables.TransitionDrawableActivity"></activity>
     </application>
 </manifest>

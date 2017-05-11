@@ -61,6 +61,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_06_ObjectAnimator.ObjectAnimatorAndListV
 import com.cnpeng.cnpeng_demos2017_01.b_07_bottomNavigationView.BottomNavigationViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV.ClTbVpRvActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_09_TextureView.TextureViewActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.TransitionDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
 
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btBottomNavigationView.setOnClickListener(this);
         binding.btClTbVpRV.setOnClickListener(this);
         binding.btTextureView.setOnClickListener(this);
+        binding.btTransitionDrawable.setOnClickListener(this);
     }
 
     @Override
@@ -294,6 +296,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_textureView:
                 CommonUtils.mStartActivity(this, TextureViewActivity.class);
+                break;
+            case R.id.bt_TransitionDrawable:
+                CommonUtils.mStartActivity(this, TransitionDrawableActivity.class);
                 break;
         }
     }
