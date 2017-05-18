@@ -457,7 +457,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
-                android:text="b10_TransitionDrawable的使用"/>
+                android:text="b10_1_TransitionDrawable的使用"/>
+            <Button
+                android:id="@+id/bt_TransitionDrawable2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b10_2_自定义圆形/圆角Drawable的使用"/>
+
+            <Button
+                android:id="@+id/bt_AddAppToSysShare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b11_将应用加入系统分享界面"/>
 
         </LinearLayout>
     </ScrollView>

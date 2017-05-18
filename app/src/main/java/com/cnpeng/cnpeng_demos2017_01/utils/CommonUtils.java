@@ -1,6 +1,5 @@
 package com.cnpeng.cnpeng_demos2017_01.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

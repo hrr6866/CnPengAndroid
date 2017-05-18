@@ -112,5 +112,21 @@
                   android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".b_09_TextureView.TextureViewActivity"></activity>
         <activity android:name=".b_10_AndroidDrawables.TransitionDrawableActivity"></activity>
+        <activity android:name=".b_10_AndroidDrawables.CustomDrawableActivity"></activity>
+        <activity android:name=".b_11_AddAppToSysShare.AddAppToSysShareActivity">
+            <!--将应用加入系统分享界面，并处理分享过来的数据-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="application/*"/>
+                <data android:mimeType="audio/*"/>
+                <data android:mimeType="image/*"/>
+                <data android:mimeType="text/*"/>
+                <data android:mimeType="video/*"/>
+                <data android:mimeType="multipart/*"/>
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
