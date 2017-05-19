@@ -92,6 +92,14 @@ public class CustomCalendar extends LinearLayout {
             datesToShow.clear();
         }
         while (datesToShow.size() < maxCellNum) {
+            Date dateToShow = calendarToShow.getTime();
+            int monthToAdd = dateToShow.getMonth();    //获取要添加到集合中日期所在的月份
+            int curMonth = curDate.getMonth();    //获取当前的所展示的日历的月份
+
+            if (datesToShow.size() >= 28 && monthToAdd != curMonth) {//取完当月的数据之后，不再取下个月的数据;因为每个月最少有28天，所以以28为条件
+                break;
+            }
+
             datesToShow.add(calendarToShow.getTime());  //将每一个要展示的日期对象从日历对象中取出来加入集合
             calendarToShow.add(Calendar.DAY_OF_MONTH, 1);   //每添加一个就后移
         }
@@ -101,6 +109,7 @@ public class CustomCalendar extends LinearLayout {
     /**
      * 初始化最顶部展示年月的条目，并初始化左右按钮的点击事件
      */
+
     private void initHeaderSubject() {
         curCalendar = Calendar.getInstance();        //获取日历对象
 
