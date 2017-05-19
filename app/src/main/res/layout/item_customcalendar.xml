@@ -7,6 +7,5 @@
         android:id="@+id/tv_cusCalendarCell"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:gravity="center"
-        android:text="9"/>
+        android:gravity="center"/>
 </LinearLayout>

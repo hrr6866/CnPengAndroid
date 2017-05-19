@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +25,14 @@ import java.util.List;
 class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.DateHolder> {
     Context    context;
     List<Date> datesToShow;
+    Date       curDate;   //当前日历正在展示的月份（不一定是当前月份）
 
     /**
      * 自定义更新数据的方法，切换月份时需要使用
      */
-    public void updateDatesToShow(List<Date> list) {
+    public void updateDatesToShow(List<Date> list, Date curDate) {
         this.datesToShow = list;
+        this.curDate = curDate;
         notifyDataSetChanged(); //刷新全部数据
     }
 
@@ -41,15 +44,42 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
     @Override
     public DateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.item_customcalendar, parent, false);
-        DateHolder dataHolder = new DateHolder(itemView);
-        return dataHolder;
+        return new DateHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(DateHolder holder, int position) {
+        //1 展示整体的日历数据
         Date date = datesToShow.get(position);
-        int dayOfMonth = date.getDate();
-        holder.tv_dateItem.setText(String.valueOf(dayOfMonth));
+        int monthOfDate = date.getMonth();  //获取条目中日期对象所在的月份
+        int curMonth = curDate.getMonth();  //获取当前日历中正在展示的月份
+        if (monthOfDate == curMonth) {      //月份一致，展示数据
+            int dayOfMonth = date.getDate();
+            holder.tv_dateItem.setText(String.valueOf(dayOfMonth));
+        } else {    //月份不一致，用空串替代数据，如果不加这句，即便有了上面的判断，还是会显示上月的数据。没想明白为啥
+            holder.tv_dateItem.setText("");
+        }
+
+        //2 个性化当天(这里拿到的是真实的当天的日期),背景标红，字体标白
+        boolean isToday = getIsToday(date);
+        if (isToday) {
+            holder.tv_dateItem.setBackgroundResource(R.color.f7c653);
+            holder.tv_dateItem.setTextColor(context.getResources().getColor(R.color.ffffff));
+        }
+    }
+
+    /**
+     * 判断某个条目是都是当前时间的当天
+     */
+    private boolean getIsToday(Date date) {
+        int yearOfDate = date.getYear();//获取条目中日期对象所在的年
+        int dayOfDate = date.getDate();//获取条目中日期对象所在的天
+        int monthOfDate = date.getMonth();  //获取条目中日期对象所在的月份
+        Date today = new Date();
+        int month_today = today.getMonth();
+        int year_today = today.getYear();
+        int day_today = today.getDate();
+        return day_today == dayOfDate && month_today == monthOfDate && year_today == yearOfDate;
     }
 
     @Override
@@ -57,10 +87,10 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
         return datesToShow.size();
     }
 
-    public class DateHolder extends RecyclerView.ViewHolder {
+    class DateHolder extends RecyclerView.ViewHolder {
         TextView tv_dateItem;
 
-        public DateHolder(View itemView) {
+        DateHolder(View itemView) {
             super(itemView);
             tv_dateItem = (TextView) itemView.findViewById(R.id.tv_cusCalendarCell);
         }
