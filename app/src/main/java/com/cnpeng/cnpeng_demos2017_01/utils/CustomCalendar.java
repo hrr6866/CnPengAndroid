@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 
@@ -18,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 /**
  * 作者：CnPeng
  * <p>
@@ -26,7 +29,8 @@ import java.util.List;
  * 说明：自定义日历--该自定义使用的是组合系统控件的方式
  */
 
-public class CustomCalendar extends LinearLayout {
+public class CustomCalendar extends LinearLayout implements CusCalendarRvAdapter.ItemClickListener, 
+        CusCalendarRvAdapter.ItemLongClickListener {
 
     private Calendar             curCalendar;   //当前的日历对象
     private Date                 curDate;       //当前的日期对象
@@ -78,6 +82,10 @@ public class CustomCalendar extends LinearLayout {
         rv_date.setAdapter(calendarAdapter);
 
         getDatesToShow();
+
+        //设置条目点击监听
+        calendarAdapter.setOnItemClickListener(this);
+        calendarAdapter.setOnItemLongClickListener(this);
     }
 
     /**
@@ -149,5 +157,16 @@ public class CustomCalendar extends LinearLayout {
         String date_header = sdf.format(curDate);  //格式化当前日期为字符串
         TextView tv_header = (TextView) findViewById(R.id.tv_headerCalendar);
         tv_header.setText(date_header);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(context, "条目被点击了", Toast.LENGTH_SHORT).show();
+        view.setBackgroundResource(R.color.e7e7e6);
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+        Toast.makeText(context, "条目被长按了", Toast.LENGTH_SHORT).show();
     }
 }

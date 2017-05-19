@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.cnpeng.cnpeng_demos2017_01.R.drawable.h;
+
 /**
  * 作者：CnPeng
  * <p>
@@ -48,7 +50,7 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
     }
 
     @Override
-    public void onBindViewHolder(DateHolder holder, int position) {
+    public void onBindViewHolder(final DateHolder holder, int position) {
         //1 展示整体的日历数据
         Date date = datesToShow.get(position);
         int monthOfDate = date.getMonth();  //获取条目中日期对象所在的月份
@@ -66,6 +68,26 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
             holder.tv_dateItem.setBackgroundResource(R.color.f7c653);
             holder.tv_dateItem.setTextColor(context.getResources().getColor(R.color.ffffff));
         }
+
+        //3 对外暴露条目点击事件
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
+                }
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (itemLongClickListener != null) {
+                    itemLongClickListener.onItemLongClick(v, holder.getLayoutPosition());
+                }
+                return true;
+            }
+        });
     }
 
     /**
@@ -95,4 +117,30 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
             tv_dateItem = (TextView) itemView.findViewById(R.id.tv_cusCalendarCell);
         }
     }
+
+    /**
+     * RV的条目点击事件
+     */
+    public interface ItemClickListener {    //定义点击事件监听器
+        public void onItemClick(View view, int position);   //内部对外暴露响应点击事件的view和position，具体事件由外部处理
+    }
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {  //对外暴露设置点击监听的方法
+        this.itemClickListener = itemClickListener;
+    }
+
+    ItemClickListener itemClickListener;
+
+    /**
+     * RV条目的长按事件
+     */
+    public interface ItemLongClickListener {    //定义点击事件监听器
+        public void onItemLongClick(View view, int position);
+    }
+
+    public void setOnItemLongClickListener(ItemLongClickListener itemLongClickListener) {
+        this.itemLongClickListener = itemLongClickListener;
+    }
+
+    ItemLongClickListener itemLongClickListener;
 }
