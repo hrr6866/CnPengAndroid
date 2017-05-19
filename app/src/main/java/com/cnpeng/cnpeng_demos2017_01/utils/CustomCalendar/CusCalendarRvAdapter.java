@@ -1,7 +1,6 @@
-package com.cnpeng.cnpeng_demos2017_01.utils;
+package com.cnpeng.cnpeng_demos2017_01.utils.CustomCalendar;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +9,8 @@ import android.widget.TextView;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static com.cnpeng.cnpeng_demos2017_01.R.drawable.h;
 
 /**
  * 作者：CnPeng
@@ -25,20 +21,20 @@ import static com.cnpeng.cnpeng_demos2017_01.R.drawable.h;
  */
 
 class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.DateHolder> {
-    Context    context;
-    List<Date> datesToShow;
-    Date       curDate;   //当前日历正在展示的月份（不一定是当前月份）
+    Context        context;
+    List<DateBean> datesToShow;
+    Date           curDate;   //当前日历正在展示的月份（不一定是当前月份）
 
     /**
      * 自定义更新数据的方法，切换月份时需要使用
      */
-    public void updateDatesToShow(List<Date> list, Date curDate) {
+    public void updateDatesToShow(List<DateBean> list, Date curDate) {
         this.datesToShow = list;
         this.curDate = curDate;
         notifyDataSetChanged(); //刷新全部数据
     }
 
-    public CusCalendarRvAdapter(Context context, List<Date> datesToShow) {
+    public CusCalendarRvAdapter(Context context, List<DateBean> datesToShow) {
         this.context = context;
         this.datesToShow = datesToShow;
     }
@@ -52,7 +48,8 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
     @Override
     public void onBindViewHolder(final DateHolder holder, int position) {
         //1 展示整体的日历数据
-        Date date = datesToShow.get(position);
+        DateBean dateBean = datesToShow.get(position);
+        Date date = dateBean.date;
         int monthOfDate = date.getMonth();  //获取条目中日期对象所在的月份
         int curMonth = curDate.getMonth();  //获取当前日历中正在展示的月份
         if (monthOfDate == curMonth) {      //月份一致，展示数据
@@ -119,7 +116,7 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
     }
 
     /**
-     * RV的条目点击事件
+     * RV的条目点击事件接口
      */
     public interface ItemClickListener {    //定义点击事件监听器
         public void onItemClick(View view, int position);   //内部对外暴露响应点击事件的view和position，具体事件由外部处理
@@ -132,7 +129,7 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
     ItemClickListener itemClickListener;
 
     /**
-     * RV条目的长按事件
+     * RV条目的长按事件接口
      */
     public interface ItemLongClickListener {    //定义点击事件监听器
         public void onItemLongClick(View view, int position);

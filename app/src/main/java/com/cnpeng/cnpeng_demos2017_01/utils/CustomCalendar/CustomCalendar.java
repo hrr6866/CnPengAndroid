@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.utils;
+package com.cnpeng.cnpeng_demos2017_01.utils.CustomCalendar;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,14 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
+import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * 作者：CnPeng
@@ -35,7 +34,8 @@ public class CustomCalendar extends LinearLayout implements CusCalendarRvAdapter
     private Calendar             curCalendar;   //当前的日历对象
     private Date                 curDate;       //当前的日期对象
     private Context              context;       //上下文
-    private List<Date>           datesToShow;   //int型日期的集合，用来初始化适配器
+    //    private List<Date>           datesToShow;   //int型日期的集合，用来初始化适配器
+    private List<DateBean>       datesToShow;   //int型日期的集合，用来初始化适配器
     private CusCalendarRvAdapter calendarAdapter;
 
     public CustomCalendar(Context context) {
@@ -113,7 +113,9 @@ public class CustomCalendar extends LinearLayout implements CusCalendarRvAdapter
                 break;
             }
 
-            datesToShow.add(dateToShow);  //将每一个要展示的日期对象从日历对象中取出来加入集合
+            DateBean dateBean = new DateBean();
+            dateBean.date = dateToShow;
+            datesToShow.add(dateBean);  //将每一个要展示的日期对象从日历对象中取出来加入集合
             calendarToShow.add(Calendar.DAY_OF_MONTH, 1);   //每添加一个就后移
         }
         if (calendarAdapter != null) {
