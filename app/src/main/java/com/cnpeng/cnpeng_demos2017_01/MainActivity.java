@@ -64,6 +64,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_09_TextureView.TextureViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.CustomDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.TransitionDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_11_AddAppToSysShare.AddAppToSysShareActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_12_customCalendar.CustomCalendarActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
 
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btTransitionDrawable.setOnClickListener(this);
         binding.btTransitionDrawable2.setOnClickListener(this);
         binding.btAddAppToSysShare.setOnClickListener(this);
+        binding.btCustomCalendar.setOnClickListener(this);
     }
 
     @Override
@@ -309,6 +311,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_AddAppToSysShare:
                 CommonUtils.mStartActivity(this, AddAppToSysShareActivity.class);
+                break;
+            case R.id.bt_CustomCalendar:
+                CommonUtils.mStartActivity(this, CustomCalendarActivity.class);
                 break;
         }
     }

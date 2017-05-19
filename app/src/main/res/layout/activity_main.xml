@@ -473,6 +473,13 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b11_将应用加入系统分享界面"/>
+            <Button
+                android:id="@+id/bt_CustomCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b12_自定义日历"/>
 
         </LinearLayout>
     </ScrollView>
