@@ -163,8 +163,15 @@ public class CustomCalendar extends LinearLayout implements CusCalendarRvAdapter
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(context, "条目被点击了", Toast.LENGTH_SHORT).show();
-        view.setBackgroundResource(R.color.e7e7e6);
+        Toast.makeText(context, "条目被点击了+" + position, Toast.LENGTH_SHORT).show();
+        //        datesToShow.get(position).isChecked=true;
+
+        for (int i = 0; i < datesToShow.size(); i++) {
+            DateBean dateBean = datesToShow.get(i);
+            dateBean.isChecked = i == position;
+        }
+
+        calendarAdapter.updateDatesToShow(datesToShow, curDate); //通知更新
     }
 
     @Override

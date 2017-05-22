@@ -46,9 +46,10 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
     }
 
     @Override
-    public void onBindViewHolder(final DateHolder holder, int position) {
+    public void onBindViewHolder(final DateHolder holder, final int position) {
         //1 展示整体的日历数据
         DateBean dateBean = datesToShow.get(position);
+
         Date date = dateBean.date;
         int monthOfDate = date.getMonth();  //获取条目中日期对象所在的月份
         int curMonth = curDate.getMonth();  //获取当前日历中正在展示的月份
@@ -72,6 +73,7 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
             public void onClick(View v) {
                 if (itemClickListener != null) {
                     itemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
+                    //                    itemClickListener.onItemClick(holder.itemView, position);
                 }
             }
         });
@@ -81,10 +83,18 @@ class CusCalendarRvAdapter extends RecyclerView.Adapter<CusCalendarRvAdapter.Dat
             public boolean onLongClick(View v) {
                 if (itemLongClickListener != null) {
                     itemLongClickListener.onItemLongClick(v, holder.getLayoutPosition());
+                    //                    itemLongClickListener.onItemLongClick(v, position);
                 }
                 return true;
             }
         });
+
+        //4 个性化被点击条目
+        if (dateBean.isChecked) {   //选中时设置为灰色
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.e7e7e6));
+        } else {    //未选中时设置为透明，此处必须设置，如果不设置的话，会出现选中28 时同时改变了28 和2 的背景色的问题（具体的不一定就是28和2 ，但问题就是本来只选了一个，但是有两个变了背景色）
+            holder.itemView.setBackgroundResource(android.R.color.transparent);
+        }
     }
 
     /**
