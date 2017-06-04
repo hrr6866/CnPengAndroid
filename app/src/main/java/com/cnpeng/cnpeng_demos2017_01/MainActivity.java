@@ -42,10 +42,10 @@ import com.cnpeng.cnpeng_demos2017_01.a_33_ImageSwitcher.ImageSwitcherActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_34_textSwitcher.TextSwitcherActvity;
 import com.cnpeng.cnpeng_demos2017_01.a_35_viewFlipper.ViewFlipperActviity;
 import com.cnpeng.cnpeng_demos2017_01.a_36_Toast.ImageToastActivity;
+import com.cnpeng.cnpeng_demos2017_01.a_37_calendarView.CalendarViewActivity;
+import com.cnpeng.cnpeng_demos2017_01.a_38_DatePiackerAndTimePicker.DatePickerAndTimerPickerActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_39_DatePickerDialogAndTimerPickerDialg
         .DatePickerDialogAndTimerPickerDialogActvitiy;
-import com.cnpeng.cnpeng_demos2017_01.a_38_DatePiackerAndTimePicker.DatePickerAndTimerPickerActivity;
-import com.cnpeng.cnpeng_demos2017_01.a_37_calendarView.CalendarViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_40_NumberPicker.NumberPickerActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_41_SearchView.SearchViewActivtiy;
 import com.cnpeng.cnpeng_demos2017_01.a_42_tabHost.TabHostActivity;
@@ -65,6 +65,8 @@ import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.CustomDrawableActivi
 import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.TransitionDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_11_AddAppToSysShare.AddAppToSysShareActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_12_customCalendar.CustomCalendarActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_13_customUserAgent.CustomUserAgentActivity;
+import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
 
@@ -133,6 +135,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btTransitionDrawable2.setOnClickListener(this);
         binding.btAddAppToSysShare.setOnClickListener(this);
         binding.btCustomCalendar.setOnClickListener(this);
+        binding.btCustomUserAgent.setOnClickListener(this);
+
+        binding.btCustomView.setOnClickListener(this);
+
+
+        binding.btTemp.setOnClickListener(this);
     }
 
     @Override
@@ -315,6 +323,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_CustomCalendar:
                 CommonUtils.mStartActivity(this, CustomCalendarActivity.class);
                 break;
+            case R.id.bt_CustomUserAgent:
+                CommonUtils.mStartActivity(this, CustomUserAgentActivity.class);
+                break;
+            case R.id.bt_CustomView:
+                CommonUtils.mStartActivity(this, CustomViewActivity.class);
+                break;
+            // case R.id.bt_temp:
+            //     CommonUtils.mStartActivity(this, temp.class);
+            //     break;
+
         }
     }
 }

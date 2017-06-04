@@ -128,6 +128,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".b_12_customCalendar.CustomCalendarActivity"></activity>
+        <activity android:name=".b_13_customUserAgent.CustomUserAgentActivity"></activity>
+        
+        <activity android:name=".c_01_customView.CustomViewActivity"/>
 
     </application>
 </manifest>

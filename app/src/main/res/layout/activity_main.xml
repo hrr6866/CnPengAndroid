@@ -480,6 +480,29 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b12_自定义日历"/>
+            <Button
+                android:id="@+id/bt_CustomUserAgent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b13_自定义UserAgent"/>
+            <Button
+                android:id="@+id/bt_CustomView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="c1_自定义View"/>
+
+
+            <Button
+                android:id="@+id/bt_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="temp"/>
 
         </LinearLayout>
     </ScrollView>
