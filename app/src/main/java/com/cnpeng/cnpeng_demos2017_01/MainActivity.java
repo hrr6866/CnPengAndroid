@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btCustomView.setOnClickListener(this);
 
 
-        binding.btTemp.setOnClickListener(this);
+        binding.btTempActivity.setOnClickListener(this);
     }
 
     @Override
@@ -329,9 +329,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_CustomView:
                 CommonUtils.mStartActivity(this, CustomViewActivity.class);
                 break;
-            // case R.id.bt_temp:
-            //     CommonUtils.mStartActivity(this, temp.class);
-            //     break;
+            case R.id.bt_tempActivity:
+                CommonUtils.mStartActivity(this, TempActivity.class);
+                break;
 
         }
     }

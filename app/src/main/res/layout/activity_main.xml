@@ -497,7 +497,7 @@
 
 
             <Button
-                android:id="@+id/bt_temp"
+                android:id="@+id/bt_tempActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"

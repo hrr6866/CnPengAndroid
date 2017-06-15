@@ -39,7 +39,7 @@ public class SpannableStringAndImageSpanActivity extends AppCompatActivity {
     private void init() {
 
         TextView tv_test = (TextView) findViewById(R.id.tv_test);
-        SpannableString spannableString = new SpannableString("点击 按钮有惊喜");
+        SpannableString spannableString = new SpannableString("点击 按钮有惊喜 \n 后面随便换个行，加点东西");
 
         //调用自定义的imageSpan,实现文字与图片的横向居中对齐
         CustomImageSpan imageSpan = new CustomImageSpan(this, R.mipmap.ic_launcher, 2);
