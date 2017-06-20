@@ -6,14 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 
 public class TempActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_temp);
         super.onCreate(savedInstanceState);
+
+
     }
 
-    
-    public void max(){
-        
-    }
-}
+
+} 
+
