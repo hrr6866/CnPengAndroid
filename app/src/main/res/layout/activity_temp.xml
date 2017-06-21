@@ -2,12 +2,37 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="44dp"
-    android:orientation="horizontal">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.cnpeng.cnpeng_demos2017_01.commonCustomView.EditTextWithDel
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@drawable/shape_bk_stackitem"
+        android:padding="@dimen/dp10"
+        android:textColor="#f00"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:textColorHint="#f1b025"
+        android:textSize="12sp"/>
 
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:padding="@dimen/dp10"
+        android:background="@drawable/shape_bk_stackitem"
+        android:hint="输入内容"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:textColor="#f00"
+        android:textColorHint="#f1b025"
+        android:textSize="12sp"/>
 
 </LinearLayout>
