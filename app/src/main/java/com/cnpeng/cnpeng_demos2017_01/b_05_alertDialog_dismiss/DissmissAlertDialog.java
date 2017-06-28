@@ -26,7 +26,7 @@ import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
  * was originally added here
  */
 
-public class DissmissAlertDialog extends AppCompatActivity implements View.OnClickListener {
+public class   DissmissAlertDialog extends AppCompatActivity implements View.OnClickListener {
 
     private AlertDialog dialog;
 

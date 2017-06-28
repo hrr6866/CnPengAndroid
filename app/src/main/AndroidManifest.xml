@@ -133,6 +133,7 @@
         <activity android:name=".b_12_customCalendar.CustomCalendarActivity"/>
         <activity android:name=".b_13_customUserAgent.CustomUserAgentActivity"/>
         <activity android:name=".b_14_screenShotInApp.ScreenShotActivity"/>
+        <activity android:name=".b_15_cornerAlertDialog.CornerAlertDialogActivity"/>
 
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
