@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.utils;
+package com.cnpeng.cnpeng_demos2017_01.commonCustomView;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -488,6 +488,13 @@
                 android:gravity="left|center_vertical"
                 android:text="b13_自定义UserAgent"/>
             <Button
+                android:id="@+id/bt_ScreenShotInAPP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b14_应用内截屏的实现"/>
+            <Button
                 android:id="@+id/bt_CustomView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
