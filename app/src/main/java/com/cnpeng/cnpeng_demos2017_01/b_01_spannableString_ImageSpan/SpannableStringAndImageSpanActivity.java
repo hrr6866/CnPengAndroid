@@ -1,10 +1,12 @@
 package com.cnpeng.cnpeng_demos2017_01.b_01_spannableString_ImageSpan;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
@@ -66,6 +68,11 @@ public class SpannableStringAndImageSpanActivity extends AppCompatActivity {
             super(context, resourceId, verticalAlignment);
         }
 
+//        public CustomImageSpan(Context context, int resourceId,int width,int height) {
+//            super(context, ThumbnailUtils.extractThumbnail(BitmapFactory.decodeResource(context.getResources(),resourceId),
+//                    AutoUtils.getPercentWidthSize(width), AutoUtils.getPercentWidthSize(height)), 2);
+//
+//        }
         @Override
         public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom,
                          Paint paint) {

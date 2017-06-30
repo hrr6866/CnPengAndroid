@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.commonCustomView;
+package com.cnpeng.cnpeng_demos2017_01.c_00_CommonCustomView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 
@@ -17,29 +18,30 @@ import android.graphics.drawable.Drawable;
  * 时间：2017/5/18:下午5:42
  * <p>
  * 说明：自定义圆形图片。
- * 注意：使用这种方式虽然能得到一个圆形的图片，但是，确是从原图的左上角开始截取的！！！
+ * 
  */
 
-public class CustomRoundDrawable extends Drawable {
+public class CustomRectRoundDrawable extends Drawable {
 
-    private Paint paint;      //画笔
-    private int   diameter;      //圆的直径  diameter [daɪ'æmɪtə] 直径
+    private       Paint paint;      //画笔
+    private       RectF rectF;      //矩形区域（存放图片的矩形区域）
+    private final int   width;
+    private final int   height;
 
-    public CustomRoundDrawable(Context context, int id) {
+    public CustomRectRoundDrawable(Context context, int id) {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), id);
         paint = new Paint();
         paint.setAntiAlias(true);   //启用抗锯齿
         BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         paint.setShader(bitmapShader);  //将指定了bitmap 和 拉伸模式的 着色器对象设置给画笔
 
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        diameter = Math.min(width, height); //取得图片宽高中的小值作为圆的直径
+        width = bitmap.getWidth();
+        height = bitmap.getHeight();
     }
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawCircle(diameter / 2, diameter / 2, diameter / 2, paint); //参数依次是 圆点的X坐标，圆点的Y坐标，圆的半径，画笔
+        canvas.drawRoundRect(rectF, 30, 30, paint); //矩形，每个角在X轴的偏移量，每个角在Y轴的偏移量，画笔
     }
 
     @Override
@@ -59,11 +61,16 @@ public class CustomRoundDrawable extends Drawable {
 
     @Override
     public int getIntrinsicHeight() {   //必须重写这两个方法，否则，不显示任何内容
-        return diameter;
+        return height;
     }
 
     @Override
     public int getIntrinsicWidth() {    //必须重写这两个方法，否则，不显示任何内容
-        return diameter;
+        return width;
+    }
+
+    @Override
+    public void setBounds(int left, int top, int right, int bottom) {
+        rectF = new RectF(left, top, right, bottom);
     }
 }

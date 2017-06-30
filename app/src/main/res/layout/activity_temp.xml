@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.cnpeng.cnpeng_demos2017_01.commonCustomView.EditTextWithDel
+    <com.cnpeng.cnpeng_demos2017_01.c_00_CommonCustomView.EditTextWithDel
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="@dimen/dp10"

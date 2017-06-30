@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
-import com.cnpeng.cnpeng_demos2017_01.commonCustomView.CustomRectRoundDrawable;
-import com.cnpeng.cnpeng_demos2017_01.commonCustomView.CustomRoundDrawable;
+import com.cnpeng.cnpeng_demos2017_01.c_00_CommonCustomView.CustomRectRoundDrawable;
+import com.cnpeng.cnpeng_demos2017_01.c_00_CommonCustomView.CustomRoundDrawable;
 
 /**
  * 作者：CnPeng

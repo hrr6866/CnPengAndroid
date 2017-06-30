@@ -1,49 +1,25 @@
-package com.cnpeng.cnpeng_demos2017_01.commonCustomView;
+package com.cnpeng.cnpeng_demos2017_01.c_00_CommonCustomView;
 
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import static android.R.attr.drawableBottom;
-import static android.R.attr.drawableLeft;
-import static android.R.attr.drawablePadding;
-import static android.R.attr.drawableRight;
-import static android.R.attr.drawableTintMode;
-import static android.R.attr.drawableTop;
-import static android.R.attr.editable;
-import static android.R.attr.ellipsize;
-import static android.R.attr.numeric;
-import static android.R.attr.singleLine;
-import static android.R.attr.textColorHighlight;
-import static android.R.attr.textSize;
-import static com.cnpeng.cnpeng_demos2017_01.R.drawable.a;
 
 /**
  * 作者：CnPeng
