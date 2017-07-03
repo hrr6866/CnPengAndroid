@@ -17,7 +17,7 @@ import java.util.Calendar;
  * <p>
  * 时间：2017/6/2:下午5:08
  * <p>
- * 说明：
+ * 说明：自定义 WebView 的 UserAgent
  */
 
 public class CustomUserAgentActivity extends AppCompatActivity {

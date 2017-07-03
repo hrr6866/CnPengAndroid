@@ -5,40 +5,44 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
-
-import static android.R.attr.width;
-import static com.cnpeng.cnpeng_demos2017_01.R.drawable.d;
 
 /**
  * 作者：CnPeng
  * <p>
  * 时间：2017/6/28:上午10:02
  * <p>
- * 说明：
- * 使用圆形shape，然后用楼上写的window.setBackgroundDrawableResource设置为你写的shape，
- * 同时，使用后，dialog的布局文件背景要设置为透明，而且整个布局xml最上面和最下面的控件最好不要设置背景色，
- * 如果设置了背景色需要给整个xml设置pading值
+ * 说明：实现的最终效果：
+ * 1 、修改AlertDialog的那个默认的圆角很小的背景。
+ * -- 使用 dialog.getWindow().setLayoutBackgroundResource()或 setBackgroundDrawable()
+ * 2 、限制AlertDialog 的最大高度，未超过最大高度时内容多高就多高，超过最大高度时以最大高度为准
+ * -- 使用 addOnLayoutChangeListener() 或 ViewTreeObserver
+ * <p>
+ * 要点：
+ * 1 、展示dialog 的时候必须调用 AlertDialog 对象的show()
+ * 2 、addOnLayoutChangeListener 的时候 在 show 之前或者 show 之后都可以
+ * 3 、addOnLayoutChangeListener 中重新setLayoutParams 的时候必须是 FrameLayout.LayoutParams
+ * 4 、ViewTreeObserver 方式需要在 show 之前调用
  */
 
 public class CornerAlertDialogActivity extends AppCompatActivity {
+
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conor_alertdialog);
+
+        context = this;
 
         Button button = (Button) findViewById(R.id.bt_showCornorAlertDialog);
         button.setOnClickListener(new View.OnClickListener() {
@@ -50,21 +54,21 @@ public class CornerAlertDialogActivity extends AppCompatActivity {
     }
 
     private void showCornerAlertDialog() {
-        //        dialog 设置圆角背景
-        //        Dialog dialog = new Dialog(this);
-        //        Window window = dialog.getWindow();
-        //        window.setBackgroundDrawableResource(R.drawable.shape_bk_cnoneralert);
-        //        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
-        //                ViewGroup.LayoutParams.MATCH_PARENT);
-        //        View view = LayoutInflater.from(this).inflate(R.layout.custom_alertdialog, null);
-        //        dialog.setContentView(view, layoutParams);
-        //        dialog.show();
+        //设置圆角背景的方式 1 ：
+        //Dialog dialog = new Dialog(this);
+        //Window window = dialog.getWindow();
+        //window.setBackgroundDrawableResource(R.drawable.shape_bk_cnoneralert);
+        //ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
+        //        ViewGroup.LayoutParams.MATCH_PARENT);
+        //View view = LayoutInflater.from(this).inflate(R.layout.custom_alertdialog, null);
+        //dialog.setContentView(view, layoutParams);
+        //dialog.show();
 
 
         // 使用style模式设置的windowBackground 并不好使，依旧会有默认背景的展示
-        //        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogIOS); 
+        //AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogIOS); 
 
-        //好使的方法。
+        //完整设置圆角和最大高度 方式1 ：
         // 还要注意：如果使用builder 去 setView，那么获取alertDialog对象的操作必须在setView完毕之后，否则，界面中只有一个背景，不显示内容。
         //或者，直接先获取AlertDialog对象，然后用alertDialog 本身的setView 去设置View.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -88,7 +92,7 @@ public class CornerAlertDialogActivity extends AppCompatActivity {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
                                        int oldRight, int oldBottom) {
-                int height = v.getHeight();
+                int height = v.getHeight();     //此处的view 和v 其实是同一个控件
                 int contentHeight = view.getHeight();
 
                 LogUtils.e("高度", height + " / " + " / " + contentHeight);
@@ -102,103 +106,94 @@ public class CornerAlertDialogActivity extends AppCompatActivity {
             }
         });
 
+
+        //==============================================================================================================
+        //// 完整设置圆角和最大高度 方式2： 修改AlertDialog的背景，同时控制最大的高度，超过了则展示到最大高度，没超过则有多少展示多少
+        //AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        //builder.setCancelable(false);                   //这个true和false表示点击返回键时能否关闭dialog
+        //
+        //final View updateDialogView = LayoutInflater.from(context).inflate(R.layout.custom_alertdialog, null);
+        //// 使用style模式设置的windowBackground 并不好使，依旧会有默认背景的展示
+        ////        builder.setView(updateDialogView); 
+        //AlertDialog alertDialog = builder.create();
+        //alertDialog.setCanceledOnTouchOutside(false);   //点击dialog外部的区域不予许关闭
+        //alertDialog.setView(updateDialogView);
+        //
+        //final Window window = alertDialog.getWindow();
+        //if (null != window) {
+        //    window.setBackgroundDrawableResource(R.drawable.shape_bk_cnoneralert);//更改dialog默认背景
+        //
+        //    ViewTreeObserver vto = updateDialogView.getViewTreeObserver();
+        //    vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        //        public boolean onPreDraw() {
+        //            int height = updateDialogView.getMeasuredHeight();  //获取要绘制的高度
+        //            int width = updateDialogView.getMeasuredWidth();
+        //
+        //            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        //            DisplayMetrics metrics = new DisplayMetrics();  //获取整个窗体的宽高
+        //            wm.getDefaultDisplay().getMetrics(metrics);
+        //            int windowHeight = metrics.heightPixels;
+        //            int windowWidth = metrics.widthPixels;
+        //
+        //            int maxHeight = (int) (windowHeight * 0.577); //设计需求是770px ,但是770px显示的内容太少了
+        //            int finalWidth = (int) (windowWidth * 0.733);
+        //
+        //            LogUtils.e("宽、高", height + "/" + width);
+        //            if (height < maxHeight) {       //控制最大宽高
+        //                window.setLayout(finalWidth, height);
+        //            } else {
+        //                window.setLayout(finalWidth, maxHeight);
+        //            }
+        //            return true;
+        //        }
+        //    });
+        //}
+        //alertDialog.show();     //必须用AlertDialog 对象去show
+
         //==============================================================================================================
         //这一个也是不好使的，不论是在show 前还是后， lp.width 拿到的值一直是 -2 
-        //        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        //        lp.copyFrom(dialog.getWindow().getAttributes());
-        //        int dialogWidth = lp.width;
-        //        int dialogHeight = lp.height;
+        // WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        // lp.copyFrom(dialog.getWindow().getAttributes());
+        // int dialogWidth = lp.width;
+        // int dialogHeight = lp.height;
         //
-        //        if (dialogHeight > 700) {
-        //            dialog.getWindow().setLayout(dialogWidth, 700);
-        //        }
-
+        // if (dialogHeight > 700) {
+        //     dialog.getWindow().setLayout(dialogWidth, 700);
+        // }
 
         //==============================================================================================================
         // //这是设置圆角dialog的另外一个示例      
         // AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //        View contentView = getLayoutInflater().inflate(R.layout.custom_alertdialog, null);
-        //        builder.setView(contentView);
-        //        AlertDialog dialog = builder.create();
-        //        //        dialog.getWindow().setBackgroundDrawable(new BitmapDrawable()); // 背景透明.       
-        //        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_bk_cnoneralert));
-        //        dialog.setCanceledOnTouchOutside(false); // 点击外部不消失.       
-        //        dialog.getWindow().setGravity(Gravity.CENTER); // 位置.      
-        //        dialog.show();
-        //
+        //  View contentView = getLayoutInflater().inflate(R.layout.custom_alertdialog, null);
+        //  builder.setView(contentView);
+        //  AlertDialog dialog = builder.create();
+        //  //        dialog.getWindow().setBackgroundDrawable(new BitmapDrawable()); // 背景透明.       
+        //  dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_bk_cnoneralert));
+        //  dialog.setCanceledOnTouchOutside(false); // 点击外部不消失.       
+        //  dialog.getWindow().setGravity(Gravity.CENTER); // 位置.      
+        //  dialog.show();
 
         //==============================================================================================================
-        //        //这种方法实际测试也是不好使！！getAttributes()获取到的p中，p.height和 p.width 都是-2 ，如果想固定dialog的宽高的话，可以使用这种
-        //        WindowManager m = getWindowManager();
-        //        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用       
-        //        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); // 获取对话框当前的参数值      
-        //        p.height = (int) (d.getHeight() * 0.4); // 高度设置为屏幕的0.4      
-        //        p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.9  
-        //        dialog.getWindow().setAttributes(p);//  注意: dialog.getWindow().setAttributes(p); 须在 show() 方法之后调用
-        //   
+        //  //这种方法实际测试也是不好使！！getAttributes()获取到的p中，p.height和 p.width 都是-2 ，如果想固定dialog的宽高的话，可以使用这种
+          WindowManager m = getWindowManager();
+          Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用       
+          WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); // 获取对话框当前的参数值      
+          p.height = (int) (d.getHeight() * 0.4); // 高度设置为屏幕的0.4      
+          p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.9  
+         dialog.getWindow().setAttributes(p);//  注意: dialog.getWindow().setAttributes(p); 须在 show() 方法之后调用
 
         //==============================================================================================================
-        //        //下面这种方式实际测试并不好使！！heightPixels 一直就是屏幕整体的高度，而不是dialog内容区域的高度！！！
+        ////下面这种方式实际测试并不好使！！heightPixels 一直就是屏幕整体的高度，而不是dialog内容区域的高度！！！
         // 如果想直接固定大小的话可以使用该方法，需要在show 之后调用
-        //        //WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        //        WindowManager wm = getWindowManager();
-        //        DisplayMetrics metrics = new DisplayMetrics();
-        //        wm.getDefaultDisplay().getMetrics(metrics);
-        //        if (metrics.heightPixels < 200) {
-        //            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams
-        //                    .WRAP_CONTENT);
-        //        } else {
-        //            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, 100);
-        //        }
-
-        //==============================================================================================================
-        //       最终实现： 修改AlertDialog的背景，同时控制最大的高度，超过了则展示到最大高度，没超过则有多少展示多少
-        //        //        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        //        //        builder.setCancelable(false);                   //这个true和false表示点击返回键时能否关闭dialog
-        //        //
-        //        //        final View updateDialogView = LayoutInflater.from(context).inflate(R.layout
-        //        // .custom_dialog_updateapp, null);
-        //        //        // 使用style模式设置的windowBackground 并不好使，依旧会有默认背景的展示
-        //        //        //        builder.setView(updateDialogView); 
-        //        //        initDialogView(dialogDesc, updateDialogView);
-        //        //
-        //        //        alertDialog = builder.create();
-        //        //        alertDialog.setCanceledOnTouchOutside(false);   //点击dialog外部的区域不予许关闭
-        //        //        alertDialog.setView(updateDialogView);
-        //        //
-        //        //        final Window window = alertDialog.getWindow();
-        //        //        if (null != window) {
-        //        //            window.setBackgroundDrawableResource(R.drawable.shape_bk_update_dialog);    
-        // 更改dialog默认背景
-        //        //
-        //        //            ViewTreeObserver vto = updateDialogView.getViewTreeObserver();
-        //        //            vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-        //        //                public boolean onPreDraw() {
-        //        //                    height = updateDialogView.getMeasuredHeight();
-        //        //                    int width = updateDialogView.getMeasuredWidth();
-        //        //
-        //        //                    WindowManager wm = (WindowManager) context.getSystemService(Context
-        // .WINDOW_SERVICE);
-        //        //                    DisplayMetrics metrics = new DisplayMetrics();
-        //        //                    wm.getDefaultDisplay().getMetrics(metrics);
-        //        //                    int windowHeight = metrics.heightPixels;
-        //        //                    int windowWidth = metrics.widthPixels;
-        //        //
-        //        //                    int maxHeifht = (int) (windowHeight * 0.577); //设计需求是770px ,但是770px显示的内容太少了  
-        //        //                    int finalWidth = (int) (windowWidth * 0.733);
-        // 这个比率是根据标注算的，在这里没法直接给dialog设置边距，所以。。。
-        //        //
-        //        //                    LogUtils.e("宽、高", height + "/" + width);
-        //        //                    if (height < maxHeifht) {
-        //        //                        window.setLayout(finalWidth, height);
-        //        //                    } else {
-        //        //                        window.setLayout(finalWidth, maxHeifht);
-        //        //                    }
-        //        //                    return true;
-        //        //                }
-        //        //            });
-        //        //        }
-        //        //        alertDialog.show();
-
+        // //WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        // WindowManager wm = getWindowManager();
+        // DisplayMetrics metrics = new DisplayMetrics();
+        // wm.getDefaultDisplay().getMetrics(metrics);
+        // if (metrics.heightPixels < 200) {
+        //     dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams
+        //             .WRAP_CONTENT);
+        // } else {
+        //     dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, 100);
+        // }
     }
 }

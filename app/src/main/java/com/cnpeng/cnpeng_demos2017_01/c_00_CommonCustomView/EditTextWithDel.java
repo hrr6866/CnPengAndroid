@@ -21,6 +21,8 @@ import com.cnpeng.cnpeng_demos2017_01.R;
 
 import java.lang.reflect.Method;
 
+import static android.util.TypedValue.COMPLEX_UNIT_PX;
+
 /**
  * 作者：CnPeng
  * <p>
@@ -152,15 +154,17 @@ public class EditTextWithDel extends LinearLayout {
                 case R.styleable.EditTextWithDel_android_textSize:
                     int textSize = a.getDimensionPixelSize(attr, 16);
 
-                    //170621 使用反射的方式获取EditText 的父类 TextView 中的私有方法-- setRawTextSize(float)
-                    Class clazz = editText.getClass().getSuperclass();  //获取TextView的class
-                    try {
-                        Method method = clazz.getDeclaredMethod("setRawTextSize", float.class); //暴力反射获取全部方法，含私有和公有
-                        method.setAccessible(true);     //访问权限设置为true
-                        method.invoke(editText, textSize); //调用反射方法，第一个参数表示是哪个对象调用反射获取的方法，第二个参数表示方法的参数
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    // //170621 使用反射的方式获取EditText 的父类 TextView 中的私有方法-- setRawTextSize(float)
+                    // Class clazz = editText.getClass().getSuperclass();  //获取TextView的class
+                    // try {
+                    //     Method method = clazz.getDeclaredMethod("setRawTextSize", float.class); //暴力反射获取全部方法，含私有和公有
+                    //     method.setAccessible(true);     //访问权限设置为true
+                    //     method.invoke(editText, textSize); //调用反射方法，第一个参数表示是哪个对象调用反射获取的方法，第二个参数表示方法的参数
+                    // } catch (Exception e) {
+                    //     e.printStackTrace();
+                    // }
+
+                    editText.setTextSize(COMPLEX_UNIT_PX, textSize);    //170703 不使用反射方式时用这种方法
                     break;
 
                 case R.styleable.EditTextWithDel_android_inputType:
