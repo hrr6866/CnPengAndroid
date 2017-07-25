@@ -30,14 +30,14 @@ import com.cnpeng.cnpeng_demos2017_01.databinding.CustomDialogAntBinding;
  * 还需增加：更改字号，更改标题背景，传入颜色值和角度值自动生成背景，增加对LV条目的支持，增加最大高度的控制
  */
 
-class CustomDialog {
+class CustomAlertDialog {
 
     private final Context                context;
     private final AlertDialog            dialog;             //dialog对象
     private       View                   dialogView;         //dialogView 
     private       CustomDialogAntBinding dialogBinding;
 
-    public CustomDialog(Context context) {
+    public CustomAlertDialog(Context context) {
         this.context = context;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         dialog = builder.create();

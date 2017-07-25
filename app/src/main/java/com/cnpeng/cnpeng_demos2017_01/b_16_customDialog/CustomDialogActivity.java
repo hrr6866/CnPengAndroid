@@ -326,11 +326,11 @@ public class CustomDialogActivity extends AppCompatActivity implements View.OnCl
                 //                dialog_mh3.show();
                 break;
             case R.id.bt_customDialog:  //完全自定义dialog
-                CustomDialog dialog = new CustomDialog(this);
+                CustomAlertDialog dialog = new CustomAlertDialog(this);
                 dialog.setTitle("随表写一个标题看看随表写一个标题看看随表写一个标题看看随表写一个标题看看随表写一个标题看看随表写一个标题看看");
                 dialog.setMessage("消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容");
                 dialog.setPostiveButton("确定", null);
-                dialog.setNegativeButton("取消", new CustomDialog.AntDialogClickListener() {
+                dialog.setNegativeButton("取消", new CustomAlertDialog.AntDialogClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(CustomDialogActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
