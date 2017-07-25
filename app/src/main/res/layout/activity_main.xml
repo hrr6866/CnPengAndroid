@@ -501,6 +501,16 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b15_圆角的alertdialog"/>
+            
+            <Button
+                android:id="@+id/bt_customDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b16_自定义的alertdialog"/>
+
+
             <Button
                 android:id="@+id/bt_CustomView"
                 android:layout_width="match_parent"
