@@ -329,14 +329,14 @@ public class CustomDialogActivity extends AppCompatActivity implements View.OnCl
                 CustomAlertDialog dialog = new CustomAlertDialog(this);
                 dialog.setTitle("随表写一个标题看看随表写一个标题看看随表写一个标题看看随表写一个标题看看随表写一个标题看看随表写一个标题看看");
                 dialog.setMessage("消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容");
-                dialog.setPostiveButton("确定", null);
+                dialog.setPositiveButton("确定", null);
                 dialog.setNegativeButton("取消", new CustomAlertDialog.AntDialogClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(CustomDialogActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
                     }
                 });
-                dialog.showDialog();
+                dialog.show();
                 break;
         }
     }
