@@ -283,7 +283,7 @@ public class CustomDialogActivity extends AppCompatActivity implements View.OnCl
                 dialog_mh2.setView(view_mh2);
                 //                dialog_mh2.show();  //先show 后show 均可
 
-                ViewTreeObserver viewTreeObserver_mh2 = view_mh2.getViewTreeObserver();
+                final ViewTreeObserver viewTreeObserver_mh2 = view_mh2.getViewTreeObserver();
                 viewTreeObserver_mh2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
@@ -294,6 +294,7 @@ public class CustomDialogActivity extends AppCompatActivity implements View.OnCl
                                 window_mh1.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, 500);    //最大高度控制为500
                             }
                         }
+                        viewTreeObserver_mh2.removeOnGlobalLayoutListener(this);
                     }
                 });
                 dialog_mh2.show();
