@@ -8,6 +8,8 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +29,7 @@ import static android.hardware.Sensor.TYPE_ACCELEROMETER;
  * 时间：2017/8/2:上午10:50
  * <p>
  * 说明：摇一摇的实现:播放音效，振动，弹出dialog
- * 
+ * <p>
  * 注意：
  * 1、传感器监听要在 onResume  中注册，在 onPause 中取消注册
  * 2、振动要在清单文件中声明权限（4.4 以上不需要声明）
@@ -35,16 +37,36 @@ import static android.hardware.Sensor.TYPE_ACCELEROMETER;
  */
 
 public class ShakeActivity extends AppCompatActivity implements SensorEventListener {
+    private final int PlayAudioOver = 0;   //播放完毕
+    private final int VibratorOver  = 1;   //振动结束
+
     private SensorManager     sensorManager;
     private Sensor            sensor;
     private SoundPool         soundPool;
     private boolean           isPlayAudio;  //是否正在播放音频
     private Vibrator          vibrator;     //振动器对象
     private boolean           isVibrator;   //是否正在振动
+    private int               musicStreamId;  //通过SoundPool加载得到的音频id
+    private float             playVolume;   //音量比率值
     private CustomAlertDialog customAlertDialog;
-    private int               musicStreamId;
-    private float             playVolume;
-
+    
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (null != msg) {
+                switch (msg.what) {
+                    case PlayAudioOver:
+                        isPlayAudio = false;
+                        break;
+                    case VibratorOver:
+                        isVibrator = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(
@@ -126,7 +148,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    isVibrator = false; //振动完成置为false
+                    handler.sendEmptyMessage(VibratorOver);
                 }
             }, 400);        //延时时间根据振动时长决定
         }
@@ -146,15 +168,14 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    isPlayAudio = false;
+                    handler.sendEmptyMessage(PlayAudioOver);
                 }
             }, 1000);    //此处延时时间根据音频时间确定
-
         }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {    
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
         //灵敏度变化时调用。灵敏度级别参考：SensorManager.SENSOR_DELAY_GAME
     }
 }
