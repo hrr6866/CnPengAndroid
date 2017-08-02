@@ -69,6 +69,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_13_customUserAgent.CustomUserAgentActivi
 import com.cnpeng.cnpeng_demos2017_01.b_14_screenShotInApp.ScreenShotActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_15_cornerAlertDialog.CornerAlertDialogActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_16_customDialog.CustomDialogActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_17_shake.ShakeActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.btTempActivity.setOnClickListener(this);
         binding.btWebviewTest01.setOnClickListener(this);
         binding.btViewStub02.setOnClickListener(this);
         binding.btWithoutXML.setOnClickListener(this);
@@ -142,16 +144,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btScreenShotInAPP.setOnClickListener(this);
         binding.btCornerAlertDialog.setOnClickListener(this);
         binding.btCustomDialog.setOnClickListener(this);
+        binding.btShake.setOnClickListener(this);
 
         binding.btCustomView.setOnClickListener(this);
 
 
-        binding.btTempActivity.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.bt_tempActivity:
+                CommonUtils.mStartActivity(this, TempActivity.class);
+                break;
             case R.id.bt_webview_Test01:
                 CommonUtils.mStartActivity(this, WebViewTestActivity01.class);
                 break;
@@ -344,10 +349,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_CustomView:
                 CommonUtils.mStartActivity(this, CustomViewActivity.class);
                 break;
-            case R.id.bt_tempActivity:
-                CommonUtils.mStartActivity(this, TempActivity.class);
+
+            case R.id.bt_shake:
+                CommonUtils.mStartActivity(this, ShakeActivity.class);
                 break;
 
+            default:
+                break;
         }
     }
 }

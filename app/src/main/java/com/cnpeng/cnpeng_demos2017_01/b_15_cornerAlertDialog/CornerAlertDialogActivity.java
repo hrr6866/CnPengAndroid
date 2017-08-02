@@ -2,18 +2,15 @@ package com.cnpeng.cnpeng_demos2017_01.b_15_cornerAlertDialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
@@ -124,7 +121,7 @@ public class CornerAlertDialogActivity extends AppCompatActivity {
 
         final Window window = alertDialog.getWindow();
         if (null != window) {
-            window.setBackgroundDrawableResource(R.drawable.shape_bk_cnoneralert);//更改dialog默认背景
+            window.setBackgroundDrawableResource(R.drawable.shape_bk_rect_cornor_white);//更改dialog默认背景
 
             ViewTreeObserver vto = updateDialogView.getViewTreeObserver();
             vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {

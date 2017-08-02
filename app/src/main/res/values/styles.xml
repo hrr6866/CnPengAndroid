@@ -29,7 +29,7 @@
     <!--<item name="android:alertDialogIcon">@drawable/ic_view_headline_black_24dp</item>-->
     <style name="DialogIOS" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="layout">@layout/custom_alertdialog</item>
-        <item name="android:windowBackground">@drawable/shape_bk_cnoneralert</item>
+        <item name="android:windowBackground">@drawable/shape_bk_rect_cornor_white</item>
     </style>
 
 </resources>

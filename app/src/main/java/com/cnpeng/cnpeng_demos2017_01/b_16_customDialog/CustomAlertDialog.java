@@ -110,9 +110,9 @@ public class CustomAlertDialog {
             display.getMetrics(metrics);
             final int windowWidth = metrics.widthPixels;
 
-            if (height != 0) {      //如果不为0，则指定LL的高度填充父窗体，也就是填满指定的高度值
+            if (height != 0) {  //如果不为0，则指定LL的高度填充父窗体，也就是填满指定的高度值,避免出现内容小于指定高度时，内容底部显示白色块
                 LinearLayout ll_root_dialog = dialogBinding.llRootAntDialog;
-                ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) ll_root_dialog.getLayoutParams();
+                ViewGroup.LayoutParams layoutParams = ll_root_dialog.getLayoutParams();
                 layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 ll_root_dialog.setLayoutParams(layoutParams);
                 ll_root_dialog.setGravity(Gravity.CENTER);
@@ -145,7 +145,7 @@ public class CustomAlertDialog {
             display.getMetrics(metrics);
             final int windowWidth = metrics.widthPixels;
 
-            if (height != 0) {      //如果不为0，则指定LL的高度填充父窗体，也就是填满指定的高度值
+            if (height != 0) {      //如果不为0，则指定LL的高度填充父窗体，也就是填满指定的高度值,避免出现内容小于指定高度时，内容底部显示白色块
                 LinearLayout ll_root_dialog = dialogBinding.llRootAntDialog;
                 ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) ll_root_dialog.getLayoutParams();
                 layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -185,7 +185,7 @@ public class CustomAlertDialog {
             final int windowWidth = metrics.widthPixels;
             final int windowHeight = metrics.heightPixels;
 
-            if (heightRate != 0) {      //如果不为0，则指定LL的高度填充父窗体，也就是填满指定的高度值
+            if (heightRate != 0) {      //如果不为0，则指定LL的高度填充父窗体，也就是填满指定的高度值,避免出现内容小于指定高度时，内容底部显示白色块
                 LinearLayout ll_root_dialog = dialogBinding.llRootAntDialog;
                 ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) ll_root_dialog.getLayoutParams();
                 layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -214,7 +214,7 @@ public class CustomAlertDialog {
         Window window = dialog.getWindow();
         if (null != window) {
             if (0 == drawableResId) {
-                drawableResId = R.drawable.shape_bk_cnoneralert;
+                drawableResId = R.drawable.shape_bk_rect_cornor_white;
             }
             window.setBackgroundDrawableResource(drawableResId);
         }
@@ -227,7 +227,7 @@ public class CustomAlertDialog {
         Window window = dialog.getWindow();
         if (null != window) {
             if (null == drawable) {
-                drawable = context.getResources().getDrawable(R.drawable.shape_bk_cnoneralert);
+                drawable = context.getResources().getDrawable(R.drawable.shape_bk_rect_cornor_white);
             }
             window.setBackgroundDrawable(drawable);
         }
@@ -255,34 +255,35 @@ public class CustomAlertDialog {
     }
 
     /**
-     * 设置确定按钮的问题及其点击事件
+     * 设置确定按钮的问题及其点击事件,
+     * 传入的事件监听为null时，会关闭dialog
      */
     public void setPositiveButton(String des, final AntDialogClickListener clickListener) {
         dialogBinding.setIsConfirmBtShow(true);
         dialogBinding.tvConfirmBT.setText(des);
-        if (null != clickListener) {
-            dialogBinding.tvConfirmBT.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog();
+        dialogBinding.tvConfirmBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != clickListener) {
                     clickListener.onClick(v);
                 }
-            });
-        }
+                dismissDialog();
+            }
+        });
     }
 
     public void setPositiveButton(int strResId, final AntDialogClickListener clickListener) {
         dialogBinding.setIsConfirmBtShow(true);
         dialogBinding.tvConfirmBT.setText(context.getResources().getString(strResId));
-        if (null != clickListener) {
-            dialogBinding.tvConfirmBT.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog();
+        dialogBinding.tvConfirmBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != clickListener) {
                     clickListener.onClick(v);
                 }
-            });
-        }
+                dismissDialog();
+            }
+        });
     }
 
     /**
@@ -291,29 +292,29 @@ public class CustomAlertDialog {
     public void setNegativeButton(String des, final AntDialogClickListener clickListener) {
         dialogBinding.setIsCancleBtShow(true);
         dialogBinding.tvCancleBT.setText(des);
-        if (null != clickListener) {
-            dialogBinding.tvCancleBT.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog();
+        dialogBinding.tvCancleBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != clickListener) {
                     clickListener.onClick(v);
                 }
-            });
-        }
+                dismissDialog();
+            }
+        });
     }
 
     public void setNegativeButton(int strResId, final AntDialogClickListener clickListener) {
         dialogBinding.setIsCancleBtShow(true);
         dialogBinding.tvCancleBT.setText(context.getResources().getString(strResId));
-        if (null != clickListener) {
-            dialogBinding.tvCancleBT.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog();
+        dialogBinding.tvCancleBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != clickListener) {
                     clickListener.onClick(v);
                 }
-            });
-        }
+                dismissDialog();
+            }
+        });
     }
 
     /**
@@ -355,6 +356,33 @@ public class CustomAlertDialog {
         if (colors != null) {
             dialogBinding.tvMsg.setTextColor(colors);
         }
+    }
+
+
+    /**
+     * 设置确认按钮的文字颜色
+     */
+    public void setPositiveButtonTextColor(
+            @ColorInt
+                    int color) {
+        dialogBinding.tvConfirmBT.setTextColor(color);
+    }
+
+    public void setPositiveButtonTextColor(ColorStateList colorStateList) {
+        dialogBinding.tvConfirmBT.setTextColor(colorStateList);
+    }
+
+    /**
+     * 设置取消按钮的字体颜色
+     */
+    public void setNegativeButtonTextColor(
+            @ColorInt
+                    int color) {
+        dialogBinding.tvCancleBT.setTextColor(color);
+    }
+
+    public void setNegativeButtonTextColor(ColorStateList colorStateList) {
+        dialogBinding.tvCancleBT.setTextColor(colorStateList);
     }
 
     /**
