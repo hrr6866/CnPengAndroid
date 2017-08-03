@@ -137,6 +137,8 @@
         <activity android:name=".b_16_customDialog.CustomDialogActivity"/>
         <activity android:name=".b_17_shake.ShakeActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".b_18_customSwitchButton.CustomSwitchButtonActivity"
+                  android:screenOrientation="portrait"/>
 
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 

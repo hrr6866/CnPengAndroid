@@ -70,6 +70,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_14_screenShotInApp.ScreenShotActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_15_cornerAlertDialog.CornerAlertDialogActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_16_customDialog.CustomDialogActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_17_shake.ShakeActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton.CustomSwitchButtonActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btCornerAlertDialog.setOnClickListener(this);
         binding.btCustomDialog.setOnClickListener(this);
         binding.btShake.setOnClickListener(this);
+        binding.btCustomSwitchButton.setOnClickListener(this);
 
         binding.btCustomView.setOnClickListener(this);
 
@@ -348,6 +350,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_CustomView:
                 CommonUtils.mStartActivity(this, CustomViewActivity.class);
+                break;
+            case R.id.bt_customSwitchButton:
+                CommonUtils.mStartActivity(this, CustomSwitchButtonActivity.class);
                 break;
 
             case R.id.bt_shake:
