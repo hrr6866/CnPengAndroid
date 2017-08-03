@@ -134,10 +134,11 @@ public class CustomSwitchButton extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        float touchDot = event.getX();      //触摸点
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:   //点击更改状态
             case MotionEvent.ACTION_MOVE:
-                float touchDot = event.getX();
                 if (touchDot - viewHeight / 2 <= 0) {   //滑动的时候防止越界
                     xCooidinate = viewHeight / 2;
                 } else if (touchDot + viewHeight / 2 >= viewWidth) {
@@ -145,9 +146,16 @@ public class CustomSwitchButton extends View {
                 } else {
                     xCooidinate = (int) touchDot;
                 }
-                isChecked = xCooidinate > viewWidth / 2;    //手指滑动时即时动态更新背景色
                 break;
             case MotionEvent.ACTION_UP:
+
+                float upDot = event.getX();   //获取抬手时的触摸点
+                if (Math.abs(touchDot - upDot) < 10) {   //移动距离较小时认为是点击
+                    isChecked = !isChecked;
+                } else {
+                    isChecked = xCooidinate > viewWidth / 2;    //手指滑动时即时动态更新背景色
+                }
+
                 //抬手时要更新上层滑块x坐标
                 if (isChecked) {
                     xCooidinate = viewWidth - viewHeight / 2; //如果是选中状态，中心点靠右
@@ -165,6 +173,7 @@ public class CustomSwitchButton extends View {
         invalidate();   //请求重绘制
         return true;
     }
+
 
     /**
      * CustomSwitchButton的状态监听器
