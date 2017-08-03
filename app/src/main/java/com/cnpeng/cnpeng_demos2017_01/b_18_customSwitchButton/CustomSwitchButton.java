@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -21,15 +22,15 @@ import android.view.View;
 
 public class CustomSwitchButton extends View {
 
-    private int viewWidth   = 100;   //背景的默认宽
-    private int viewHeight  = 50;    //背景的默认高
-    private int xCooidinate = viewHeight / 2;   //圆圈的 x 坐标，默认值
-    private int yCoordinate = viewHeight / 2;   //圆圈的 y 坐标，默认值
-    private int radius      = viewHeight / 2 - 2;   //圆圈的 半径（高度除2-2是为了显出不让圆圈挨边）
+    private int viewWidth  = 100;   //背景的默认宽
+    private int viewHeight = 50;    //背景的默认高
 
-    private RectF   rect;                //view所在的矩形区域
-    private Paint   paint;
-    private boolean isChecked;           //开启状态
+    private int                     xCooidinate;     //圆圈当前的x坐标
+    private RectF                   rect;                //view所在的矩形区域
+    private Paint                   paint;               //画笔
+    private boolean                 isChecked;           //是否处于开启状态
+    private onCheckedChangeListener changeListener; //状态监听器
+
 
     public CustomSwitchButton(Context context) {
         this(context, null);
@@ -81,6 +82,15 @@ public class CustomSwitchButton extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        drawBackground(canvas);
+        drawCircleSlider(canvas);
+    }
+
+
+    /**
+     * 绘制背景
+     */
+    private void drawBackground(Canvas canvas) {
         int measuredWidth = getMeasuredWidth();
         int measuredHeight = getMeasuredHeight();
 
@@ -102,12 +112,76 @@ public class CustomSwitchButton extends View {
 
         rect.set(0, 0, viewWidth, viewHeight);
         canvas.drawRoundRect(rect, viewHeight / 2, viewHeight / 2, paint);  //画背景
+    }
 
-        //绘制上层圆圈
-        xCooidinate = viewHeight / 2;
-        yCoordinate = viewHeight / 2;
-        radius = viewHeight / 2 - 4;
+    /**
+     * 绘制上层滑块
+     */
+    private void drawCircleSlider(Canvas canvas) {
+        //绘制上层圆圈。并根据状态确定中心点坐标
+        if (xCooidinate == 0) {     //上层圆圈中心点x轴坐标,初始化页面的时候，会为0
+            if (isChecked) {
+                xCooidinate = viewWidth - viewHeight / 2;   //初始化时根据选中状态确定坐标点
+            } else {
+                xCooidinate = viewHeight / 2;
+            }
+        }
+        int yCoordinate = viewHeight / 2;   //层圆圈中心点y轴坐标
+        int radius = viewHeight / 2 - 4;    //半径
         paint.setColor(Color.WHITE);
         canvas.drawCircle(xCooidinate, yCoordinate, radius, paint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:   //点击更改状态
+            case MotionEvent.ACTION_MOVE:
+                float touchDot = event.getX();
+                if (touchDot - viewHeight / 2 <= 0) {   //滑动的时候防止越界
+                    xCooidinate = viewHeight / 2;
+                } else if (touchDot + viewHeight / 2 >= viewWidth) {
+                    xCooidinate = viewWidth - viewHeight / 2;
+                } else {
+                    xCooidinate = (int) touchDot;
+                }
+                isChecked = xCooidinate > viewWidth / 2;    //手指滑动时即时动态更新背景色
+                break;
+            case MotionEvent.ACTION_UP:
+                //抬手时要更新上层滑块x坐标
+                if (isChecked) {
+                    xCooidinate = viewWidth - viewHeight / 2; //如果是选中状态，中心点靠右
+                } else {
+                    xCooidinate = viewHeight / 2;   //如果是选中状态，中心点靠右
+                }
+
+                //TODO 只有抬手的时候，才对外暴露监听器
+                if (changeListener != null) {
+                    changeListener.onChange(isChecked);
+                }
+                break;
+        }
+
+        invalidate();   //请求重绘制
+        return true;
+    }
+
+    /**
+     * CustomSwitchButton的状态监听器
+     */
+    public interface onCheckedChangeListener {
+        void onChange(boolean isChecked);
+    }
+
+    public void setOnCheckedChangeListener(onCheckedChangeListener changeListener) {
+        this.changeListener = changeListener;
+    }
+
+    /**
+     * 由外部动态设置选中状态
+     */
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+        invalidate();
     }
 }

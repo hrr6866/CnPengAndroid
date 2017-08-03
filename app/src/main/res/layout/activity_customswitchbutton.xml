@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
->
+<layout>
+    <data class="CusSwitchBtBinding">
 
-    <com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton.CustomSwitchButton
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:layout_centerInParent="true"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/c_33d5d5d5"
+                  android:orientation="horizontal">
 
-</RelativeLayout>
+        <TextView android:id="@+id/tv_cusSwitchBtAct"
+                  android:layout_width="0dp"
+                  android:layout_height="70dp"
+                  android:layout_weight="1"
+                  android:gravity="center_vertical"
+                  android:paddingLeft="@dimen/dp10"
+                  android:text="随便写的东西"/>
+
+        <com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton.CustomSwitchButton
+            android:id="@+id/cusSwitchBt"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"/>
+
+    </LinearLayout>
+</layout>

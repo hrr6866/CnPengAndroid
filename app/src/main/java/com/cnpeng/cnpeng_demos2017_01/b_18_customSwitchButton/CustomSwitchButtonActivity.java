@@ -1,11 +1,15 @@
 package com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
+import com.cnpeng.cnpeng_demos2017_01.SpHelper_config;
+import com.cnpeng.cnpeng_demos2017_01.databinding.CusSwitchBtBinding;
+import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
 
 /**
  * 作者：CnPeng
@@ -16,11 +20,42 @@ import com.cnpeng.cnpeng_demos2017_01.R;
  */
 
 public class CustomSwitchButtonActivity extends AppCompatActivity {
+
+    private CusSwitchBtBinding binding;
+
     @Override
     protected void onCreate(
             @Nullable
                     Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this,R.layout.activity_customswitchbutton);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_customswitchbutton);
+
+        init();
+    }
+
+    private void init() {
+        final SpHelper_config spHelper = new SpHelper_config(this);
+        boolean checkedStatus = spHelper.getCusSwitchBtStatus();
+        LogUtils.e("之前的选中状态：", String.valueOf(checkedStatus));
+
+        binding.cusSwitchBt.setIsChecked(checkedStatus);  //根据之前的选中状态初始化界面
+        changeTextColor(checkedStatus);
+
+
+        binding.cusSwitchBt.setOnCheckedChangeListener(new CustomSwitchButton.onCheckedChangeListener() {
+            @Override
+            public void onChange(boolean isChecked) {
+                changeTextColor(isChecked);
+                spHelper.saveCusSwitchBtStatus(isChecked);
+            }
+        });
+    }
+
+    private void changeTextColor(boolean isChecked) {
+        if (isChecked) {
+            binding.tvCusSwitchBtAct.setTextColor(Color.RED);
+        } else {
+            binding.tvCusSwitchBtAct.setTextColor(Color.BLACK);
+        }
     }
 }
