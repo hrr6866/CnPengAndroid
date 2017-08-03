@@ -120,11 +120,7 @@ public class CustomSwitchButton extends View {
     private void drawCircleSlider(Canvas canvas) {
         //绘制上层圆圈。并根据状态确定中心点坐标
         if (xCooidinate == 0) {     //上层圆圈中心点x轴坐标,初始化页面的时候，会为0
-            if (isChecked) {
-                xCooidinate = viewWidth - viewHeight / 2;   //初始化时根据选中状态确定坐标点
-            } else {
-                xCooidinate = viewHeight / 2;
-            }
+            xCooidinate = isChecked ? (viewWidth - viewHeight / 2) : viewHeight / 2;  //初始化时根据选中状态确定坐标点
         }
         int yCoordinate = viewHeight / 2;   //层圆圈中心点y轴坐标
         int radius = viewHeight / 2 - 4;    //半径
@@ -139,9 +135,9 @@ public class CustomSwitchButton extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:   //点击更改状态
             case MotionEvent.ACTION_MOVE:
-                if (touchDot - viewHeight / 2 <= 0) {   //滑动的时候防止越界
+                if (touchDot - viewHeight / 2 <= 0) {   //左侧防越界
                     xCooidinate = viewHeight / 2;
-                } else if (touchDot + viewHeight / 2 >= viewWidth) {
+                } else if (touchDot + viewHeight / 2 >= viewWidth) {    //右侧防越界
                     xCooidinate = viewWidth - viewHeight / 2;
                 } else {
                     xCooidinate = (int) touchDot;
@@ -150,18 +146,14 @@ public class CustomSwitchButton extends View {
             case MotionEvent.ACTION_UP:
 
                 float upDot = event.getX();   //获取抬手时的触摸点
-                if (Math.abs(touchDot - upDot) < 10) {   //移动距离较小时认为是点击
+                if (Math.abs(touchDot - upDot) < 10) {   //移动距离较小时认为是点击，数值10根据情况可更改
                     isChecked = !isChecked;
                 } else {
                     isChecked = xCooidinate > viewWidth / 2;    //手指滑动时即时动态更新背景色
                 }
 
-                //抬手时要更新上层滑块x坐标
-                if (isChecked) {
-                    xCooidinate = viewWidth - viewHeight / 2; //如果是选中状态，中心点靠右
-                } else {
-                    xCooidinate = viewHeight / 2;   //如果是选中状态，中心点靠右
-                }
+                //抬手时要更新上层滑块x坐标.如果是选中状态，坐标点靠右;未选中坐标点靠左
+                xCooidinate = isChecked ? (viewWidth - viewHeight / 2) : viewHeight / 2;  //初始化时根据选中状态确定坐标点
 
                 //TODO 只有抬手的时候，才对外暴露监听器
                 if (changeListener != null) {
