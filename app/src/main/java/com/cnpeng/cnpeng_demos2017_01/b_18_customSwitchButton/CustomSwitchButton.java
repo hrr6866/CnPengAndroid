@@ -20,6 +20,8 @@ import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
  * 说明：自定义开关按钮
  * <p>
  * 因为是继承自View，所以没有 onLayout 方法，只能测量和绘制
+ * <p>
+ * TODO 还需要加入 padding 的处理
  */
 
 public class CustomSwitchButton extends View {
@@ -161,8 +163,8 @@ public class CustomSwitchButton extends View {
                 toLeft = isChecked;//如果原先是选中状态，点一下我就认为你是要左移；如果是未选中状态，我就认为你是要右移
                 LogUtils.e("按下时是在左侧？：", String.valueOf(toLeft));
 
-                frameLeft = toLeft ? downDot : 0;
-                frameRight = toLeft ? viewWidth : downDot;
+                frameLeft = toLeft ? downDot - leftBound : 0;
+                frameRight = toLeft ? viewWidth : downDot + leftBound;
                 frameTop = 0;
                 frameBottom = viewHeight;
                 LogUtils.e("按下时frame坐标：", frameLeft + "/" + frameTop + "/" + frameRight + "/" + frameBottom);
@@ -171,40 +173,39 @@ public class CustomSwitchButton extends View {
             case MotionEvent.ACTION_MOVE:
                 float moveDot = event.getX();     //移动中的触摸点
                 float moveDotY = event.getY();
-                if (moveDotY < viewHeight) {    //滑动中如果Y超过view的范围，不再响应
-                    //确定FrameRect层的边界
-                    if (Math.abs(moveDot - downDot) > 10 && downDot > leftBound && downDot < rightBound) {
-                        //确定frameRect的边界
-                        toLeft = moveDot - downDot < 0; //小于0左划，大于0 右划
-                        LogUtils.e("是否左移？：", String.valueOf(toLeft));
-                        frameLeft = toLeft ? moveDot : 0;
-                        frameRight = toLeft ? viewWidth : moveDot;
-                        frameTop = 0;
-                        frameBottom = viewHeight;
-                        LogUtils.e("frame坐标：", frameLeft + "/" + frameTop + "/" + frameRight + "/" + frameBottom);
-                    }
-
-                    //确定上层滑动圆圈的圆心坐标
-                    if (moveDot <= leftBound) {   //左侧防越界
-                        xCooidinate = leftBound;
-                    } else if (moveDot >= rightBound) {    //右侧防越界
-                        xCooidinate = rightBound;
-                    } else {
-                        xCooidinate = (int) moveDot;
-                    }
+                //                if (moveDotY < viewHeight) {    //滑动中如果Y超过view的范围，不再响应
+                //确定FrameRect层的边界
+                if (Math.abs(moveDot - downDot) > 5 && moveDot > leftBound && moveDot < rightBound) {
+                    //确定frameRect的边界
+                    toLeft = moveDot - downDot < 0; //小于0左划，大于0 右划
+                    LogUtils.e("是否左移？：", String.valueOf(toLeft));
+                    frameLeft = toLeft ? moveDot - leftBound : 0;
+                    frameRight = toLeft ? viewWidth : moveDot + leftBound;
+                    frameTop = 0;
+                    frameBottom = viewHeight;
+                    LogUtils.e("frame坐标：", frameLeft + "/" + frameTop + "/" + frameRight + "/" + frameBottom);
                 }
 
-                if (isChecked&&!toLeft) {   //滑动中根据左划右划动态更新选中状态，从而更新最底层背景
+                //确定上层滑动圆圈的圆心坐标
+                if (moveDot <= leftBound) {   //左侧防越界
+                    xCooidinate = leftBound;
+                } else if (moveDot >= rightBound) {    //右侧防越界
+                    xCooidinate = rightBound;
+                } else {
+                    xCooidinate = (int) moveDot;
+                }
+
+                if (isChecked && !toLeft) {   //滑动中根据左划右划动态更新选中状态，从而更新最底层背景
                     isChecked = false;
-                } else if ((!isChecked)&&toLeft) {
-                    isChecked = true;   
+                } else if ((!isChecked) && toLeft) {
+                    isChecked = true;
                 }
-
+                //                }
                 break;
             case MotionEvent.ACTION_UP:
                 float upDot = event.getX();   //获取抬手时的触摸点
                 LogUtils.e("抬起时的触摸点", upDot + "");
-                if (Math.abs(downDot - upDot) < 10) {   //移动距离较小时认为是点击，数值10根据情况可更改
+                if (Math.abs(downDot - upDot) < 5) {   //移动距离较小时认为是点击，数值10根据情况可更改
                     isChecked = !isChecked;
                 } else {
                     isChecked = xCooidinate > viewWidth / 2;    //手指滑动时即时动态更新背景色
