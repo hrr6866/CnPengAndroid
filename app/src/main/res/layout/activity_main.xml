@@ -611,7 +611,7 @@
                 android:gravity="left|center_vertical"
                 android:text="b17_摇一摇（Shake）"
                 android:textAllCaps="false"/>
-            
+
             <Button
                 android:id="@+id/bt_customSwitchButton"
                 android:layout_width="match_parent"
@@ -619,6 +619,26 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
                 android:text="b18_自定义switchButton"
+                android:textAllCaps="false"/> 
+            
+            <Button
+                android:id="@+id/bt_vector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b19_vector的使用总结"
+                android:textAllCaps="false"/>
+
+            
+            
+            <Button
+                android:id="@+id/bt_shortCut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b20_快捷方式的实现总结"
                 android:textAllCaps="false"/>
 
 
@@ -640,6 +660,7 @@
                 android:gravity="left|center_vertical"
                 android:text="temp"
                 android:textAllCaps="false"/>
+
 
         </LinearLayout>
     </ScrollView>
