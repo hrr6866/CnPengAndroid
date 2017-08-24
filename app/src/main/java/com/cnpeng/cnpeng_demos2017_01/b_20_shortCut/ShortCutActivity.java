@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ShortCutBinding;
@@ -40,5 +41,6 @@ public class ShortCutActivity extends AppCompatActivity {
         ShortCutHandler handler = new ShortCutHandler(ShortCutActivity.this);
         binding.setHandler(handler);
 
+        binding.tvScroll.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 }

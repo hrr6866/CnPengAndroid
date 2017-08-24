@@ -17,6 +17,9 @@ import com.cnpeng.cnpeng_demos2017_01.R;
  * 时间：2017/8/17:下午3:55
  * <p>
  * 说明：用广播的形式创建快捷方式，并实现快捷方式的 删除 和 修改
+ * <p>
+ * TODO 修改快捷方式、非原生系统的launcher如何判断快捷方式是否存在
+ * TODO 8.0之后快捷方式的实现方式
  */
 
 public class ShortCutUtils {
@@ -106,7 +109,7 @@ public class ShortCutUtils {
 
     /**
      * 删除快捷方式
-     * 
+     * <p>
      * FIXME 并不好使，无法删除，即便是原生系统也删除不了，为啥？？？？？
      */
     public static void deleteShortCut(Context context, Class<?> tClass, Intent shortCutIntent) {

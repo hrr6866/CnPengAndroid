@@ -300,12 +300,12 @@
         <activity android:name=".b_18_customSwitchButton.CustomSwitchButtonActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".b_20_shortCut.ShortCutActivity">
-            <!--需要加意图过滤器，不加的话无法用快捷方式打开-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.CREATE_SHORTCUT"/>-->
-                <!--<category android:name="android.intent.category.DEFAULT"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+            <!--需要加意图过滤器，不加的话无法打开快捷方式指定的页面-->
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity>
 

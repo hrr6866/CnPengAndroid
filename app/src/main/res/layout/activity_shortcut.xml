@@ -8,6 +8,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
+                  android:background="@drawable/inset"
                   android:orientation="vertical">
 
         <Button
@@ -56,6 +57,12 @@
             android:onClick="@{handler.deleteShortCut}"
             android:text="删除快捷方式"/>
 
+        <TextView 
+            android:id="@+id/tv_scroll"
+            android:layout_width="match_parent"
+            android:maxHeight="80dp"
+            android:text="textView.setMovementMethod(ScrollingMovementMethod.getInstance());  textView.setMovementMethod(ScrollingMovementMethod.getInstance());  textView.setMovementMethod(ScrollingMovementMethod.getInstance());  textView.setMovementMethod(ScrollingMovementMethod.getInstance());  textView.setMovementMethod(ScrollingMovementMethod.getInstance());  textView.setMovementMethod(ScrollingMovementMethod.getInstance());  "
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </layout>
