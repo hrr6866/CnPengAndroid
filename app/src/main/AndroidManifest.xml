@@ -308,6 +308,8 @@
             </intent-filter>
 
         </activity>
+        
+        <activity android:name=".b_21_listViewLocalRefresh.ListViewLocalRefreshActivity"/>
 
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 

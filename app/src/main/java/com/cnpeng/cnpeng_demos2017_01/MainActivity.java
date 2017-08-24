@@ -73,6 +73,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_17_shake.ShakeActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton.CustomSwitchButtonActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_19_vectorTest.VectorDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_20_shortCut.ShortCutActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_21_listViewLocalRefresh.ListViewLocalRefreshActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btCustomSwitchButton.setOnClickListener(this);
         binding.btVector.setOnClickListener(this);
         binding.btShortCut.setOnClickListener(this);
-
+        binding.btLvLoacalRefresh.setOnClickListener(this);
         binding.btCustomView.setOnClickListener(this);
 
 
@@ -367,6 +368,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_shortCut:
                 CommonUtils.mStartActivity(this, ShortCutActivity.class);
+                break;
+            case R.id.bt_lvLoacalRefresh:
+                CommonUtils.mStartActivity(this, ListViewLocalRefreshActivity.class);
+
                 break;
 
             default:
