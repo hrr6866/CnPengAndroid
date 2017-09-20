@@ -20,6 +20,11 @@ import java.util.List;
  * 时间：2017/9/20:上午11:49
  * <p>
  * 说明：嵌套在ViewPager 中的Fragment。ViewPager中多个页面布局一致时，可以只创建一个Fragment类
+ * <p>
+ * 如果想要同时刷新各个页面中的数据，并且保持个页面中的数据一致时，直接在Fragment中接收广播即可（本页面中注释掉的代码就是直接接收广播的代码）；
+ * 但是，此处我们做了个性化，需要让当前被点击的页面和其他页面的数据不一致，所以就需要在activity中接收广播。
+ * <p>
+ * 当然了，这些都不是最重要的，最重要的是，我们需要了解怎么在FragmentPagerAdapter中获取tag,并根据TAG获取Fragment对象。
  */
 
 public class Fragment_VpItem extends Fragment {
@@ -91,9 +96,9 @@ public class Fragment_VpItem extends Fragment {
 
     public void refreshData(int position, int curPageIndex) {
         if (curPageIndex != pagePosition) {
-            items.set(position, "第" + (curPageIndex+1) + "页的第"+position+"条被点击了");
+            items.set(position, "第" + (curPageIndex + 1) + "页的第" + position + "条被点击了");
         } else {
-            items.set(position,  "被点击了");
+            items.set(position, "被点击了");
         }
         adapter.setData(items);
     }
