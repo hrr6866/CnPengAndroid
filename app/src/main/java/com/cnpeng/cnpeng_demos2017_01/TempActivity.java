@@ -1,10 +1,19 @@
 package com.cnpeng.cnpeng_demos2017_01;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import static android.support.v4.widget.ViewDragHelper.INVALID_POINTER;
 
 
 public class TempActivity extends AppCompatActivity {
@@ -32,5 +41,4 @@ public class TempActivity extends AppCompatActivity {
     }
 
 
-} 
-
+}

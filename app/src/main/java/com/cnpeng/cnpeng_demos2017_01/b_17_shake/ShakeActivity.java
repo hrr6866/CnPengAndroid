@@ -119,7 +119,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
             float y = event.values[1];
             float z = event.values[2];
 
-            if (Math.abs(x) > 15 || Math.abs(y) > 15 || Math.abs(z) > 15) {     //摇动灵敏度取决于后面的常量值，这里定义了15
+            if (Math.abs(x) > 15 && Math.abs(y) > 15 && Math.abs(z) > 15) {     //摇动灵敏度取决于后面的常量值，这里定义了15
                 playShakeAudio();
                 vibratorPhone();
                 showCusDialog();
