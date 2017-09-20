@@ -2,14 +2,9 @@ package com.cnpeng.cnpeng_demos2017_01;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-
-import java.lang.reflect.Method;
-
-import static com.cnpeng.cnpeng_demos2017_01.R.drawable.a;
-import static com.cnpeng.cnpeng_demos2017_01.R.drawable.i;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class TempActivity extends AppCompatActivity {
@@ -17,33 +12,23 @@ public class TempActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_temp);
         super.onCreate(savedInstanceState);
+        
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onClick(View view){
+        init();
     }
+    private void init() {
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+        EditText et= (EditText) findViewById(R.id.et_temp);
+        String content=et.getEditableText().toString();
+        String content_trim=et.getEditableText().toString().trim();
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        int a = 2;
-        int b = 3;
-
-
-        b = a;
-
+        TextView tv1= (TextView) findViewById(R.id.tv_temp1);
+        tv1.setText(content);
+        
+        TextView tv2= (TextView) findViewById(R.id.tv_temp2);
+        tv2.setText(content_trim);
     }
 
 

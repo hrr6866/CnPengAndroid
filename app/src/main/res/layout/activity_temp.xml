@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.cnpeng.cnpeng_demos2017_01.c_00_CommonCustomView.EditTextWithDel
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="@dimen/dp10"
-        android:layout_marginRight="@dimen/dp10"
-        android:layout_marginTop="@dimen/dp10"
-        android:background="@drawable/shape_bk_stackitem"
-        android:padding="@dimen/dp10"
-        android:textColor="#f00"
-        android:maxLines="1"
-        android:maxLength="10"
-        android:textColorHint="#f1b025"
-        android:textSize="12sp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+     <Button 
+         android:onClick="onClick"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="@dimen/dp10"
-        android:layout_marginRight="@dimen/dp10"
-        android:layout_marginTop="@dimen/dp10"
-        android:padding="@dimen/dp10"
-        android:background="@drawable/shape_bk_stackitem"
-        android:hint="输入内容"
-        android:maxLines="1"
-        android:maxLength="10"
-        android:textColor="#f00"
-        android:textColorHint="#f1b025"
-        android:textSize="12sp"/>
+        <EditText
+            android:id="@+id/et_temp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@drawable/shape_bk_stackitem"
+            android:hint="输入内容"
+            android:padding="@dimen/dp10"
+            android:textColor="#f00"
+            android:textColorHint="#f1b025"
+            android:textSize="12sp"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_temp1"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+        <TextView
+            android:id="@+id/tv_temp2"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+
+    </LinearLayout>
+</ScrollView>

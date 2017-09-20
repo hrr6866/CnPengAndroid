@@ -649,6 +649,15 @@
                 android:gravity="left|center_vertical"
                 android:text="b21_ListView的单条(局部)刷新"
                 android:textAllCaps="false"/>
+            
+            <Button
+                android:id="@+id/bt_RefreshFmInVp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:text="b23_跨页面刷新VP中Fragment中的数据"
+                android:textAllCaps="false"/>
 
 
             <Button

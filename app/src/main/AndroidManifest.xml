@@ -310,6 +310,7 @@
         </activity>
         
         <activity android:name=".b_21_listViewLocalRefresh.ListViewLocalRefreshActivity"/>
+        <activity android:name=".b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity"/>
 
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 

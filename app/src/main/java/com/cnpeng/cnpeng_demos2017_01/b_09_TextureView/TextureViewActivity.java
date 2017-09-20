@@ -19,7 +19,7 @@ import static com.cnpeng.cnpeng_demos2017_01.R.drawable.f;
  * <p>
  * 时间：2017/4/28:下午3:13
  * <p>
- * 说明：
+ * 说明：拍照预览界面
  */
 
 public class TextureViewActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener {
