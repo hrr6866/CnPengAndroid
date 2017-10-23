@@ -18,10 +18,16 @@ import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.b_16_customDialog.CustomAlertDialog;
 import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import static android.hardware.Sensor.TYPE_ACCELEROMETER;
+
 
 /**
  * 作者：CnPeng
@@ -49,7 +55,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     private int               musicStreamId;  //通过SoundPool加载得到的音频id
     private float             playVolume;   //音量比率值
     private CustomAlertDialog customAlertDialog;
-    
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -164,13 +170,26 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
             soundPool.play(musicStreamId, playVolume, playVolume, 1, 0, 1.0f);
             LogUtils.e("摇一摇", "摇啊摇，要到了外婆桥");
 
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
+
+            //            Timer timer = new Timer();
+            //            timer.schedule(new TimerTask() {
+            //                @Override
+            //                public void run() {
+            //                    handler.sendEmptyMessage(PlayAudioOver);
+            //                }
+            //            }, 1000);    //此处延时时间根据音频时间确定
+
+            //org.apache.commons.lang3.concurrent.BasicThreadFactory
+            ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1, new BasicThreadFactory
+                    .Builder().daemon(true).build());
+            executorService.schedule(new Runnable() {
                 @Override
                 public void run() {
+                    //do something
                     handler.sendEmptyMessage(PlayAudioOver);
                 }
-            }, 1000);    //此处延时时间根据音频时间确定
+            }, 1000, TimeUnit.MILLISECONDS);
+
         }
     }
 

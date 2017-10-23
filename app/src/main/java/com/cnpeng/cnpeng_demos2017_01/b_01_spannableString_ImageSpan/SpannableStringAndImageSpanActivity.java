@@ -104,6 +104,7 @@ public class SpannableStringAndImageSpanActivity extends AppCompatActivity {
         /**
          * 重写getSize方法，只有重写该方法后，才能保证不论是图片大于文字还是文字大于图片，都能实现中间对齐
          */
+        @Override
         public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
             Drawable d = getDrawable();
             Rect rect = d.getBounds();

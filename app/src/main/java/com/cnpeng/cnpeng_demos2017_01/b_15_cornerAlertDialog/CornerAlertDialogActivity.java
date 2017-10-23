@@ -125,6 +125,7 @@ public class CornerAlertDialogActivity extends AppCompatActivity {
 
             ViewTreeObserver vto = updateDialogView.getViewTreeObserver();
             vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
                 public boolean onPreDraw() {
                     int height = updateDialogView.getMeasuredHeight();  //获取要绘制的高度
                     int width = updateDialogView.getMeasuredWidth();
