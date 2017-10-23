@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.b_24_showComplexH5TextInTextView;
+package com.cnpeng.cnpeng_demos2017_01.b_24_showH5TextInTextView;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -36,22 +36,22 @@ import java.util.HashSet;
  * <p>
  * 时间：2017/10/20:下午3:47
  * <p>
- * 说明：在TextView中展示复杂的H5文本，在H5中关键字标红，其他文本不设置字体。在TextView中需要给关键字增加点击事件，同时TextView中还需要展示出H5中指定的图片
+ * 说明：在TextView中展示H5文本，在H5中关键字标红，其他文本不设置字体。在TextView中需要给关键字增加点击事件，同时TextView中还需要展示出H5中指定的图片
  * <p>
  * 在解析这个 H5 文本串时使用的是 jsoup 库。
  */
 
-public class ShowComplexH5TextActivity extends AppCompatActivity {
+public class ShowH5TextActivity extends AppCompatActivity {
     String H5String = "<html>\n" + " <head></head>\n" + " <body>\n" + "  <p style=\"text-indent: 2em;\"><span " + 
-            "style=\"font-family: 宋体, SimSun; font-size: 16px;\">周三下午公布<font " + 
-            "color=\"#FF0000\">的英国</font>5月失业率、英国5月失业金申请人数、英国4月三个月ILO失业率显示，英国4月三个月剔除红利的平均工资年率刷新2015年1月以来新低。英国2-4月连续3"
+            "style=\"font-family: 宋体, SimSun; font-size: 16px;\">周三下午公布的<font " + 
+            "color=\"#FF0000\">英国</font>5月失业率、英国5月失业金申请人数、英国4月三个月ILO失业率显示，英国4月三个月剔除红利的平均工资年率刷新2015年1月以来新低。英国2-4月连续3" 
             + "个月失业率为1975年以来最低，英国就业市场连续3" + 
             "个月保持稳健，但薪资增速进一步放缓，料将对内需产生负面影响，为英国经济增长预期增添担忧情绪。英国国家统计局表示薪资数据将改善小型企业的薪资策略，对薪资水平产生下行影响。</span></p>\n" + "  " +
             "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
-            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "<p><br " 
-            + "/></p>\n" + "  " + "<p" + "" + " " + "style=\"text-indent: " + "2em;" + "\"><span " + "" + "" + 
-            "style=\"font-family:" + " " + "宋体, " + "" + "SimSun; " + "font-size: " + "16px;" + "\">英国前首相<font " + 
-            "color=\"#FF000\">卡梅伦</font>表示现任首相特雷莎&middot;" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
+            "" + "" + "<p><br " + "/></p>\n" + "  " + "<p" + "" + " " + "style=\"text-indent: " + "2em;" + "\"><span " +
+            "" + "" + "" + "style=\"font-family:" + " " + "宋体, " + "" + "SimSun; " + "font-size: " + "16px;" + 
+            "\">英国前首相<font " + "color=\"#FF000\">卡梅伦</font>表示现任首相特雷莎&middot;" + 
             "梅应采取“软脱欧”，并表示她应该与工党等反对派进行进一步交涉，与各党派进行更广泛的磋商以达成更多共识。认为“软脱欧”或许会面临更大压力，并表示议会现在应尽快面对这个问题。同时<font " + 
             "color=\"#FF000\">卡梅伦</font>还对特蕾莎&middot;梅表示了支持。</span></p>\n" + "  <p><br /></p>\n" + "  <p " + 
             "style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, SimSun; font-size: 16px;" + 
@@ -79,38 +79,38 @@ public class ShowComplexH5TextActivity extends AppCompatActivity {
             "style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, SimSun; font-size: 16px;\">支撑109.90 " + 
             "阻力110.40-110.80</span></p>\n" + "  <p style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, SimSun;" +
             "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
-            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + " " + 
-            "font-size: " + "16px;" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
+            "" + "" + " " + "font-size: " + "16px;" + 
             "\">交易策略：美元兑日元，现价报111.20。明日凌晨有美联储议息会议，注意风险。加息概率极高，但是美元走势依旧疲软，不排除出现美元空头回补的现象。日内交易建议如下：</span" + "></p" + 
             "" + ">\n" + "" + "  " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
             "<p " + "style=\"text-indent: " + "2em;" + "\"><span " + "style=\"font-family: " + "宋体, " + "SimSun;" + 
             "" + " " + "font-size: " + "16px;" + "\">A： " + "突破110.40做多，止损110.30，止盈110.77</span></p>\n" + "  " + "<p " +
-            "" + "" + "style=\"text-indent: 2em;" + "\"><span " + "style=\"font-family: 宋体, SimSun; font-size: " + 
-            "16px;" + "\">B： " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" +
-            "" + "" + "" + "" + "应对加息:限价卖出挂单于110.80，止损111.20，止盈110.40</span></p>\n" + "" + "  " + "<p><br " + 
-            "/></p>\n" + " " + " " + "<p " + "style=\"text-indent: " + "2em;\"><span " + "style=\"font-family: 宋体, " 
-            + "SimSun; " + "font-size: 16px;" + "\">英镑兑美元</span></p>\n" + "  <p " + "style=\"text-indent: 2em;\"><img" +
-            " " + "src=\"http://www.gfxa" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" 
-            + "" + "" + "" + "" + "" + "" + ".com/upload/image/20170614/6363305823223140971492124.png\" title=\"\" " 
-            + "/><span" + " " + "style=\"font-family: 宋体, " + "SimSun; font-size: 16px;\">&nbsp; &nbsp; &nbsp; &nbsp;" +
-            " " + "&nbsp; &nbsp;" + " " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
+            "" + "" + "" + "" + "" + "" + "style=\"text-indent: 2em;" + "\"><span " + "style=\"font-family: 宋体, " +
+            "SimSun; " + "font-size: " + "16px;" + "\">B： " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "应对加息:限价卖出挂单于110.80，止损111.20，止盈110.40</span></p>\n" + 
+            "" + "  " + "<p><br " + "/></p>\n" + " " + " " + "<p " + "style=\"text-indent: " + "2em;\"><span " + 
+            "style=\"font-family: 宋体, " + "SimSun; " + "font-size: 16px;" + "\">英镑兑美元</span></p>\n" + "  <p " + 
+            "style=\"text-indent: 2em;" + "\"><img" + " " + "src=\"http://www.gfxa" + "" + "" + "" + "" + "" + "" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" +
+            ".com/upload/image/20170614/6363305823223140971492124.png\" " + "title=\"\" " + "/><span" + " " + 
+            "style=\"font-family: 宋体, " + "SimSun; font-size: 16px;\">&nbsp; &nbsp;" + " &nbsp; &nbsp;" + " " + 
+            "&nbsp; &nbsp;" + " " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
             "&nbsp; &nbsp; &nbsp; &nbsp; " + "&nbsp;" + " " + "&nbsp; " + "&nbsp; " + "" + "&nbsp; " + "&nbsp; " + 
-            "&nbsp;" + " " + "&nbsp; " + "&nbsp; " + "" + "&nbsp;" + "</span></p>\n" + "" + "  <p " + "" + 
+            "&nbsp;" + " " + "&nbsp; " + "&nbsp; " + "" + "&nbsp;" + "</span></p>\n" + "" + "" + "  <p " + "" + 
             "style=\"text-indent: 2em;" + "\"><span" + " " + "style=\"font-family: " + "宋体, " + "SimSun; " + 
             "font-size: " + "16px;" + "\">支撑1.2673-1.2600 " + "阻力1.1287-1.2828</span></p>\n" + "  <p" + " " + 
             "style=\"text-indent:" + " " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "2em;" + 
             "\"><span " + "" + "" + "style=\"font-family: " + "宋体, " + "SimSun;" + " " + "font-size: " + "" + "16px;"
             + "\">交易策略：如图欧元兑美元四小时图所示，现价报1.2753，欧元轴心点为1.2714，中枢区间为1.2698—1.2730" + "，日内交易建议如下：</span></p>\n" + "  " + 
-            "<p " + "style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, " + "SimSun; font-size: 16px;" + 
-            "\">A：建议1.2730卖出英镑对美元，止损1.2787，止盈1.2673.</span></p>\n" + "  <p " + "style=\"text-indent: 2em;\"><span " +
-            "style=\"font-family: 宋体, SimSun; font-size: 16px;" + 
+            "<p " + "style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, " + "SimSun; font-size: " + "16px;" +
+            "\">A：建议1.2730卖出英镑对美元，止损1.2787，止盈1.2673.</span></p>\n" + "  <p " + "style=\"text-indent: 2em;" + 
+            "\"><span " + "style=\"font-family: 宋体, SimSun; font-size: 16px;" + 
             "\">（该建议以10000美金下0.5手为基准，参照可自行换算。请投资者控制好仓位，严格止损。）</span></p>\n" + "  <p><br /></p>\n" + " </body>\n" + 
             "</html>";
 
-
     private ActivityShowh5textBinding binding;
     private String                    tempSplitedStr;
-    private int                       preEndIndex;
+    //    private int                       preEndIndex;      //上一次出现位置的终止索引
     private SpannableString           spannableStr;
 
     private final int FLAG_CONVERT_H5TEXT_OVER = 1;  //将H5转换成spanableString 完毕
@@ -136,29 +136,44 @@ public class ShowComplexH5TextActivity extends AppCompatActivity {
                     Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_showh5text);
-        setStrToTextView();
+        getAndSetStrToTextView();
     }
 
-    private void setStrToTextView() {
+    /**
+     * 获取并设置字符串到TextView
+     */
+    private void getAndSetStrToTextView() {
         final HashSet<String> keyWordsSet = getAllKeyWords();
 
         new Thread(new Runnable() {     //之所以放在线程中完成H5转 SpannableStirng ，是为了加载H5的图片
             @Override
             public void run() {
-                getSpannableString(keyWordsSet);
+                Spanned normalStr = convertH5TextToSpanned();
+                spannableStr = new SpannableString(normalStr);
+
+                tempSplitedStr = spannableStr.toString();      //全局变量，赋初值
+
+                for (String keyStr : keyWordsSet) { //为所有关键字增加点击事件
+                    findKeyAndSetEvent(tempSplitedStr, keyStr, 0);
+                }
+
+                Message msg = handler.obtainMessage();
+                msg.obj = spannableStr;
+                msg.what = FLAG_CONVERT_H5TEXT_OVER;
+                handler.sendMessage(msg);
             }
         }).start();
     }
 
 
     /**
-     * 将H5字符串转换成普通字符串并保证图片的显示。
+     * 将H5字符串转换成Spanned字符串保证图片的显示。
      */
-    private Spanned convertH5TextToString() {
+    private Spanned convertH5TextToSpanned() {
         return Html.fromHtml(H5String, new Html.ImageGetter() {
             @Override
             public Drawable getDrawable(String url) {
-                InputStream is = null;
+                InputStream is;
                 try {
                     is = (InputStream) new URL(url).getContent();
                     Drawable d = Drawable.createFromStream(is, "src");
@@ -174,6 +189,12 @@ public class ShowComplexH5TextActivity extends AppCompatActivity {
         }, null);
     }
 
+    /**
+     * 设置图片的区域，必须设置，否则图片不展示
+     *
+     * @param d                图片对象
+     * @param withOrHeightMode 宽高模式
+     */
     private void setDrawableBounds(Drawable d, int withOrHeightMode) {
         switch (withOrHeightMode) {
             case MODE_INTRINSIC:    //根据原图大小进行展示
@@ -192,49 +213,33 @@ public class ShowComplexH5TextActivity extends AppCompatActivity {
     }
 
     /**
-     * 获取展示在TextView中的SpannableString
-     */
-    private void getSpannableString(HashSet<String> keyWordsSet) {
-        Spanned normalStr = convertH5TextToString();
-        spannableStr = new SpannableString(normalStr);
-
-        tempSplitedStr = spannableStr.toString();      //全局变量
-
-        for (String keyStr : keyWordsSet) { //为所有关键字增加点击事件
-            preEndIndex = 0;
-            findKeyAndSetEvent(tempSplitedStr, keyStr);
-        }
-
-        Message msg = handler.obtainMessage();
-        msg.obj = spannableStr;
-        msg.what = FLAG_CONVERT_H5TEXT_OVER;
-        handler.sendMessage(msg);
-    }
-
-    /**
      * 找出单个关键字每一次出现的位置并为其增加点击事件
      *
      * @param tempSplitedStr 被切割后的新字符串
      * @param keyStr         关键字
      */
-    private void findKeyAndSetEvent(String tempSplitedStr, final String keyStr) {
+    private void findKeyAndSetEvent(String tempSplitedStr, final String keyStr, int preEndIndex) {
         final int startIndex = tempSplitedStr.indexOf(keyStr);     //起始索引
         if (startIndex != -1) {
             final int endIndex = startIndex + keyStr.length() - 1;    //终止索引,
-            int startIndexInOgirinal = startIndex + preEndIndex;
+            int startIndexInOgirinal = 0;
 
-            if (preEndIndex == 0) {
-                preEndIndex = startIndexInOgirinal + keyStr.length();      //在原始字符串中的结束位置
-            } else {
-                startIndexInOgirinal = startIndex + preEndIndex - 1;
-                preEndIndex = startIndexInOgirinal + keyStr.length();      //在原始字符串中的结束位置
+            if (preEndIndex == 0) {    //关键字第一次出现
+                startIndexInOgirinal = startIndex;
+                preEndIndex = endIndex;
+            } else {      //关键字不是第一次出现
+                startIndexInOgirinal = startIndex + preEndIndex + 1;
+                preEndIndex = startIndexInOgirinal + keyStr.length() - 1;
             }
+
+            LogUtils.e("在临时字符串中的位置：", startIndex + "/" + endIndex);
+            LogUtils.e("原始字符串中的位置：", startIndexInOgirinal + "/" + preEndIndex);
+
             spannableStr.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
                     //点击事件弹窗+请求服务器数据
-                    Toast.makeText(ShowComplexH5TextActivity.this, "点我干嘛？关键字：" + keyStr + "——在当前被截取的字符串中的起始和结束索引是：" + 
-                            startIndex + "/" + endIndex, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShowH5TextActivity.this, "点我干嘛？关键字：" + keyStr, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -242,14 +247,12 @@ public class ShowComplexH5TextActivity extends AppCompatActivity {
                     //super.updateDrawState(ds);
                     ds.setColor(Color.RED);      //更改超链接颜色(此颜色要与H5中关键字的 font 颜色一致)
                     ds.setUnderlineText(false);     //不展示下划线
-
                 }
-            }, startIndexInOgirinal, preEndIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            }, startIndexInOgirinal, preEndIndex + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            //}, startIndexInOgirinal, preEndIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE);  //这样的话，非第一次出现的只会将第一个字符加上超链接
 
-            LogUtils.e("本地关键字的索引位置：" + keyStr, startIndex + "/" + endIndex);
-
-            tempSplitedStr = tempSplitedStr.substring(endIndex);  //截取字符串
-            findKeyAndSetEvent(tempSplitedStr, keyStr);     //递归调用
+            tempSplitedStr = tempSplitedStr.substring(endIndex + 1);  //截取字符串
+            findKeyAndSetEvent(tempSplitedStr, keyStr, preEndIndex);     //递归调用
         }
     }
 
@@ -259,7 +262,7 @@ public class ShowComplexH5TextActivity extends AppCompatActivity {
     private HashSet<String> getAllKeyWords() {
         HashSet<String> keysSet = new HashSet<>();
         Document document = Jsoup.parse(H5String);
-        Elements elementsList = document.getElementsByTag("font"); //这样得到的实际是一个ArrayList集合。Elements类中可以得知，该类继承自ArrayList
+        Elements elementsList = document.getElementsByTag("font"); //在JSOUP中，Elements类继承自ArrayList
 
         if (null != elementsList) {
             for (Element element : elementsList) {

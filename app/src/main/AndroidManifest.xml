@@ -311,7 +311,7 @@
         
         <activity android:name=".b_21_listViewLocalRefresh.ListViewLocalRefreshActivity"/>
         <activity android:name=".b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity"/>
-        <activity android:name=".b_24_showComplexH5TextInTextView.ShowComplexH5TextActivity"/>
+        <activity android:name=".b_24_showH5TextInTextView.ShowH5TextActivity"/>
 
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
