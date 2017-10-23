@@ -75,6 +75,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_19_vectorTest.VectorDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_20_shortCut.ShortCutActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_21_listViewLocalRefresh.ListViewLocalRefreshActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_24_showComplexH5TextInTextView.ShowComplexH5TextActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btLvLoacalRefresh.setOnClickListener(this);
         binding.btCustomView.setOnClickListener(this);
         binding.btRefreshFmInVp.setOnClickListener(this);
+        binding.btShowComplexH5Text.setOnClickListener(this);
 
     }
 
@@ -377,6 +379,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 CommonUtils.mStartActivity(this, RefreshFmInVpActivity.class);
                 break;
 
+            case R.id.bt_showComplexH5Text:
+                CommonUtils.mStartActivity(this, ShowComplexH5TextActivity.class);
+                break;
             default:
                 break;
         }

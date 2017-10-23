@@ -659,6 +659,16 @@
                 android:text="b23_跨页面刷新VP中Fragment中的数据"
                 android:textAllCaps="false"/>
 
+            <Button
+                android:id="@+id/bt_showComplexH5Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="b_24_展示复杂的H5文本(关键字加点击，展示图片)"
+                android:textAllCaps="false"/>
+
 
             <Button
                 android:id="@+id/bt_CustomView"
