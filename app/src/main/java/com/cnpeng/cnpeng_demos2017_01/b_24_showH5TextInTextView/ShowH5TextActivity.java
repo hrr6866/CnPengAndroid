@@ -38,7 +38,11 @@ import java.util.HashSet;
  * <p>
  * 说明：在TextView中展示H5文本，在H5中关键字标红，其他文本不设置字体。在TextView中需要给关键字增加点击事件，同时TextView中还需要展示出H5中指定的图片
  * <p>
- * 在解析这个 H5 文本串时使用的是 jsoup 库。
+ * ——在解析这个 H5 文本串时使用的是 jsoup 库。
+ * ——虽然TextView本身具有滚动属性，但是在不同手机上表现不一样：华为Che1-L20上滑动不流畅，魅族m3-note上滑动后会自动回到顶部。所以用ScrollView 包裹
+ * ——jsoup中没有找到关于根据TAG和节点文本获取属性值的方法，所以无法通过代码去获取font节点中的属性值。（确实有必要的话可以考虑自己解析h5文本）
+ * ——使用线程是为了保证图片能加载处理，加载图片是耗时操作，不用子线程的话图片可能会加载不出来
+ * 
  */
 
 public class ShowH5TextActivity extends AppCompatActivity {
@@ -49,9 +53,9 @@ public class ShowH5TextActivity extends AppCompatActivity {
             "个月保持稳健，但薪资增速进一步放缓，料将对内需产生负面影响，为英国经济增长预期增添担忧情绪。英国国家统计局表示薪资数据将改善小型企业的薪资策略，对薪资水平产生下行影响。</span></p>\n" + "  " +
             "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
             "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
-            "" + "" + "<p><br " + "/></p>\n" + "  " + "<p" + "" + " " + "style=\"text-indent: " + "2em;" + "\"><span " +
-            "" + "" + "" + "style=\"font-family:" + " " + "宋体, " + "" + "SimSun; " + "font-size: " + "16px;" + 
-            "\">英国前首相<font " + "color=\"#FF000\">卡梅伦</font>表示现任首相特雷莎&middot;" + 
+            "" + "" + "" + "" + "" + "" + "<p><br " + "/></p>\n" + "  " + "<p" + "" + " " + "style=\"text-indent: " +
+            "2em;" + "\"><span " + "" + "" + "" + "style=\"font-family:" + " " + "宋体, " + "" + "SimSun; " + 
+            "font-size: " + "16px;" + "\">英国前首相<font " + "color=\"#FF000\">卡梅伦</font>表示现任首相特雷莎&middot;" + 
             "梅应采取“软脱欧”，并表示她应该与工党等反对派进行进一步交涉，与各党派进行更广泛的磋商以达成更多共识。认为“软脱欧”或许会面临更大压力，并表示议会现在应尽快面对这个问题。同时<font " + 
             "color=\"#FF000\">卡梅伦</font>还对特蕾莎&middot;梅表示了支持。</span></p>\n" + "  <p><br /></p>\n" + "  <p " + 
             "style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, SimSun; font-size: 16px;" + 
@@ -80,28 +84,29 @@ public class ShowH5TextActivity extends AppCompatActivity {
             "阻力110.40-110.80</span></p>\n" + "  <p style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, SimSun;" +
             "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
             "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
-            "" + "" + " " + "font-size: " + "16px;" + 
+            "" + "" + "" + "" + "" + "" + " " + "font-size: " + "16px;" + 
             "\">交易策略：美元兑日元，现价报111.20。明日凌晨有美联储议息会议，注意风险。加息概率极高，但是美元走势依旧疲软，不排除出现美元空头回补的现象。日内交易建议如下：</span" + "></p" + 
             "" + ">\n" + "" + "  " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
             "<p " + "style=\"text-indent: " + "2em;" + "\"><span " + "style=\"font-family: " + "宋体, " + "SimSun;" + 
             "" + " " + "font-size: " + "16px;" + "\">A： " + "突破110.40做多，止损110.30，止盈110.77</span></p>\n" + "  " + "<p " +
-            "" + "" + "" + "" + "" + "" + "style=\"text-indent: 2em;" + "\"><span " + "style=\"font-family: 宋体, " +
-            "SimSun; " + "font-size: " + "16px;" + "\">B： " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
-            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "应对加息:限价卖出挂单于110.80，止损111.20，止盈110.40</span></p>\n" + 
-            "" + "  " + "<p><br " + "/></p>\n" + " " + " " + "<p " + "style=\"text-indent: " + "2em;\"><span " + 
-            "style=\"font-family: 宋体, " + "SimSun; " + "font-size: 16px;" + "\">英镑兑美元</span></p>\n" + "  <p " + 
-            "style=\"text-indent: 2em;" + "\"><img" + " " + "src=\"http://www.gfxa" + "" + "" + "" + "" + "" + "" + 
-            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" +
-            ".com/upload/image/20170614/6363305823223140971492124.png\" " + "title=\"\" " + "/><span" + " " + 
-            "style=\"font-family: 宋体, " + "SimSun; font-size: 16px;\">&nbsp; &nbsp;" + " &nbsp; &nbsp;" + " " + 
-            "&nbsp; &nbsp;" + " " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
-            "&nbsp; &nbsp; &nbsp; &nbsp; " + "&nbsp;" + " " + "&nbsp; " + "&nbsp; " + "" + "&nbsp; " + "&nbsp; " + 
-            "&nbsp;" + " " + "&nbsp; " + "&nbsp; " + "" + "&nbsp;" + "</span></p>\n" + "" + "" + "  <p " + "" + 
-            "style=\"text-indent: 2em;" + "\"><span" + " " + "style=\"font-family: " + "宋体, " + "SimSun; " + 
-            "font-size: " + "16px;" + "\">支撑1.2673-1.2600 " + "阻力1.1287-1.2828</span></p>\n" + "  <p" + " " + 
-            "style=\"text-indent:" + " " + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "2em;" + 
-            "\"><span " + "" + "" + "style=\"font-family: " + "宋体, " + "SimSun;" + " " + "font-size: " + "" + "16px;"
-            + "\">交易策略：如图欧元兑美元四小时图所示，现价报1.2753，欧元轴心点为1.2714，中枢区间为1.2698—1.2730" + "，日内交易建议如下：</span></p>\n" + "  " + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "style=\"text-indent: 2em;" + "\"><span " + 
+            "style=\"font-family:" + " 宋体, " + "" + "SimSun; " + "font-size: " + "16px;" + "\">B： " + "" + "" + "" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + 
+            "应对加息:限价卖出挂单于110.80，止损111.20，止盈110.40</span></p>\n" + "" + "  " + "<p><br " + "/></p>\n" + " " + " " + 
+            "<p " + "style=\"text-indent: " + "2em;\"><span " + "style=\"font-family: 宋体, " + "SimSun; " + 
+            "font-size: 16px;" + "\">英镑兑美元</span></p>\n" + "  <p " + "style=\"text-indent: 2em;" + "\"><img" + " " + 
+            "src=\"http://www.gfxa" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" +
+            "" + "" + "" + "" + "" + "" + "" + "" + ".com/upload/image/20170614/6363305823223140971492124.png\" " + 
+            "title=\"\" " + "/><span" + " " + "style=\"font-family: 宋体, " + "SimSun; font-size: 16px;\">&nbsp; &nbsp;" +
+            "" + "" + "" + "" + " &nbsp; &nbsp;" + " " + "&nbsp; &nbsp;" + " " + "" + "" + "" + "" + "" + "" + "" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "&nbsp; &nbsp; &nbsp; &nbsp; " + "&nbsp;" + " " + "&nbsp; " + 
+            "&nbsp; " + "" + "" + "&nbsp; " + "&nbsp; " + "&nbsp;" + " " + "&nbsp; " + "&nbsp; " + "" + "&nbsp;" + 
+            "</span></p>\n" + "" + "" + "  <p " + "" + "style=\"text-indent: 2em;" + "\"><span" + " " + 
+            "style=\"font-family: " + "宋体, " + "" + "SimSun; " + "font-size: " + "16px;" + "\">支撑1.2673-1.2600 " + 
+            "阻力1.1287-1.2828</span></p>\n" + "  " + "<p" + " " + "style=\"text-indent:" + " " + "" + "" + "" + "" + 
+            "" + "" + "" + "" + "" + "" + "" + "" + "" + "2em;" + "\"><span " + "" + "" + "style=\"font-family: " + 
+            "宋体, " + "SimSun;" + " " + "font-size: " + "" + "16px;" + 
+            "\">交易策略：如图欧元兑美元四小时图所示，现价报1.2753，欧元轴心点为1.2714，中枢区间为1.2698—1.2730" + "，日内交易建议如下：</span></p>\n" + "  " + 
             "<p " + "style=\"text-indent: 2em;\"><span style=\"font-family: 宋体, " + "SimSun; font-size: " + "16px;" +
             "\">A：建议1.2730卖出英镑对美元，止损1.2787，止盈1.2673.</span></p>\n" + "  <p " + "style=\"text-indent: 2em;" + 
             "\"><span " + "style=\"font-family: 宋体, SimSun; font-size: 16px;" + 
@@ -217,6 +222,7 @@ public class ShowH5TextActivity extends AppCompatActivity {
      *
      * @param tempSplitedStr 被切割后的新字符串
      * @param keyStr         关键字
+     * @param preEndIndex    关键词上一次出现时的结束索引
      */
     private void findKeyAndSetEvent(String tempSplitedStr, final String keyStr, int preEndIndex) {
         final int startIndex = tempSplitedStr.indexOf(keyStr);     //起始索引
@@ -228,8 +234,8 @@ public class ShowH5TextActivity extends AppCompatActivity {
                 startIndexInOgirinal = startIndex;
                 preEndIndex = endIndex;
             } else {      //关键字不是第一次出现
-                startIndexInOgirinal = startIndex + preEndIndex + 1;
-                preEndIndex = startIndexInOgirinal + keyStr.length() - 1;
+                startIndexInOgirinal = startIndex + preEndIndex + 1;    //加1 是因为截取的字符串索引又是从0开始
+                preEndIndex = startIndexInOgirinal + keyStr.length() - 1;   //减1 是因为起始索引已经占了一个索引
             }
 
             LogUtils.e("在临时字符串中的位置：", startIndex + "/" + endIndex);
