@@ -3,10 +3,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomTextView
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:background="#0000ff"/>
+    <!--<com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomTextView-->
+    <!--android:layout_width="200dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:background="#0000ff"/>-->
+    <!---->
+
+   
 
 </LinearLayout>
