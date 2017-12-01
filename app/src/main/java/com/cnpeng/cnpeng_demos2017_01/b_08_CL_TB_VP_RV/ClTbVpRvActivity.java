@@ -1,10 +1,6 @@
 package com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV;
 
-import android.app.IntentService;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.HandlerThread;
-import android.os.Looper;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -32,6 +28,9 @@ import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
  */
 
 public class ClTbVpRvActivity extends AppCompatActivity {
+
+    private TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,7 @@ public class ClTbVpRvActivity extends AppCompatActivity {
         //获取控件
         final TextView tv_searchBar = (TextView) findViewById(R.id.tv_search_clTbVpRv);
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp_clTbVpRv);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tb_clTbVpRv);
+        tabLayout = (TabLayout) findViewById(R.id.tb_clTbVpRv);
 
         //设置 顶部搜索框TV 的点击事件
         tv_searchBar.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +55,7 @@ public class ClTbVpRvActivity extends AppCompatActivity {
 
         //关联TB和VP
         tabLayout.setupWithViewPager(viewPager, true);
+
 
         //初始化 TB 的标题
         String[] tbTitles = {"最新", "精选", "关注"};
@@ -109,6 +109,17 @@ public class ClTbVpRvActivity extends AppCompatActivity {
                 // }
             }
         });
+
+        initTabLayoutTabBK();
+
+    }
+
+    private void initTabLayoutTabBK() {
+        int tabs = tabLayout.getTabCount();
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        TextView textView = new TextView(ClTbVpRvActivity.this);
+        textView.setText("XXXXXX");
+        tab.setCustomView(textView);
     }
 }
 

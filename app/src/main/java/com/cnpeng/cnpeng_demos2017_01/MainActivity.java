@@ -76,6 +76,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_20_shortCut.ShortCutActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_21_listViewLocalRefresh.ListViewLocalRefreshActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_24_showH5TextInTextView.ShowH5TextActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btCustomView.setOnClickListener(this);
         binding.btRefreshFmInVp.setOnClickListener(this);
         binding.btShowComplexH5Text.setOnClickListener(this);
+        binding.btClickSpanAndItemClick.setOnClickListener(this);
 
     }
 
@@ -381,6 +383,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.bt_showComplexH5Text:
                 CommonUtils.mStartActivity(this, ShowH5TextActivity.class);
+                break;
+            case R.id.bt_clickSpanAndItemClick:
+                CommonUtils.mStartActivity(this, ClickSpanAndItemClickActivity.class);
                 break;
             default:
                 break;
