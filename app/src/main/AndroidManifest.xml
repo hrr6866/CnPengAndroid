@@ -183,6 +183,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        
+        
+        
+        
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -313,6 +328,7 @@
         <activity android:name=".b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity"/>
         <activity android:name=".b_24_showH5TextInTextView.ShowH5TextActivity"/>
         <activity android:name=".b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity"/>
+        <activity android:name=".b_26_TakePhotoWithSysMethod.TakePhotoActivity"/>
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
 

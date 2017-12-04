@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
-import com.cnpeng.cnpeng_demos2017_01.SpHelper_config;
 import com.cnpeng.cnpeng_demos2017_01.databinding.CusSwitchBtBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
 
@@ -34,7 +33,7 @@ public class CustomSwitchButtonActivity extends AppCompatActivity {
     }
 
     private void init() {
-        final SpHelper_config spHelper = new SpHelper_config(this);
+        final LogUtils.SpHelper_config spHelper = new LogUtils.SpHelper_config(this);
         boolean checkedStatus = spHelper.getCusSwitchBtStatus();
         LogUtils.e("之前的选中状态：", String.valueOf(checkedStatus));
 
