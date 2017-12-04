@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,9 @@ public class TakePhotoActivity extends AppCompatActivity {
     private       String takePhotoMode          = "";
     private final String MODE_TAKE_AND_SAVE     = "takePhotoAndSaveToLocal";
     private final String MODE_TAKE_AND_NOT_SAVE = "takePhotoAndNotSaveToLocal";
+    private boolean canCamera;
+    private int[]   permissionCodes;
+    private int[]   permissionCodes2;
 
     @Override
     protected void onCreate(
@@ -50,20 +54,25 @@ public class TakePhotoActivity extends AppCompatActivity {
     }
 
     private void initTakePhotoBtEvent() {
+        permissionCodes = new int[]{PermissionUtils.CODE_CAMERA, PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE};
+        permissionCodes2 = new int[]{PermissionUtils.CODE_CAMERA};
+
         binding.btTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePhotoMode = MODE_TAKE_AND_SAVE;
-                PermissionUtils.requestPermission(TakePhotoActivity.this, PermissionUtils.CODE_CAMERA, 
-                        permissionGrant, false);
+                //                PermissionUtils.requestPermission(TakePhotoActivity.this, permissionCodes, 
+                // permissionGrant, false);
+                PermissionUtils.requestPermissions(TakePhotoActivity.this, permissionCodes, permissionGrant, false);
             }
         });
         binding.btTakePhoto2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePhotoMode = MODE_TAKE_AND_NOT_SAVE;
-                PermissionUtils.requestPermission(TakePhotoActivity.this, PermissionUtils.CODE_CAMERA, 
-                        permissionGrant, false);
+                //                PermissionUtils.requestPermission(TakePhotoActivity.this, permissionCodes2, 
+                // permissionGrant, false);
+                PermissionUtils.requestPermissions(TakePhotoActivity.this, permissionCodes2, permissionGrant, false);
             }
         });
     }
@@ -72,20 +81,39 @@ public class TakePhotoActivity extends AppCompatActivity {
         @Override
         public void onPermissionGranted(int permissionCode) {
 
-            if (PermissionUtils.CODE_CAMERA == permissionCode) {
-                if (MODE_TAKE_AND_SAVE.equals(takePhotoMode)) {
-                    //如果模式是拍照并存储到本地，获得拍照权限之后继续申请存储设备的写入权限，成功之后再去执行拍照
-                    PermissionUtils.requestPermission(TakePhotoActivity.this, PermissionUtils
-                            .CODE_WRITE_EXTERNAL_STORAGE, permissionGrant, false);
-                } else {
-                    //如果模式是只拍照不存储则直接调用拍照
-                    openSysCameraView();
-                }
-            } else if (PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE == permissionCode) {
+            //            if (PermissionUtils.CODE_CAMERA == permissionCode) {
+            //                if (MODE_TAKE_AND_NOT_SAVE.equals(takePhotoMode)) {
+            //如果模式是只拍照不存储则直接调用拍照
+            openSysCameraView();
+            //                } else {
+            //            canCamera = true;
+            //                }
+            //            } else if (PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE == permissionCode) {
+            //                //如果已经获取到了拍照权限，并且也获取到了存储设备的写入权限
+            //                if (canCamera) {
+            //                    openSysCameraView();
+            //                }
+            //            }
+        }
+    };
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull
+                                                   String[] permissions,
+                                           @NonNull
+                                                   int[] grantResults) {
+        if (MODE_TAKE_AND_SAVE.equals(takePhotoMode)) {
+            if (grantResults.length == permissionCodes.length) {
+                openSysCameraView();
+            }
+        } else if (MODE_TAKE_AND_NOT_SAVE.equals(takePhotoMode)) {
+            if (grantResults.length == permissionCodes2.length) {
                 openSysCameraView();
             }
         }
-    };
+    }
 
 
     /**
@@ -128,8 +156,8 @@ public class TakePhotoActivity extends AppCompatActivity {
                     binding.parentLayout.setBackground(drawable);
                 }
             }
-
         }
+        takePhotoMode = "";
     }
 
 

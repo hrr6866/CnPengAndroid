@@ -47,14 +47,15 @@ public class PermissionUtils {
     public static final String PERMISSION_READ_EXTERNAL_STORAGE  = Manifest.permission.READ_EXTERNAL_STORAGE;
     public static final String PERMISSION_WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-    private static final String[] requestPermissions = {PERMISSION_RECORD_AUDIO, PERMISSION_GET_ACCOUNTS, 
+    private static final String[] Permissions = {PERMISSION_RECORD_AUDIO, PERMISSION_GET_ACCOUNTS, 
             PERMISSION_READ_PHONE_STATE, PERMISSION_CALL_PHONE, PERMISSION_CAMERA, PERMISSION_ACCESS_FINE_LOCATION, 
             PERMISSION_ACCESS_COARSE_LOCATION, PERMISSION_READ_EXTERNAL_STORAGE, PERMISSION_WRITE_EXTERNAL_STORAGE};
 
-    private static final String[] requestPermissionsStr = {"在设置-应用-中开启录音权限,以正常使用聊天等功能", "在设置-应用-中开启用户权限," + 
-            "以正常使用功能", "在设置-应用-中开启读取手机状态权限,以正常使用功能", "在设置-应用-中开启打电话状态权限,以正常使用功能", "在设置-应用-中开启相机状态权限," + 
-            "以正常使用聊天、扫描二维码等功能", "在设置-应用-中开启位置权限,以正常使用附近同学功能", "在设置-应用-中开启位置权限," + "以正常使用附近同学功能", "在设置-应用-中开启存储空间权限," 
-            + "以正常使用功能", "在设置-应用-中开启存储空间权限,以正常使用功能"};
+    private static final String[] PermissionsDesc = {"在设置-应用-中开启录音权限,以正常使用聊天等功能", "在设置-应用-中开启用户权限," + "以正常使用功能", 
+            "在设置-应用-中开启读取手机状态权限,以正常使用功能", "在设置-应用-中开启打电话状态权限,以正常使用功能", "在设置-应用-中开启相机状态权限," + "以正常使用聊天、扫描二维码等功能", 
+            "在设置-应用-中开启位置权限,以正常使用附近同学功能", "在设置-应用-中开启位置权限," + "以正常使用附近同学功能", "在设置-应用-中开启存储空间权限," + "以正常使用功能", 
+            "在设置-应用-中开启存储空间权限,以正常使用功能"};
+    private static boolean shouldShowRationale;
 
     // preference utility methods
     private static boolean getApplicationLaunchedFirstTime(Activity activity, int requestCode) {
@@ -101,7 +102,7 @@ public class PermissionUtils {
      * 请求权限
      *
      * @param activity        所处的Activity界面
-     * @param permissionCode  权限代码。该类中的那一堆 int 常量，如 CODE_CAMERA 代表拍照权限
+     * @param permissionCode  权限代码的数组。该类中的那一堆 int 常量，如 CODE_CAMERA 代表拍照权限
      * @param permissionGrant 授权情况处理类
      * @param finish          请求完权限之后是否需要关闭页面
      */
@@ -111,11 +112,11 @@ public class PermissionUtils {
             return;
         }
 
-        if (permissionCode < 0 || permissionCode >= requestPermissions.length) {
+        if (permissionCode < 0 || permissionCode >= Permissions.length) {
             return;
         }
 
-        final String requestPermission = requestPermissions[permissionCode];
+        final String requestPermission = Permissions[permissionCode];
 
         //如果是6.0以下的手机，ActivityCompat.checkSelfPermission()会始终等于PERMISSION_GRANTED，
         // 但是，如果用户关闭了你申请的权限，ActivityCompat.checkSelfPermission(),会导致程序崩溃(java.lang.RuntimeException: Unknown 
@@ -134,24 +135,7 @@ public class PermissionUtils {
                     setApplicationLaunchedFirstTime(activity, permissionCode);  //  ** DON'T FORGET THIS **
                     shouldShowRationale(activity, permissionCode, requestPermission);
                 } else {
-                    new AlertDialog.Builder(activity).setCancelable(false).setTitle("权限申请").setMessage
-                            (requestPermissionsStr[permissionCode]).setPositiveButton("去设置", new DialogInterface
-                            .OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            openSettingActivity(activity);
-                            if (finish) {
-                                activity.finish();
-                            }
-                        }
-                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (finish) {
-                                activity.finish();
-                            }
-                        }
-                    }).create().show();
+                    showPersimissonDialog(activity, permissionCode, finish);
                 }
             }
         } else {
@@ -159,9 +143,93 @@ public class PermissionUtils {
         }
     }
 
+    /**
+     * 请求权限
+     *
+     * @param activity        所处的Activity界面
+     * @param permissionCodes 权限代码的数组。该类中的那一堆 int 常量，如 CODE_CAMERA 代表拍照权限
+     * @param permissionGrant 授权情况处理类
+     * @param finish          请求完权限之后是否需要关闭页面
+     */
+    public static void requestPermissions(final Activity activity, final int[] permissionCodes,
+                                          PermissionGrant permissionGrant, final boolean finish) {
+        if (null == activity || null == permissionCodes || permissionCodes.length == 0) {
+            return;
+        }
+
+        int requestCode = permissionCodes[permissionCodes.length - 1];
+        //如果是6.0以下的手机，ActivityCompat.checkSelfPermission()会始终等于PERMISSION_GRANTED，
+        // 但是，如果用户关闭了你申请的权限，ActivityCompat.checkSelfPermission(),会导致程序崩溃(java.lang.RuntimeException: Unknown 
+        // exception code: 1 msg null)，
+        if (Build.VERSION.SDK_INT < 23) {   //以最后一个权限编号作为请求码
+            permissionGrant.onPermissionGranted(requestCode);
+            return;
+        }
+
+        int permissionsStatus = PackageManager.PERMISSION_GRANTED;
+        final String[] permissions_requested = new String[permissionCodes.length];
+        for (int i = 0; i < permissionCodes.length; i++) {
+            int permissionNum = permissionCodes[i];
+
+            if (permissionNum < 0 || permissionNum >= Permissions.length) {
+                return;
+            }
+
+            permissions_requested[i] = Permissions[permissionNum];
+            int curPermissionStatus = ActivityCompat.checkSelfPermission(activity, permissions_requested[i]);
+            permissionsStatus = permissionsStatus | curPermissionStatus;    //位或运算
+
+            shouldShowRationale = shouldShowRationale & ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                    permissions_requested[i]);
+        }
+
+        //一次申请一组权限，只要其中有一个之前未被允许，则全部重新申请
+        if (permissionsStatus != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRationale) {
+                shouldShowRationale2(activity, requestCode, permissions_requested);
+            } else {
+                if (getApplicationLaunchedFirstTime(activity, requestCode)) {//第一次获取权限，显示dialog
+                    setApplicationLaunchedFirstTime(activity, requestCode);  //  ** DON'T FORGET THIS **
+                    shouldShowRationale2(activity, requestCode, permissions_requested);
+                } else {
+                    showPersimissonDialog(activity, requestCode, finish);
+                }
+            }
+        } else {
+            permissionGrant.onPermissionGranted(requestCode);
+        }
+    }
+
+    private static void showPersimissonDialog(final Activity activity, final int permissionCode, final boolean finish) {
+        new AlertDialog.Builder(activity).setCancelable(false).setTitle("权限申请").setMessage
+                (PermissionsDesc[permissionCode]).setPositiveButton("去设置", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                openSettingActivity(activity);
+                if (finish) {
+                    activity.finish();
+                }
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (finish) {
+                    activity.finish();
+                }
+            }
+        }).create().show();
+    }
+
     private static void shouldShowRationale(final Activity activity, final int requestCode,
                                             final String requestPermission) {
+        //第一个参数 activity，第二个参数 权限描述的数组，第三个是 一个 int 的区间值 
         ActivityCompat.requestPermissions(activity, new String[]{requestPermission}, requestCode);
+    }
+
+    private static void shouldShowRationale2(final Activity activity, final int requestCode,
+                                             final String[] permissions_requested) {
+        //第一个参数 activity，第二个参数 权限描述的数组，第三个是 一个 int 的区间值 
+        ActivityCompat.requestPermissions(activity, permissions_requested, requestCode);
     }
 
     /**
@@ -176,7 +244,7 @@ public class PermissionUtils {
         if (activity == null) {
             return;
         }
-        if (requestCode < 0 || requestCode >= requestPermissions.length) {
+        if (requestCode < 0 || requestCode >= Permissions.length) {
             Toast.makeText(activity, "illegal requestCode:" + requestCode, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -184,8 +252,7 @@ public class PermissionUtils {
             permissionGrant.onPermissionGranted(requestCode);
         } else {
             new AlertDialog.Builder(activity).setCancelable(false).setTitle("权限申请").setMessage
-                    (requestPermissionsStr[requestCode]).setPositiveButton("去设置", new DialogInterface.OnClickListener
-                    () {
+                    (PermissionsDesc[requestCode]).setPositiveButton("去设置", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     openSettingActivity(activity);
