@@ -108,7 +108,8 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if (isAllGranted) {
                     openSysCameraView();
                 } else {
-                    String hint = permissionTool.getDeniedHintStr(grantResults, permissionTool.deniedHints);
+                    String hint = permissionTool.getDeniedHintStr(permissionTool.permissions, permissionTool
+                            .deniedHints);
                     permissionTool.showDeniedDialog(TakePhotoActivity.this, hint);
                 }
                 break;

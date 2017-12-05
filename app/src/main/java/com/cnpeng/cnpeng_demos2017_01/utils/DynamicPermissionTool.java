@@ -21,6 +21,8 @@ import java.util.List;
  * 时间：2017/12/5:下午2:11
  * <p>
  * 说明：动态权限申请工具类
+ * 当前只在Activity中使用过，无异常。
+ * FM 中暂未测试
  */
 
 public class DynamicPermissionTool {
@@ -32,9 +34,6 @@ public class DynamicPermissionTool {
     public DynamicPermissionTool(Context context) {
         this.context = context;
     }
-
-//    public DynamicPermissionTool() {
-//    }
 
     /**
      * 检查单个权限是否已经被允许
@@ -110,29 +109,6 @@ public class DynamicPermissionTool {
 
             String[] deniedPermissions = new String[deniedHintList.size()];
             return deniedHintList.toArray(deniedPermissions);
-        }
-    }
-
-    /**
-     * 获取被拒绝的权限对应的提示文本数组
-     *
-     * @param grantResults 权限申请的结果
-     * @param hints        权限被拒绝时的提示文本
-     */
-    public String getDeniedHintStr(int[] grantResults, String[] hints) {
-        if (null == grantResults || null == hints || grantResults.length == 0 || hints.length == 0 || grantResults
-                .length != hints.length) {
-            throw new IllegalArgumentException("参数不能为空、必须有元素，且两个参数的长度必须一致");
-        } else {
-            StringBuilder hintStr = new StringBuilder();
-
-            for (int i = 0; i < grantResults.length; i++) {
-                if (PackageManager.PERMISSION_DENIED == grantResults[i]) {
-                    hintStr.append(hints[i]).append("\n");
-                }
-            }
-
-            return hintStr.toString();
         }
     }
 
