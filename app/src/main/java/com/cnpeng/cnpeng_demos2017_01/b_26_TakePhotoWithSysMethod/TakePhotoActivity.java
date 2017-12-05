@@ -43,18 +43,20 @@ import static android.os.Environment.DIRECTORY_PICTURES;
  * <p>
  * 注意：
  * 不同品牌的手机对拍照处理不一样，个别手机中即便我们没有指定存储路径，也会存储照片到默认的地址中。如：Galaxy Note4 调用系统相机执行拍照时，
- * 如果么有指定照片存储路径，则会存储在 DCIM/Camera 目录下，此时，即便不调用 刷新相册的方法，也会执行刷新操作。
+ * 如果么有指定照片存储路径，则会存储在 DCIM/Camera 目录下，此时，即便不调用 刷新相册的方法，也会执行刷新操作。V3
+ * 
+ * 171205 封装动态权限请求工具类
  */
 public class TakePhotoActivity extends AppCompatActivity {
 
     private ActivityTakephotoBinding binding;
     private File                     file;
-    private       String   takePhotoMode          = "";
-    private final String   MODE_TAKE_AND_SAVE     = "takePhotoAndSaveToLocal";
-    private final String   MODE_TAKE_AND_NOT_SAVE = "takePhotoAndNotSaveToLocal";
-    private final int      REQUEST_CODE1          = 0;    //申请权限时的请求码
-    private final String[] DENIED_DESC            = {"没有拍照权限将不能使用拍照功能", "没有存储权限将不能存储照片到本地"};  //权限被拒绝的描述文本
-    private DynamicPermissionTool permissionTool;
+    private       String takePhotoMode          = "";
+    private final String MODE_TAKE_AND_SAVE     = "takePhotoAndSaveToLocal";
+    private final String MODE_TAKE_AND_NOT_SAVE = "takePhotoAndNotSaveToLocal";
+    private final int    REQUEST_CODE1          = 0;    //申请权限时的请求码
+    private DynamicPermissionTool                          permissionTool;
+    private DynamicPermissionTool.PermissionGrantedFactory factory;
 
     @Override
     protected void onCreate(
@@ -63,8 +65,17 @@ public class TakePhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_takephoto);
 
+        //permissionTool = new DynamicPermissionTool(TakePhotoActivity.this);
+
+        factory = new DynamicPermissionTool.PermissionGrantedFactory() {
+            @Override
+            public void handleEventOrRequestPermission() {
+                takePhotoOrRequestPermission();
+            }
+        };
+        permissionTool = new DynamicPermissionTool(TakePhotoActivity.this, factory);
+
         initTakePhotoBtEvent();
-        permissionTool = new DynamicPermissionTool(TakePhotoActivity.this);
     }
 
     private void initTakePhotoBtEvent() {
@@ -73,14 +84,18 @@ public class TakePhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takePhotoMode = MODE_TAKE_AND_SAVE;
-                takePhotoOrRequestPermission();
+                //handlePermissonEvent();
+                permissionTool.showRequestReasonOrHandlePermissionEvent(TakePhotoActivity.this, permissionTool
+                        .permissions, permissionTool.deniedHints);
             }
         });
         binding.btTakePhoto2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePhotoMode = MODE_TAKE_AND_NOT_SAVE;
-                takePhotoOrRequestPermission();
+                //handlePermissonEvent();
+                permissionTool.showRequestReasonOrHandlePermissionEvent(TakePhotoActivity.this, permissionTool
+                        .permissions, permissionTool.deniedHints);
             }
         });
     }
@@ -108,9 +123,12 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if (isAllGranted) {
                     openSysCameraView();
                 } else {
-                    String hint = permissionTool.getDeniedHintStr(permissionTool.permissions, permissionTool
-                            .deniedHints);
-                    permissionTool.showDeniedDialog(TakePhotoActivity.this, hint);
+                    //factory 不为空表示在执行点击事件时会先检测是否有权限被拒绝了，如果有则dialog的展示就放在检测完之后处理，所以此处不用重复展示
+                    if (null == factory) {
+                        String hint = permissionTool.getDeniedHintStr(permissionTool.permissions, permissionTool
+                                .deniedHints);
+                        permissionTool.showDeniedDialog(TakePhotoActivity.this, hint);
+                    }
                 }
                 break;
             default:
