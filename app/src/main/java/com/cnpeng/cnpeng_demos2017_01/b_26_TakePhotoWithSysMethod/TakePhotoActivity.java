@@ -1,12 +1,7 @@
 package com.cnpeng.cnpeng_demos2017_01.b_26_TakePhotoWithSysMethod;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,11 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +20,7 @@ import android.view.View;
 import com.cnpeng.cnpeng_demos2017_01.BuildConfig;
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityTakephotoBinding;
+import com.cnpeng.cnpeng_demos2017_01.utils.DynamicPermissionTool;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,9 +53,8 @@ public class TakePhotoActivity extends AppCompatActivity {
     private final String   MODE_TAKE_AND_SAVE     = "takePhotoAndSaveToLocal";
     private final String   MODE_TAKE_AND_NOT_SAVE = "takePhotoAndNotSaveToLocal";
     private final int      REQUEST_CODE1          = 0;    //申请权限时的请求码
-    private final int      REQUEST_CODE2          = 1;    //申请权限时的请求码
-    private final int      REQUEST_CODE3          = 2;    //申请权限时的请求码
     private final String[] DENIED_DESC            = {"没有拍照权限将不能使用拍照功能", "没有存储权限将不能存储照片到本地"};  //权限被拒绝的描述文本
+    private DynamicPermissionTool permissionTool;
 
     @Override
     protected void onCreate(
@@ -72,6 +64,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_takephoto);
 
         initTakePhotoBtEvent();
+        permissionTool = new DynamicPermissionTool(TakePhotoActivity.this);
     }
 
     private void initTakePhotoBtEvent() {
@@ -93,33 +86,15 @@ public class TakePhotoActivity extends AppCompatActivity {
     }
 
     private void takePhotoOrRequestPermission() {
-        String PERMISSION_CAMERA = Manifest.permission.CAMERA;
-        boolean isCamearPermissionGranted = isPermissionGranted(TakePhotoActivity.this, PERMISSION_CAMERA);
-        String PERMISSION_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        boolean isExternalStoragePermissionGranted = isPermissionGranted(TakePhotoActivity.this, 
-                PERMISSION_EXTERNAL_STORAGE);
+        boolean isAllGranted = permissionTool.isAllPermissionGranted(permissionTool.permissions);
 
-        if (isCamearPermissionGranted && isExternalStoragePermissionGranted) {
-            //如果权限已经被允许
+        if (isAllGranted) {
             openSysCameraView();
-        } else if (isExternalStoragePermissionGranted && !isCamearPermissionGranted) {
-            //如果拍照权限未被允许，申请拍照权限
-            requestNecessaryPermission(TakePhotoActivity.this, new String[]{PERMISSION_CAMERA}, REQUEST_CODE1);
-        } else if (isCamearPermissionGranted && !isExternalStoragePermissionGranted) {
-            //存储权限未被允许
-            requestNecessaryPermission(TakePhotoActivity.this, new String[]{PERMISSION_EXTERNAL_STORAGE}, 
-                    REQUEST_CODE2);
         } else {
-            //啥子权限都没有
-            requestNecessaryPermission(TakePhotoActivity.this, new String[]{PERMISSION_EXTERNAL_STORAGE, 
-                    PERMISSION_CAMERA}, REQUEST_CODE3);
+            String[] deniedPermissions = permissionTool.getDeniedPermissions(permissionTool.permissions);
+            permissionTool.requestNecessaryPermissions(TakePhotoActivity.this, deniedPermissions, REQUEST_CODE1);
         }
     }
-
-    private void requestNecessaryPermission(Activity activity, String[] permissions, int requestCode) {
-        ActivityCompat.requestPermissions(activity, permissions, requestCode);
-    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -129,84 +104,18 @@ public class TakePhotoActivity extends AppCompatActivity {
                                                    int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE1:
-                //如果有权限被允许了——因为此处值申请了一个拍照权限，所以只要被允许了就可以了
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                boolean isAllGranted = permissionTool.isAllPermissionGranted(grantResults);
+                if (isAllGranted) {
                     openSysCameraView();
                 } else {
-                    showDeniedDialog(TakePhotoActivity.this, DENIED_DESC[0]);
-                }
-                break;
-            case REQUEST_CODE2:
-                //如果有权限被允许了——因为此处值申请了一个拍照权限，所以只要被允许了就可以了
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openSysCameraView();
-                } else {
-                    showDeniedDialog(TakePhotoActivity.this, DENIED_DESC[1]);
-                }
-                break;
-            case REQUEST_CODE3:
-                if (grantResults.length > 0) {
-                    boolean isAllGranted = true;
-                    StringBuilder deniedHitDesc = new StringBuilder();    //权限被拒绝是的提示文本
-                    for (int i = 0; i < grantResults.length; i++) {
-                        boolean isCurGranted = grantResults[i] == PackageManager.PERMISSION_GRANTED;
-                        if (!isCurGranted) {
-                            deniedHitDesc.append(DENIED_DESC[i]).append("\n");
-                        }
-                        isAllGranted = isAllGranted && isCurGranted;
-                    }
-
-                    if (isAllGranted) {
-                        openSysCameraView();
-                    } else {
-                        showDeniedDialog(TakePhotoActivity.this, deniedHitDesc.toString());
-                    }
+                    String hint = permissionTool.getDeniedHintStr(grantResults, permissionTool.deniedHints);
+                    permissionTool.showDeniedDialog(TakePhotoActivity.this, hint);
                 }
                 break;
             default:
                 break;
         }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    /**
-     * 展示被拒绝的弹窗
-     */
-    private void showDeniedDialog(final Context context, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("提示");
-        builder.setMessage(message);
-        builder.setNegativeButton("就不给你权限", null);
-        builder.setPositiveButton("我要重新开启权限", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                openSysSettingPage(context);
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
-    }
-
-    /**
-     * 打开系统设置界面
-     */
-    private void openSysSettingPage(Context context) {
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", context.getPackageName(), null);
-        intent.setData(uri);
-        context.startActivity(intent);
-    }
-
-    /**
-     * 检查权限是否已经通过
-     *
-     * @param context    上下文
-     * @param permission 申请的权限
-     */
-    private boolean isPermissionGranted(Context context, String permission) {
-        return PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(context, permission);
     }
 
     /**
@@ -253,7 +162,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 }
                 updateGallery(photoUri);
             } else {
-                //相机拍照后会返回一个intent给onActivityResult。 intent的extra部分包含一个编码过的Bitmap,但这个Bitmap会比较模糊
+                //相机拍照后会返回一个intent给onActivityResult。 intent的extra部分包含一个编码过的Bitmap缩略图,但这个Bitmap会比较模糊
                 Bundle bundle = data.getExtras();
                 if (null != bundle) {
                     Bitmap bitmap = (Bitmap) bundle.get("data");
