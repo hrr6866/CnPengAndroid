@@ -162,14 +162,22 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     /**
      * 调用系统相机执行拍照
+     * <p>
+     * 这里使用的 getExternalCacheDir() 是系统为每个APP单独分配的缓存空间，返回一个绝对路径，API19以后使用该路径不需要申请权限，API19之前需
+     * 要申请。该路径只对当前APP可用，其他APP不可访问，也就是说，如果我们将照片存储在这个路径，系统的媒体扫描器也无法检测到该路径的内容，也就无法
+     * 实现 相册/图库 内容的刷新。APP卸载则该目录清空。getExternalFilesDir() 与此相同
+     * <p>
+     * If you saved your photo to the directory provided by getExternalFilesDir(), the media scanner cannot access the
+     * files because they are private to your app.
      */
     private void openSysCameraView() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if (MODE_TAKE_AND_SAVE.equals(takePhotoMode)) {
             //如果是拍照并存储，则需要指定在本地的存储路径，并需要获取拍照之后的结果
-            //这里使用了 getExternalCacheDir 是系统为每个APP单独分配的缓存空间，不需要申请权限。
             file = new File(getExternalCacheDir(), System.currentTimeMillis() + "temp.jpg");
+            // file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + "temp" 
+            //         + ".jpg");
             Uri photoURI;
             photoURI = getPhotoUri(file);
 
@@ -209,7 +217,8 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     /**
      * 发送广播更新相册，不更新的话，在相册中将无法查看到截取的图片
-     * ATTENTION  在6.0及以上手机系统中，使用该方法刷新相册并不是实时的。暂时未找到实时的方法。6.0以下可以实时刷新
+     * If you saved your photo to the directory provided by getExternalFilesDir(), the media scanner cannot access the
+     * files because they are private to your app.
      */
     private void updateGallery(Uri photoURI) {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, photoURI);
