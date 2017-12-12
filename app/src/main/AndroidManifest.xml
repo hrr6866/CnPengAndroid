@@ -194,10 +194,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
-        
-        
-        
-        
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -286,7 +284,7 @@
         <activity android:name=".b_05_alertDialog_dismiss.DissmissAlertDialog"/>
         <activity android:name=".b_06_ObjectAnimator.ObjectAnimatorAndListViewActivity"/>
         <activity android:name=".b_07_bottomNavigationView.BottomNavigationViewActivity"/>
-        <activity android:name=".b_08_CL_TB_VP_RV.ClTbVpRvActivity"
+        <activity android:name=".b_08_suspendRv1.SuspendRvActivity1"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".b_09_TextureView.TextureViewActivity"/>
         <activity android:name=".b_10_AndroidDrawables.TransitionDrawableActivity"/>
@@ -329,6 +327,7 @@
         <activity android:name=".b_24_showH5TextInTextView.ShowH5TextActivity"/>
         <activity android:name=".b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity"/>
         <activity android:name=".b_26_TakePhotoWithSysMethod.TakePhotoActivity"/>
+        <activity android:name=".b_27_suspendRv.SuspendRvActivity2"/>
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
 

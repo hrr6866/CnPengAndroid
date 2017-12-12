@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV;
+package com.cnpeng.cnpeng_demos2017_01.b_08_suspendRv1;
 
 
 import android.support.v4.app.Fragment;
@@ -13,18 +13,18 @@ import android.support.v4.app.FragmentPagerAdapter;
  * 说明：ViewPager 的适配器
  */
 
-class ClTbVpRvViewPagerAdapter extends FragmentPagerAdapter {
+class SupendRv1ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final String[] titles;
 
-    public ClTbVpRvViewPagerAdapter(FragmentManager fm, String[] titles) {
+    public SupendRv1ViewPagerAdapter(FragmentManager fm, String[] titles) {
         super(fm);
         this.titles = titles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ClTbVpRbFragment.getInstance(position);
+        return SuspendRv1Fragment.getInstance(position);
     }
 
     @Override

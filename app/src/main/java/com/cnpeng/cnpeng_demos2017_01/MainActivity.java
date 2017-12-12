@@ -59,7 +59,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_04_suspendAndListView.SuspendAndListView
 import com.cnpeng.cnpeng_demos2017_01.b_05_alertDialog_dismiss.DissmissAlertDialog;
 import com.cnpeng.cnpeng_demos2017_01.b_06_ObjectAnimator.ObjectAnimatorAndListViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_07_bottomNavigationView.BottomNavigationViewActivity;
-import com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV.ClTbVpRvActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_08_suspendRv1.SuspendRvActivity1;
 import com.cnpeng.cnpeng_demos2017_01.b_09_TextureView.TextureViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.CustomDrawableActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_10_AndroidDrawables.TransitionDrawableActivity;
@@ -78,6 +78,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_23_RefreshFragmentInViewPager.RefreshFmI
 import com.cnpeng.cnpeng_demos2017_01.b_24_showH5TextInTextView.ShowH5TextActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_26_TakePhotoWithSysMethod.TakePhotoActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_27_suspendRv.SuspendRvActivity2;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -162,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btShowComplexH5Text.setOnClickListener(this);
         binding.btClickSpanAndItemClick.setOnClickListener(this);
         binding.btTakePhoto.setOnClickListener(this);
+        binding.btSuspendRv.setOnClickListener(this);
 
     }
 
@@ -331,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 CommonUtils.mStartActivity(this, BottomNavigationViewActivity.class);
                 break;
             case R.id.bt_ClTbVpRV:
-                CommonUtils.mStartActivity(this, ClTbVpRvActivity.class);
+                CommonUtils.mStartActivity(this, SuspendRvActivity1.class);
                 break;
             case R.id.bt_textureView:
                 CommonUtils.mStartActivity(this, TextureViewActivity.class);
@@ -391,6 +393,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_clickSpanAndItemClick:
                 CommonUtils.mStartActivity(this, ClickSpanAndItemClickActivity.class);
                 break;
+            case R.id.bt_suspendRv:
+                CommonUtils.mStartActivity(this, SuspendRvActivity2.class);
             default:
                 break;
         }

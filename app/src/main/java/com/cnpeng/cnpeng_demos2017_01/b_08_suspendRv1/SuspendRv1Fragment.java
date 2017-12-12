@@ -1,8 +1,7 @@
-package com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV;
+package com.cnpeng.cnpeng_demos2017_01.b_08_suspendRv1;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,8 +17,6 @@ import com.cnpeng.cnpeng_demos2017_01.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.fragment;
-
 
 /**
  * 作者：CnPeng
@@ -29,16 +26,16 @@ import static android.R.attr.fragment;
  * 说明：每个Tab 标题对应的内容。该界面需要使用RV列表。考虑，如果实现 RV的 上拉加载更多
  */
 
-public class ClTbVpRbFragment extends Fragment {
+public class SuspendRv1Fragment extends Fragment {
 
-    private int                         index;     //当前被选中的标题索引
-    private View                        view;      //Fragment 中的视图view
-    private List<String>                items;
-    private ClTbVpRvRecyclerViewAdapter rvAdapter;
+    private int               index;     //当前被选中的标题索引
+    private View              view;      //Fragment 中的视图view
+    private List<String>      items;
+    private SuspendRv1Adapter rvAdapter;
 
 
     public static Fragment getInstance(int position) {
-        ClTbVpRbFragment fragment = new ClTbVpRbFragment();
+        SuspendRv1Fragment fragment = new SuspendRv1Fragment();
         Bundle bundle = new Bundle();
         bundle.putInt("index", position);
         fragment.setArguments(bundle);
@@ -83,7 +80,7 @@ public class ClTbVpRbFragment extends Fragment {
 
         recyclerView.setLayoutManager(mLayoutManager);
 
-        rvAdapter = new ClTbVpRvRecyclerViewAdapter(items, getActivity());
+        rvAdapter = new SuspendRv1Adapter(items, getActivity());
         recyclerView.setAdapter(rvAdapter);
 
         initPull2Refresh(view);

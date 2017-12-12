@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV;
+package com.cnpeng.cnpeng_demos2017_01.b_08_suspendRv1;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +19,11 @@ import java.util.List;
  * 说明：RecyclerView 的适配器
  */
 
-class ClTbVpRvRecyclerViewAdapter extends RecyclerView.Adapter<CusHolder> {
+class SuspendRv1Adapter extends RecyclerView.Adapter<CusHolder> {
     private List<String> items;
     private Context      context;
 
-    public ClTbVpRvRecyclerViewAdapter(List<String> items, Context context) {
+    public SuspendRv1Adapter(List<String> items, Context context) {
         this.items = items;
         this.context = context;
     }

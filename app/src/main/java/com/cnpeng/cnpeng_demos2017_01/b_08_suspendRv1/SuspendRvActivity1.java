@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.b_08_CL_TB_VP_RV;
+package com.cnpeng.cnpeng_demos2017_01.b_08_suspendRv1;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -27,7 +27,7 @@ import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
  * TODO 下一步要实现的是：RV的上拉和下拉、考虑在展示标题栏的放大镜时加一个透明度渐变
  */
 
-public class ClTbVpRvActivity extends AppCompatActivity {
+public class SuspendRvActivity1 extends AppCompatActivity {
 
     private TabLayout tabLayout;
 
@@ -49,7 +49,7 @@ public class ClTbVpRvActivity extends AppCompatActivity {
         tv_searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ClTbVpRvActivity.this, "顶部搜索栏被点击了", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SuspendRvActivity1.this, "顶部搜索栏被点击了", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -62,7 +62,7 @@ public class ClTbVpRvActivity extends AppCompatActivity {
 
         //给VP添加适配器
         FragmentManager fm = getSupportFragmentManager();
-        ClTbVpRvViewPagerAdapter adapter = new ClTbVpRvViewPagerAdapter(fm, tbTitles);
+        SupendRv1ViewPagerAdapter adapter = new SupendRv1ViewPagerAdapter(fm, tbTitles);
         viewPager.setAdapter(adapter);
 
         final AppBarLayout appBar_clTbVpRv = (AppBarLayout) findViewById(R.id.appBar_clTbVpRv);
@@ -82,7 +82,7 @@ public class ClTbVpRvActivity extends AppCompatActivity {
                 //使用这种方式的话，实现的效果是，初始的时候在顶部会有一个搜索提示框，上拉之后提示框滚出去就滚不回来了，然后在标题栏给出一个搜索放大镜
                 if (appBarHeight + verticalOffset == 0) {    //说明appBar 已经滚出去看不见了
                     LogUtils.e("appBar滚出去了：", "展示标题栏的搜索按钮");
-                    Toast.makeText(ClTbVpRvActivity.this, "appBar滚出去了，展示标题栏的搜索按钮", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SuspendRvActivity1.this, "appBar滚出去了，展示标题栏的搜索按钮", Toast.LENGTH_SHORT).show();
                     tv_titleBar.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable
                             (android.R.drawable.ic_search_category_default), null);
                     appBar_clTbVpRv.removeAllViews();
@@ -117,7 +117,7 @@ public class ClTbVpRvActivity extends AppCompatActivity {
     private void initTabLayoutTabBK() {
         int tabs = tabLayout.getTabCount();
         TabLayout.Tab tab = tabLayout.getTabAt(1);
-        TextView textView = new TextView(ClTbVpRvActivity.this);
+        TextView textView = new TextView(SuspendRvActivity1.this);
         textView.setText("XXXXXX");
         tab.setCustomView(textView);
     }

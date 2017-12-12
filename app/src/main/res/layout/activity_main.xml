@@ -526,7 +526,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
                 android:gravity="left|center_vertical"
-                android:text="b08_布局协调者实现标题滚出的效果"
+                android:text="b08_具有顶部悬浮条的RV（头滚出去就不再回来）"
                 android:textAllCaps="false"/>
             <Button
                 android:id="@+id/bt_textureView"
@@ -676,8 +676,8 @@
                 android:gravity="left|center_vertical"
                 android:singleLine="true"
                 android:text="b_25_带有ClickSpan的条目被点击"
-                android:textAllCaps="false"/>  
-            
+                android:textAllCaps="false"/>
+
             <Button
                 android:id="@+id/bt_takePhoto"
                 android:layout_width="match_parent"
@@ -686,6 +686,16 @@
                 android:gravity="left|center_vertical"
                 android:singleLine="true"
                 android:text="b_26_调用系统相机拍照"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/bt_suspendRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="b_27_带有顶部悬浮的RV(头可以自由滚入滚出)"
                 android:textAllCaps="false"/>
 
 
