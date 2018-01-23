@@ -35,7 +35,7 @@
                     android:id="@+id/appBar_suspendRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_behavior="com.cnpeng.cnpeng_demos2017_01.b_27_suspendRv.FlingBehavior">
+                    app:layout_behavior="com.cnpeng.cnpeng_demos2017_01.b_27_suspendRv.CustomFlingBehavior">
 
                     <!--需要滚出去的就加上：app:layout_scrollFlags="scroll|enterAlways" -->
                     <TextView

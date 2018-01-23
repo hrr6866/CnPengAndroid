@@ -697,6 +697,16 @@
                 android:singleLine="true"
                 android:text="b_27_带有顶部悬浮的RV(头可以自由滚入滚出)"
                 android:textAllCaps="false"/>
+            
+            <Button
+                android:id="@+id/bt_collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="b_28_视差特效"
+                android:textAllCaps="false"/>
 
 
             <Button

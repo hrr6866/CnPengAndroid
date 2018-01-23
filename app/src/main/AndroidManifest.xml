@@ -328,6 +328,9 @@
         <activity android:name=".b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity"/>
         <activity android:name=".b_26_TakePhotoWithSysMethod.TakePhotoActivity"/>
         <activity android:name=".b_27_suspendRv.SuspendRvActivity2"/>
+        <activity android:name=".b_28_collspaningToolBar.CollapsingToolBarActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  />
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
 
