@@ -329,8 +329,8 @@
         <activity android:name=".b_26_TakePhotoWithSysMethod.TakePhotoActivity"/>
         <activity android:name=".b_27_suspendRv.SuspendRvActivity2"/>
         <activity android:name=".b_28_collspaningToolBar.CollapsingToolBarActivity"
-                  android:theme="@style/AppTheme.NoActionBar"
-                  />
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".b_30_RichTextEditor.RichTextEditorActivity"/>
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
 

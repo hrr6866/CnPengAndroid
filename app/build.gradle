@@ -35,5 +35,6 @@ dependencies {
     compile 'com.android.support:design:25.4.0'
     compile 'org.jsoup:jsoup:1.10.3'
     compile 'org.apache.commons:commons-lang3:3.5'
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
+    compile  'jp.wasabeef:richeditor-android:1.2.0'
 }
