@@ -36,12 +36,13 @@ public class RichEditorHandler {
         mRichEditor.setEditorHeight(200);
         mRichEditor.setEditorFontSize(22);
         mRichEditor.setEditorFontColor(Color.RED);
+        mRichEditor.setPadding(10, 10, 10, 10);
+        mRichEditor.setPlaceholder("Insert text here...");
+        mRichEditor.setAlignLeft();
         //mEditor.setEditorBackgroundColor(Color.BLUE);
         //mEditor.setBackgroundColor(Color.BLUE);
         //mEditor.setBackgroundResource(R.drawable.bg);
-        mRichEditor.setPadding(10, 10, 10, 10);
         //mEditor.setBackground("https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg");
-        mRichEditor.setPlaceholder("Insert text here...");
         //mEditor.setInputEnabled(false);
 
     }
@@ -83,6 +84,7 @@ public class RichEditorHandler {
      */
     public void blockquote(View view) {
         //TODO 背景需要特殊处理. setBackgroundColor(Color.BLUE); 会将整个编辑区置为蓝色，不可用
+        //        mRichEditor.setEditorBackgroundColor(Color.BLUE);
         mRichEditor.setBlockquote();
     }
 
