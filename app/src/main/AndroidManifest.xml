@@ -14,6 +14,7 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!--不要动，下面这一堆是为了匹配各个厂商手机生成快捷方式的权限！！-->
@@ -331,13 +332,14 @@
         <activity android:name=".b_28_collspaningToolBar.CollapsingToolBarActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".b_30_RichTextEditor.RichTextEditorActivity"/>
+        <activity android:name=".b_31_picAndVideoSelector.PicSelectorActivity"/>
         <activity android:name=".c_01_customView.CustomViewActivity"/>
 
 
         <activity android:name=".TempActivity"/>
-        
+
         <receiver android:name=".b_29_lockOrUnLockBroadCast.UnLockBroadCastReceiver">
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT"/>
             </intent-filter>
         </receiver>

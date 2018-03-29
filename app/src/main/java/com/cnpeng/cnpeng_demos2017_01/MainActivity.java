@@ -81,6 +81,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_26_TakePhotoWithSysMethod.TakePhotoActiv
 import com.cnpeng.cnpeng_demos2017_01.b_27_suspendRv.SuspendRvActivity2;
 import com.cnpeng.cnpeng_demos2017_01.b_28_collspaningToolBar.CollapsingToolBarActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_30_RichTextEditor.RichTextEditorActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_31_picAndVideoSelector.PicSelectorActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btSuspendRv.setOnClickListener(this);
         binding.btCollapsing.setOnClickListener(this);
         binding.btRichText.setOnClickListener(this);
-
+        binding.btPicSelector.setOnClickListener(this);
     }
 
     @Override
@@ -405,6 +406,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_richText:
                 CommonUtils.mStartActivity(this, RichTextEditorActivity.class);
+                break;
+            case R.id.bt_picSelector:
+                CommonUtils.mStartActivity(this, PicSelectorActivity.class);
+                break;
             default:
                 break;
         }
