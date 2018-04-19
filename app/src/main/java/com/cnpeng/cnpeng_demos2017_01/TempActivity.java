@@ -15,12 +15,11 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 public class TempActivity extends AppCompatActivity {
 
 
-    private ActivityTempBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_temp);
+      ActivityTempBinding  binding = DataBindingUtil.setContentView(this, R.layout.activity_temp);
 
     }
 
