@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityBaseRvAdapterBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 作者：CnPeng
@@ -19,10 +21,13 @@ import java.util.List;
  * 功用：
  * 其他：
  */
-public class BaseRvAdapterActivity extends FragmentActivity {
+public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter.OnLoadingMoreListener {
 
     private ActivityBaseRvAdapterBinding mBinding;
     private BaseRvAdapterActivity        mActivity;
+    private RvAdapter                    mRvAdapter;
+
+    private List<String> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,12 +41,38 @@ public class BaseRvAdapterActivity extends FragmentActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mBinding.rv.setLayoutManager(layoutManager);
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            list.add(i + "");
-        }
+        addDataToList(1);
 
-        RvAdapter rvAdapter = new RvAdapter(mActivity, list);
-        mBinding.rv.setAdapter(rvAdapter);
+        mRvAdapter = new RvAdapter(mActivity, mList, mBinding.rv);
+        mBinding.rv.setAdapter(mRvAdapter);
+
+        mRvAdapter.setLoadingMoreListener(this);
+    }
+
+    private void addDataToList(int start) {
+        int end = start + 20;
+        for (int i = start; i < end; i++) {
+            mList.add(i + "");
+        }
+    }
+
+    @Override
+    public void onLoadingMore() {
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                addDataToList(mList.size());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRvAdapter.setData(mList);
+                        Toast.makeText(mActivity, "上拉完成", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }, 1000);
+
     }
 }
