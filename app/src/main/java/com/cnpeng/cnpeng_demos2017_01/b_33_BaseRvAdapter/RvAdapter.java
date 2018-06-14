@@ -29,15 +29,20 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * 正在加载
      */
-    public final String STATUS_LOADING = "loadingMore";
+    public final String STATUS_LOADING         = "loadingMore";
     /**
      * 加载完毕——没有更多
      */
-    public final String STATUS_NO_MORE = "noMore";
+    public final String STATUS_NO_MORE         = "noMore";
     /**
      * 加载完毕——有新的数据
      */
-    public final String STATUS_OVER    = "loadingOver";
+    public final String STATUS_OVER            = "loadingOver";
+    /**
+     * 释放加载更多，当最后一条完整可见条目为脚布局，并且用户还在下拉的时候触发
+     */
+    public final String STATUS_RELEASE_TO_LOAD = "releaseToLoad";
+
 
     private final int ITEM_TYPE_HEADER  = 0;
     private final int ITEM_TYPE_FOOTER  = 1;
@@ -64,6 +69,8 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //触摸时最小的响应距离
         mTouchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
 
+
+        // TODO: CnPeng 2018/6/14 下午9:48 如何确保最后一条完全可见的时候才上拉加载呢？
         initRvScrollListener();
         initRvTouchListener();
     }
@@ -152,6 +159,12 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.mBinding.tvLoadingHint.setVisibility(View.VISIBLE);
                 holder.mBinding.tvLoadingHint.setText("没有更多数据了。。。");
                 break;
+            case STATUS_RELEASE_TO_LOAD:
+                //加载完毕——还有更多数据
+                holder.mBinding.progressBar.setVisibility(View.GONE);
+                holder.mBinding.tvLoadingHint.setVisibility(View.VISIBLE);
+                holder.mBinding.tvLoadingHint.setText("释放后开始加载。。。");
+                break;
             case STATUS_OVER:
             default:
                 //加载完毕——还有更多数据
@@ -189,6 +202,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     totalItemCount = layoutManager.getItemCount();
                     firstVisibleItem = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                     lastVisibleItem = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                    //                    lastVisibleItem = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
                     mIsAtBottom = (totalItemCount - visibleItemCount) <= firstVisibleItem;
                 }
             }
@@ -231,6 +245,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             if (curY - mDownY < 0 && absY > mTouchSlop && mIsAtBottom) {
                                 if (!isLoadingMore && null != mLoadingMoreListener) {
                                     //                                    mLoadingMoreListener.releaseToLoadMore();
+                                    setLoadingStatus(STATUS_RELEASE_TO_LOAD);
                                 }
                             } else {
                                 if (!isLoadingMore && null != mLoadingMoreListener) {
