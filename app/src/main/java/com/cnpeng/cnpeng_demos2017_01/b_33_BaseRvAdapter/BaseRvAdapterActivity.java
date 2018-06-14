@@ -50,7 +50,7 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
     }
 
     private void addDataToList(int start) {
-        int end = start + 20;
+        int end = start + 15;
         for (int i = start; i < end; i++) {
             mList.add(i + "");
         }
@@ -58,6 +58,16 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
 
     @Override
     public void onLoadingMore() {
+
+
+        if (mList.size() >= 90) {
+            //不再执行加载操作
+            // TODO: CnPeng 2018/6/14 下午4:20 没有更多数据了
+            mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_NO_MORE);
+            return;
+        } else {
+            mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_LOADING);
+        }
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -68,6 +78,7 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
                     @Override
                     public void run() {
                         mRvAdapter.setData(mList);
+                        mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_OVER);
                         Toast.makeText(mActivity, "上拉完成", Toast.LENGTH_SHORT).show();
                     }
                 });

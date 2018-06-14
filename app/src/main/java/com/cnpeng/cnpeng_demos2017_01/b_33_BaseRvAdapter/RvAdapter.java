@@ -26,19 +26,34 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
  * 其他：
  */
 public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    /**
+     * 正在加载
+     */
+    public final String STATUS_LOADING = "loadingMore";
+    /**
+     * 加载完毕——没有更多
+     */
+    public final String STATUS_NO_MORE = "noMore";
+    /**
+     * 加载完毕——有新的数据
+     */
+    public final String STATUS_OVER    = "loadingOver";
+
     private final int ITEM_TYPE_HEADER  = 0;
     private final int ITEM_TYPE_FOOTER  = 1;
     private final int ITEM_TYPE_CONTENT = 2;
-    private final RecyclerView          mRv;
-    private       boolean               isLoadingMore;
-    private       List<String>          mList;
-    private       Context               mContext;
-    private       boolean               mIsAtBottom;
-    private       int                   mLastY;
-    private       int                   mDownY;
-    private       int                   mDownX;
-    private       OnLoadingMoreListener mLoadingMoreListener;
-    private       int                   mTouchSlop;
+
+    private RecyclerView          mRv;
+    private boolean               isLoadingMore;
+    private List<String>          mList;
+    private Context               mContext;
+    private boolean               mIsAtBottom;
+    private int                   mLastY;
+    private int                   mDownY;
+    private int                   mDownX;
+    private OnLoadingMoreListener mLoadingMoreListener;
+    private int                   mTouchSlop;
+    private String mLoadingStatus = "";
 
 
     public RvAdapter(Context context, List<String> list, RecyclerView recyclerView) {
@@ -51,6 +66,19 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         initRvScrollListener();
         initRvTouchListener();
+    }
+
+    /**
+     * 将最新的数据和加载状态传递给适配器
+     */
+    public void setData(List<String> list) {
+        mList = list;
+        notifyDataSetChanged();
+    }
+
+    public void setLoadingStatus(String loadingStatus) {
+        mLoadingStatus = loadingStatus;
+        notifyItemChanged(getItemCount() - 1);
     }
 
     @NonNull
@@ -90,7 +118,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String str = mList.get(position);
             ((ContentHolder) holder).mBinding.tv.setText(str);
         } else {
-            ((FooterHolder) holder).mBinding.tvLoadingHint.setText("正在加载");
+            updateFooterView((FooterHolder) holder);
         }
     }
 
@@ -108,6 +136,30 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemCount() {
         //+1 是脚布局
         return mList.size() + 1;
+    }
+
+    private void updateFooterView(FooterHolder holder) {
+        switch (mLoadingStatus) {
+            case STATUS_LOADING:
+                //正在加载——展示进度和文本
+                holder.mBinding.progressBar.setVisibility(View.VISIBLE);
+                holder.mBinding.tvLoadingHint.setVisibility(View.VISIBLE);
+                holder.mBinding.tvLoadingHint.setText("正在加载。。。");
+                break;
+            case STATUS_NO_MORE:
+                //加载完毕——没有更多
+                holder.mBinding.progressBar.setVisibility(View.GONE);
+                holder.mBinding.tvLoadingHint.setVisibility(View.VISIBLE);
+                holder.mBinding.tvLoadingHint.setText("没有更多数据了。。。");
+                break;
+            case STATUS_OVER:
+            default:
+                //加载完毕——还有更多数据
+                holder.mBinding.progressBar.setVisibility(View.GONE);
+                holder.mBinding.tvLoadingHint.setVisibility(View.VISIBLE);
+                holder.mBinding.tvLoadingHint.setText("上拉加载更多。。。");
+                break;
+        }
     }
 
     private void initRvScrollListener() {
@@ -213,10 +265,6 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mLoadingMoreListener = loadingMoreListener;
     }
 
-    public void setData(List<String> list) {
-        mList = list;
-        notifyDataSetChanged();
-    }
 
     public class ContentHolder extends RecyclerView.ViewHolder {
         private ItemRvBinding mBinding;
