@@ -30,6 +30,28 @@
                 android:textAllCaps="false"/>
             
             <!--项目借鉴系列：倒序排列-->
+
+            <!--项目借鉴系列：倒序排列-->
+            <Button
+                android:id="@+id/bt_rvAdapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="b_33_Rv适配器封装"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/bt_largeImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="b_32_图片选择器"
+                android:textAllCaps="false"/>
+
             <Button
                 android:id="@+id/bt_picSelector"
                 android:layout_width="match_parent"

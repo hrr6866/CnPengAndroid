@@ -44,8 +44,7 @@ import com.cnpeng.cnpeng_demos2017_01.a_35_viewFlipper.ViewFlipperActviity;
 import com.cnpeng.cnpeng_demos2017_01.a_36_Toast.ImageToastActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_37_calendarView.CalendarViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_38_DatePiackerAndTimePicker.DatePickerAndTimerPickerActivity;
-import com.cnpeng.cnpeng_demos2017_01.a_39_DatePickerDialogAndTimerPickerDialg
-        .DatePickerDialogAndTimerPickerDialogActvitiy;
+import com.cnpeng.cnpeng_demos2017_01.a_39_DatePickerDialogAndTimerPickerDialg.DatePickerDialogAndTimerPickerDialogActvitiy;
 import com.cnpeng.cnpeng_demos2017_01.a_40_NumberPicker.NumberPickerActivity;
 import com.cnpeng.cnpeng_demos2017_01.a_41_SearchView.SearchViewActivtiy;
 import com.cnpeng.cnpeng_demos2017_01.a_42_tabHost.TabHostActivity;
@@ -82,6 +81,8 @@ import com.cnpeng.cnpeng_demos2017_01.b_27_suspendRv.SuspendRvActivity2;
 import com.cnpeng.cnpeng_demos2017_01.b_28_collspaningToolBar.CollapsingToolBarActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_30_RichTextEditor.RichTextEditorActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_31_picAndVideoSelector.PicSelectorActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_32_largeImage.LargeImageViewActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_33_BaseRvAdapter.BaseRvAdapterActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -170,11 +171,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btCollapsing.setOnClickListener(this);
         binding.btRichText.setOnClickListener(this);
         binding.btPicSelector.setOnClickListener(this);
+        binding.btLargeImg.setOnClickListener(this);
+        binding.btRvAdapter.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.bt_rvAdapter:
+                CommonUtils.mStartActivity(this, BaseRvAdapterActivity.class);
+                break;
             case R.id.bt_tempActivity:
                 CommonUtils.mStartActivity(this, TempActivity.class);
                 break;
@@ -409,6 +415,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_picSelector:
                 CommonUtils.mStartActivity(this, PicSelectorActivity.class);
+                break;
+
+            case R.id.bt_largeImg:
+                CommonUtils.mStartActivity(this, LargeImageViewActivity.class);
                 break;
             default:
                 break;
