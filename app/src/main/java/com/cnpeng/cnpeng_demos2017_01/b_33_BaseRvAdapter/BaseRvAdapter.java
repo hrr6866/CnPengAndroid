@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.FooterRvBinding;
-import com.cnpeng.cnpeng_demos2017_01.databinding.ItemRvBinding;
-
-import java.util.List;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
@@ -25,7 +22,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
  * 功用：
  * 其他：
  */
-public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * 正在加载
      */
@@ -44,13 +41,13 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public final String STATUS_RELEASE_TO_LOAD = "releaseToLoad";
 
 
-    private final int ITEM_TYPE_HEADER  = 0;
-    private final int ITEM_TYPE_FOOTER  = 1;
-    private final int ITEM_TYPE_CONTENT = 2;
+    private final int ITEM_TYPE_HEADER = 0;
+    private final int ITEM_TYPE_FOOTER = 1;
+    //    private final int ITEM_TYPE_CONTENT = 2;
 
     private RecyclerView          mRv;
     private boolean               isLoadingMore;
-    private List<String>          mList;
+    //    private List<String>          mList;
     private Context               mContext;
     private boolean               mIsAtBottom;
     private int                   mLastY;
@@ -61,9 +58,11 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private String mLoadingStatus = "";
 
 
-    public RvAdapter(Context context, List<String> list, RecyclerView recyclerView) {
+    public BaseRvAdapter(Context context, RecyclerView recyclerView) {
+        // ATTENTION CnPeng 2018/6/15 上午8:55  子类的构造方法必须在此基础上扩展,context 和 recyclerView是BaseRvAdapter必须的
+        //    public BaseRvAdapter(Context context, List<String> list, RecyclerView recyclerView) {
         mContext = context;
-        mList = list;
+        //        mList = list;
         mRv = recyclerView;
 
         //触摸时最小的响应距离
@@ -73,14 +72,6 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // TODO: CnPeng 2018/6/14 下午9:48 如何确保最后一条完全可见的时候才上拉加载呢？
         initRvScrollListener();
         initRvTouchListener();
-    }
-
-    /**
-     * 将最新的数据和加载状态传递给适配器
-     */
-    public void setData(List<String> list) {
-        mList = list;
-        notifyDataSetChanged();
     }
 
     public void setLoadingStatus(String loadingStatus) {
@@ -100,32 +91,37 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 FooterHolder footerHolder = new FooterHolder(footerView);
                 footerHolder.setBinding(footerBinding);
                 return footerHolder;
-            case ITEM_TYPE_CONTENT:
+            //            case ITEM_TYPE_CONTENT:
             default:
-                ItemRvBinding itemBinding = DataBindingUtil.inflate(inflater, R.layout.item_rv, parent, false);
-                View itemView = itemBinding.getRoot();
+                //    ItemRvBinding itemBinding = DataBindingUtil.inflate(inflater, R.layout.item_rv, parent, false);
+                //    View itemView = itemBinding.getRoot();
+                //
+                //    ContentHolder contentHolder = new ContentHolder(itemView);
+                //    contentHolder.setBinding(itemBinding);
 
-                ContentHolder contentHolder = new ContentHolder(itemView);
-                contentHolder.setBinding(itemBinding);
-
-                return contentHolder;
+                return onCreateContentHolder(parent, viewType);
         }
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         // TODO: CnPeng 2018/6/14 下午12:06 这个三个position 和 position有什么区别呢？
-        int realPosition = holder.getAdapterPosition();
-        int realPosition2 = holder.getLayoutPosition();
-        int oldPosition = holder.getOldPosition();
+        //        int realPosition = holder.getAdapterPosition();
+        //        int realPosition2 = holder.getLayoutPosition();
+        //        int oldPosition = holder.getOldPosition();
+        //
+        //        if (holder instanceof ContentHolder) {
+        //            String str = mList.get(position);
+        //            ((ContentHolder) holder).mBinding.tv.setText(str);
+        //        } else {
+        //            updateFooterView((FooterHolder) holder);
+        //        }
 
-        if (holder instanceof ContentHolder) {
-            String str = mList.get(position);
-            ((ContentHolder) holder).mBinding.tv.setText(str);
-        } else {
+        if (holder instanceof FooterHolder) {
             updateFooterView((FooterHolder) holder);
+        } else {
+            onBindContentHolder(holder, position);
         }
     }
 
@@ -134,7 +130,8 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (position == getItemCount() - 1) {
             return ITEM_TYPE_FOOTER;
         } else {
-            return ITEM_TYPE_CONTENT;
+            //            return ITEM_TYPE_CONTENT;
+            return getContentItemType(position);
         }
         //        return super.getItemViewType(position);
     }
@@ -142,8 +139,29 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         //+1 是脚布局
-        return mList.size() + 1;
+        //        return mList.size() + 1;
+        return getContentCount() + 1;
     }
+
+    /**
+     * 获取内容的数量
+     */
+    abstract int getContentCount();
+
+    /**
+     * 获取条目类型：0 和 1 已经被头布局和脚布局占用，不用重复定义
+     */
+    abstract int getContentItemType(int position);
+
+    /**
+     * 绑定内容视图
+     */
+    abstract void onBindContentHolder(RecyclerView.ViewHolder holder, int position);
+
+    /**
+     * 创建内容hodler
+     */
+    abstract RecyclerView.ViewHolder onCreateContentHolder(ViewGroup parent, int viewType);
 
     private void updateFooterView(FooterHolder holder) {
         switch (mLoadingStatus) {
@@ -278,19 +296,6 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void setLoadingMoreListener(OnLoadingMoreListener loadingMoreListener) {
         mLoadingMoreListener = loadingMoreListener;
-    }
-
-
-    public class ContentHolder extends RecyclerView.ViewHolder {
-        private ItemRvBinding mBinding;
-
-        public ContentHolder(View itemView) {
-            super(itemView);
-        }
-
-        public void setBinding(ItemRvBinding binding) {
-            mBinding = binding;
-        }
     }
 
     private class FooterHolder extends RecyclerView.ViewHolder {

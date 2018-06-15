@@ -22,11 +22,11 @@ import java.util.TimerTask;
  * 功用：
  * 其他：
  */
-public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter.OnLoadingMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class BaseRvAdapterActivity extends FragmentActivity implements BaseRvAdapter.OnLoadingMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ActivityBaseRvAdapterBinding mBinding;
     private BaseRvAdapterActivity        mActivity;
-    private RvAdapter                    mRvAdapter;
+    private MyRvAdapter                  mRvAdapter;
 
     private List<String> mList = new ArrayList<>();
 
@@ -49,7 +49,9 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
 
         addDataToList(1);
 
-        mRvAdapter = new RvAdapter(mActivity, mList, mBinding.rv);
+        mRvAdapter = new MyRvAdapter(mActivity, mBinding.rv);
+        mRvAdapter.setData(mList);
+
         mBinding.rv.setAdapter(mRvAdapter);
 
         mRvAdapter.setLoadingMoreListener(this);
@@ -97,8 +99,8 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                for(int i= 0;i<10 ;i++){
-                    mList.add(0,i+"下拉");
+                for (int i = 0; i < 10; i++) {
+                    mList.add(0, i + "下拉");
                 }
 
                 runOnUiThread(new Runnable() {
