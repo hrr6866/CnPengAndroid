@@ -13,14 +13,18 @@ import android.view.ViewGroup;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.FooterRvBinding;
+import com.cnpeng.cnpeng_demos2017_01.utils.LogUtils;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 /**
  * 作者：CnPeng
  * 时间：2018/6/14
- * 功用：
+ * 功用：RecyclerView 的 Adapter 基类。
  * 其他：
+ * 1、附带了上拉加载的功能处理，下拉加载通过SwipeRefreshLayout实现.
+ * 2、暂时只支持 LinearLayoutManager
+ * // TODO: CnPeng 2018/6/15 上午9:07 考虑下拉时头布局的封装
  */
 public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
@@ -40,29 +44,35 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
      */
     public final String STATUS_RELEASE_TO_LOAD = "releaseToLoad";
 
+    private final int    ITEM_TYPE_HEADER = 0;
+    private final int    ITEM_TYPE_FOOTER = 1;
+    private final String TAG              = "BaseRvAdapter";
+    private       String mLoadingStatus   = "";
 
-    private final int ITEM_TYPE_HEADER = 0;
-    private final int ITEM_TYPE_FOOTER = 1;
-    //    private final int ITEM_TYPE_CONTENT = 2;
-
-    private RecyclerView          mRv;
-    private boolean               isLoadingMore;
-    //    private List<String>          mList;
+    private OnLoadingMoreListener mLoadingMoreListener;
     private Context               mContext;
+    private RecyclerView          mRv;
+    /**
+     * 是否正在执行加载更多的操作，可以避免上次请求未结束时重复发送请求的情况。内部处理之后，上拉监听中的onLoadingMore()中就不需要再做判断
+     */
+    private boolean               mIsLoadingMore;
     private boolean               mIsAtBottom;
     private int                   mLastY;
     private int                   mDownY;
     private int                   mDownX;
-    private OnLoadingMoreListener mLoadingMoreListener;
     private int                   mTouchSlop;
-    private String mLoadingStatus = "";
+    private boolean               mFooterEnable;
 
 
+    /**
+     * 基类的构造方法，子类的构造中必须传递这两个参数给该基类
+     *
+     * @param context      用来激活默认脚布局、获取触摸时的最小反馈量
+     * @param recyclerView 用来监听和处理触摸和滚动事件，从而触发监听器中的上拉加载事件
+     */
     public BaseRvAdapter(Context context, RecyclerView recyclerView) {
         // ATTENTION CnPeng 2018/6/15 上午8:55  子类的构造方法必须在此基础上扩展,context 和 recyclerView是BaseRvAdapter必须的
-        //    public BaseRvAdapter(Context context, List<String> list, RecyclerView recyclerView) {
         mContext = context;
-        //        mList = list;
         mRv = recyclerView;
 
         //触摸时最小的响应距离
@@ -74,9 +84,26 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         initRvTouchListener();
     }
 
+    /**
+     * 只有在开启了脚布局之后才去触发这个状态更新的操作
+     */
     public void setLoadingStatus(String loadingStatus) {
-        mLoadingStatus = loadingStatus;
-        notifyItemChanged(getItemCount() - 1);
+        // TODO: CnPeng 2018/6/15 上午9:22 如果允许外部配置脚布局view，还需要考虑该view是否为空
+        if (mFooterEnable) {
+            mLoadingStatus = loadingStatus;
+            switch (mLoadingStatus) {
+                case STATUS_LOADING:
+                    mIsLoadingMore = true;
+                    break;
+                case STATUS_NO_MORE:
+                case STATUS_OVER:
+                case STATUS_RELEASE_TO_LOAD:
+                default:
+                    mIsLoadingMore = false;
+                    break;
+            }
+            notifyItemChanged(getItemCount() - 1);
+        }
     }
 
     @NonNull
@@ -86,37 +113,20 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         switch (viewType) {
             case ITEM_TYPE_FOOTER:
+
+                // TODO: CnPeng 2018/6/15 上午9:35 考虑如何由外部动态的配置脚布局view
                 FooterRvBinding footerBinding = DataBindingUtil.inflate(inflater, R.layout.footer_rv, parent, false);
                 View footerView = footerBinding.getRoot();
                 FooterHolder footerHolder = new FooterHolder(footerView);
                 footerHolder.setBinding(footerBinding);
                 return footerHolder;
-            //            case ITEM_TYPE_CONTENT:
             default:
-                //    ItemRvBinding itemBinding = DataBindingUtil.inflate(inflater, R.layout.item_rv, parent, false);
-                //    View itemView = itemBinding.getRoot();
-                //
-                //    ContentHolder contentHolder = new ContentHolder(itemView);
-                //    contentHolder.setBinding(itemBinding);
-
                 return onCreateContentHolder(parent, viewType);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        // TODO: CnPeng 2018/6/14 下午12:06 这个三个position 和 position有什么区别呢？
-        //        int realPosition = holder.getAdapterPosition();
-        //        int realPosition2 = holder.getLayoutPosition();
-        //        int oldPosition = holder.getOldPosition();
-        //
-        //        if (holder instanceof ContentHolder) {
-        //            String str = mList.get(position);
-        //            ((ContentHolder) holder).mBinding.tv.setText(str);
-        //        } else {
-        //            updateFooterView((FooterHolder) holder);
-        //        }
 
         if (holder instanceof FooterHolder) {
             updateFooterView((FooterHolder) holder);
@@ -127,20 +137,26 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
-            return ITEM_TYPE_FOOTER;
+        if (mFooterEnable) {
+            if (position == getItemCount() - 1) {
+                return ITEM_TYPE_FOOTER;
+            } else {
+                //此处做判断，防止子类定义的条目类型与该基类中定义的头布局和脚布局冲突
+                int contentType = getContentItemType(position);
+                if (ITEM_TYPE_HEADER == contentType || ITEM_TYPE_FOOTER == contentType) {
+                    new Exception("BaseRvAdapter:该条目类型已经在基类中定义为头布局/脚布局，不能子类重复定义").printStackTrace();
+                }
+                return getContentItemType(position);
+            }
         } else {
-            //            return ITEM_TYPE_CONTENT;
             return getContentItemType(position);
         }
-        //        return super.getItemViewType(position);
     }
 
     @Override
     public int getItemCount() {
-        //+1 是脚布局
-        //        return mList.size() + 1;
-        return getContentCount() + 1;
+        //如果开启了脚布局，数量+1;否则，返回实际数量
+        return mFooterEnable ? getContentCount() + 1 : getContentCount();
     }
 
     /**
@@ -203,8 +219,8 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 super.onScrollStateChanged(recyclerView, newState);
                 if (SCROLL_STATE_IDLE == newState) {
                     if (mIsAtBottom && mLastY - mDownY < 0 && Math.abs(mLastY - mDownY) > mTouchSlop) {
-                        if (!isLoadingMore || null != mLoadingMoreListener) {
-                            isLoadingMore = true;
+                        if (!mIsLoadingMore || null != mLoadingMoreListener) {
+                            mIsLoadingMore = true;
                             mLoadingMoreListener.onLoadingMore();
                         }
                     }
@@ -254,19 +270,19 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         int curY = (int) ev.getY();
                         int absX = Math.abs(curX - mDownX);
                         int absY = Math.abs(curY - mDownY);
-                        //LogUtils.e("移动的绝对值", absX + "/" + absY);
+                        LogUtils.i(TAG, "移动的绝对值：" + absX + "/" + absY);
 
                         if (absX > absY) {
                             //左右划的时候不拦截，直接传递给子View
                             return false;
                         } else {
                             if (curY - mDownY < 0 && absY > mTouchSlop && mIsAtBottom) {
-                                if (!isLoadingMore && null != mLoadingMoreListener) {
+                                if (!mIsLoadingMore && null != mLoadingMoreListener) {
                                     //                                    mLoadingMoreListener.releaseToLoadMore();
                                     setLoadingStatus(STATUS_RELEASE_TO_LOAD);
                                 }
                             } else {
-                                if (!isLoadingMore && null != mLoadingMoreListener) {
+                                if (!mIsLoadingMore && null != mLoadingMoreListener) {
                                     //                                    mLoadingMoreListener.clearUpLoadHint();
                                 }
                             }
@@ -275,8 +291,8 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     case MotionEvent.ACTION_UP:
                         mLastY = (int) ev.getY();
                         if (mLastY - mDownY < 0 && Math.abs(mLastY - mDownY) > mTouchSlop && mIsAtBottom) {
-                            if (!isLoadingMore && null != mLoadingMoreListener) {
-                                isLoadingMore = true;
+                            if (!mIsLoadingMore && null != mLoadingMoreListener) {
+                                mIsLoadingMore = true;
                                 mLoadingMoreListener.onLoadingMore();
                             }
                         }
@@ -296,6 +312,15 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public void setLoadingMoreListener(OnLoadingMoreListener loadingMoreListener) {
         mLoadingMoreListener = loadingMoreListener;
+    }
+
+    /**
+     * 是否允许展示脚布局。
+     *
+     * @param enable true 展示脚布局，false 不允许展示脚布局
+     */
+    public void enableFooterView(boolean enable) {
+        mFooterEnable = enable;
     }
 
     private class FooterHolder extends RecyclerView.ViewHolder {

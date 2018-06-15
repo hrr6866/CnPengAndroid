@@ -49,8 +49,13 @@ public class BaseRvAdapterActivity extends FragmentActivity implements BaseRvAda
 
         addDataToList(1);
 
+        //构造适配器
         mRvAdapter = new MyRvAdapter(mActivity, mBinding.rv);
+        //设置数据并通知界面更新
         mRvAdapter.setData(mList);
+        //禁用脚布局
+        //        mRvAdapter.enableFooterView(false);
+        mRvAdapter.enableFooterView(true);
 
         mBinding.rv.setAdapter(mRvAdapter);
 
@@ -69,29 +74,29 @@ public class BaseRvAdapterActivity extends FragmentActivity implements BaseRvAda
 
         if (mList.size() >= 150) {
             //不再执行加载操作
-            // TODO: CnPeng 2018/6/14 下午4:20 没有更多数据了
             mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_NO_MORE);
-            return;
+            Toast.makeText(mActivity, "已经没有更多数据了", Toast.LENGTH_SHORT).show();
+
         } else {
             mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_LOADING);
+
+            //模拟上拉加载
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    addDataToList(mList.size());
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRvAdapter.setData(mList);
+                            mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_OVER);
+                            Toast.makeText(mActivity, "上拉完成", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }, 1000);
         }
-
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                addDataToList(mList.size());
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRvAdapter.setData(mList);
-                        mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_OVER);
-                        Toast.makeText(mActivity, "上拉完成", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }, 1000);
-
     }
 
     @Override

@@ -27,8 +27,15 @@ public class MyRvAdapter extends BaseRvAdapter {
         mContext = context;
     }
 
+    /**
+     * 作者：CnPeng
+     * 时间：2018/6/15 上午9:47
+     * 功用：设置数据并更新界面
+     * 说明：
+     */
     public void setData(List<String> list) {
         mList = list;
+        notifyDataSetChanged();
     }
 
     @Override
