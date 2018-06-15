@@ -25,6 +25,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
  * 1、附带了上拉加载的功能处理，下拉加载通过SwipeRefreshLayout实现.
  * 2、暂时只支持 LinearLayoutManager
  * // TODO: CnPeng 2018/6/15 上午9:07 考虑下拉时头布局的封装
+ * // TODO: CnPeng 2018/6/15 下午4:10 考虑如何兼容 项目中的 RvUpDownRefreshLayout
  */
 public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
@@ -88,7 +89,6 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
      * 只有在开启了脚布局之后才去触发这个状态更新的操作
      */
     public void setLoadingStatus(String loadingStatus) {
-        // TODO: CnPeng 2018/6/15 上午9:22 如果允许外部配置脚布局view，还需要考虑该view是否为空
         if (mFooterEnable) {
             mLoadingStatus = loadingStatus;
             switch (mLoadingStatus) {

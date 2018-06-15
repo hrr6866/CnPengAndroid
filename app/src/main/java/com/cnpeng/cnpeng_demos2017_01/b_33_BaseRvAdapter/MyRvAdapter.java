@@ -45,7 +45,8 @@ public class MyRvAdapter extends BaseRvAdapter {
 
     @Override
     int getContentItemType(int position) {
-        return 0;
+        //注意：0 和 1 作为基类预留的头布局和脚布局，外部定义类型时不能再使用0和1
+        return 2;
     }
 
     @Override
