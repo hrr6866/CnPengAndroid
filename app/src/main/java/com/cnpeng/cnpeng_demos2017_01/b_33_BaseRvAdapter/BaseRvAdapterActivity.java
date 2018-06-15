@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import java.util.TimerTask;
  * 功用：
  * 其他：
  */
-public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter.OnLoadingMoreListener {
+public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter.OnLoadingMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ActivityBaseRvAdapterBinding mBinding;
     private BaseRvAdapterActivity        mActivity;
@@ -35,6 +36,11 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_rv_adapter);
         mActivity = this;
         initRv();
+        initRefreshLayout();
+    }
+
+    private void initRefreshLayout() {
+        mBinding.refreshLayout.setOnRefreshListener(this);
     }
 
     private void initRv() {
@@ -59,8 +65,7 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
     @Override
     public void onLoadingMore() {
 
-
-        if (mList.size() >= 90) {
+        if (mList.size() >= 150) {
             //不再执行加载操作
             // TODO: CnPeng 2018/6/14 下午4:20 没有更多数据了
             mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_NO_MORE);
@@ -85,5 +90,27 @@ public class BaseRvAdapterActivity extends FragmentActivity implements RvAdapter
             }
         }, 1000);
 
+    }
+
+    @Override
+    public void onRefresh() {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                for(int i= 0;i<10 ;i++){
+                    mList.add(0,i+"下拉");
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRvAdapter.setData(mList);
+                        mRvAdapter.setLoadingStatus(mRvAdapter.STATUS_OVER);
+                        Toast.makeText(mActivity, "下拉完成", Toast.LENGTH_SHORT).show();
+                        mBinding.refreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }, 1000);
     }
 }
