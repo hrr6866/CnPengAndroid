@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
@@ -58,6 +59,9 @@ public class BaseRvAdapterActivity extends FragmentActivity implements BaseRvAda
         mRvAdapter.enableFooterView(true);
 
         mBinding.rv.setAdapter(mRvAdapter);
+        TextView textView = new TextView(mActivity);
+        textView.setText("这是头布局");
+        mRvAdapter.setHeaderView(textView);
 
         mRvAdapter.setLoadingMoreListener(this);
     }
@@ -65,8 +69,9 @@ public class BaseRvAdapterActivity extends FragmentActivity implements BaseRvAda
     private void addDataToList(int start) {
         int end = start + 15;
         for (int i = start; i < end; i++) {
-            mList.add(i + "");
+            mList.add(i + ".js (29)\n");
         }
+        ;
     }
 
     @Override
@@ -84,7 +89,7 @@ public class BaseRvAdapterActivity extends FragmentActivity implements BaseRvAda
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    addDataToList(mList.size());
+                    addDataToList(mList.size()+1);
 
                     runOnUiThread(new Runnable() {
                         @Override

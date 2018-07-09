@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.FooterRvBinding;
@@ -63,7 +64,7 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private int                   mDownX;
     private int                   mTouchSlop;
     private boolean               mFooterEnable;
-
+    private View                  mHeaderView;
 
     /**
      * 基类的构造方法，子类的构造中必须传递这两个参数给该基类
@@ -83,6 +84,33 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         // TODO: CnPeng 2018/6/14 下午9:48 如何确保最后一条完全可见的时候才上拉加载呢？
         initRvScrollListener();
         initRvTouchListener();
+    }
+
+    public View getHeaderView() {
+        return mHeaderView;
+    }
+
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/9 下午3:00
+     * 功用：设置头布局
+     * 说明：只允许添加一个头布局
+     */
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
+        if (null != mHeaderView) {
+            notifyItemChanged(0);
+        }
+    }
+
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/9 下午2:59
+     * 功用：获取头布局的数量
+     * 说明：
+     */
+    public int getHeaderViewCount() {
+        return null != mHeaderView ? 1 : 0;
     }
 
     /**
@@ -113,13 +141,14 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         switch (viewType) {
             case ITEM_TYPE_FOOTER:
-
                 // TODO: CnPeng 2018/6/15 上午9:35 考虑如何由外部动态的配置脚布局view
                 FooterRvBinding footerBinding = DataBindingUtil.inflate(inflater, R.layout.footer_rv, parent, false);
                 View footerView = footerBinding.getRoot();
                 FooterHolder footerHolder = new FooterHolder(footerView);
                 footerHolder.setBinding(footerBinding);
                 return footerHolder;
+            case ITEM_TYPE_HEADER:
+                return onCreateHeaderHolder(parent);
             default:
                 return onCreateContentHolder(parent, viewType);
         }
@@ -130,33 +159,61 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         if (holder instanceof FooterHolder) {
             updateFooterView((FooterHolder) holder);
+        } else if (holder instanceof HeaderHolder) {
+            if (null != mHeaderView) {
+                HeaderHolder headerHolder = (HeaderHolder) holder;
+                LinearLayout headerRoot = headerHolder.getHeaderView();
+                if (0 != headerRoot.getChildCount()) {
+                    //只允许设置一个头布局
+                    headerRoot.removeAllViews();
+                }
+                headerRoot.addView(mHeaderView);
+            }
         } else {
-            onBindContentHolder(holder, position);
+            // CnPeng 2018/7/9 下午3:01 由于增加了一个头布局，所以，传递给外部时position需要减1
+            onBindContentHolder(holder, position - 1);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mFooterEnable) {
-            if (position == getItemCount() - 1) {
-                return ITEM_TYPE_FOOTER;
-            } else {
-                //此处做判断，防止子类定义的条目类型与该基类中定义的头布局和脚布局冲突
-                int contentType = getContentItemType(position);
-                if (ITEM_TYPE_HEADER == contentType || ITEM_TYPE_FOOTER == contentType) {
-                    new Exception("BaseRvAdapter:该条目类型已经在基类中定义为头布局/脚布局，不能子类重复定义").printStackTrace();
-                }
-                return getContentItemType(position);
-            }
+        if (0 == position) {
+            return ITEM_TYPE_HEADER;
         } else {
-            return getContentItemType(position);
+            if (mFooterEnable) {
+                if (position == getItemCount() - 1) {
+                    return ITEM_TYPE_FOOTER;
+                } else {
+                    //此处做判断，防止子类定义的条目类型与该基类中定义的头布局和脚布局冲突
+                    int contentType = getContentItemType(position - 1);
+                    if (ITEM_TYPE_HEADER == contentType || ITEM_TYPE_FOOTER == contentType) {
+                        new Exception("BaseRvAdapter:该条目类型已经在基类中定义为头布局/脚布局，不能子类重复定义").printStackTrace();
+                    }
+                    return getContentItemType(position - 1);
+                }
+            } else {
+                //CnPeng 2018/7/9 下午3:02 由于添加了一个头布局，所以，传递具体位置到外部时需要-1
+                return getContentItemType(position - 1);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        //如果开启了脚布局，数量+1;否则，返回实际数量
-        return mFooterEnable ? getContentCount() + 1 : getContentCount();
+        //如果没有开启脚布局，数量+1，加的是头布局；如果开启了脚布局，数量再+1;
+        return mFooterEnable ? getContentCount() + 1 + 1 : getContentCount() + 1;
+    }
+
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/9 下午2:21
+     * 功用：头布局只预留一个空的viewGroup,具体由外部设置
+     * 说明：
+     */
+    private RecyclerView.ViewHolder onCreateHeaderHolder(ViewGroup parent) {
+        LinearLayout linearLayout = new LinearLayout(mContext);
+        HeaderHolder headerHolder = new HeaderHolder(linearLayout);
+        return headerHolder;
     }
 
     /**
@@ -323,7 +380,13 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mFooterEnable = enable;
     }
 
-    private class FooterHolder extends RecyclerView.ViewHolder {
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/9 下午2:03
+     * 功用：脚布局的Holder
+     * 说明：在事件项目中使用的时候，如果不定义为static 的 ，在 onBindViewHolder 中 判断 holder instanceOf FooterHolder 时会报错：“illegal generic type of instanceof”
+     */
+    private static class FooterHolder extends RecyclerView.ViewHolder {
         private FooterRvBinding mBinding;
 
         public FooterHolder(View itemView) {
@@ -332,6 +395,24 @@ public abstract class BaseRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public void setBinding(FooterRvBinding binding) {
             mBinding = binding;
+        }
+    }
+
+    private static class HeaderHolder extends RecyclerView.ViewHolder {
+
+        private LinearLayout mHeaderView;
+
+        public HeaderHolder(LinearLayout headerView) {
+            super(headerView);
+            mHeaderView = headerView;
+        }
+
+        public LinearLayout getHeaderView() {
+            return mHeaderView;
+        }
+
+        public void setHeaderView(LinearLayout headerView) {
+            mHeaderView = headerView;
         }
     }
 
