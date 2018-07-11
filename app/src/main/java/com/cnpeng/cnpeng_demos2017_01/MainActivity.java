@@ -83,6 +83,7 @@ import com.cnpeng.cnpeng_demos2017_01.b_30_RichTextEditor.RichTextEditorActivity
 import com.cnpeng.cnpeng_demos2017_01.b_31_picAndVideoSelector.PicSelectorActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_32_largeImage.LargeImageViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.b_33_BaseRvAdapter.BaseRvAdapterActivity;
+import com.cnpeng.cnpeng_demos2017_01.b_34_checkNotify.CheckNotifyActivity;
 import com.cnpeng.cnpeng_demos2017_01.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
 import com.cnpeng.cnpeng_demos2017_01.utils.CommonUtils;
@@ -173,11 +174,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btPicSelector.setOnClickListener(this);
         binding.btLargeImg.setOnClickListener(this);
         binding.btRvAdapter.setOnClickListener(this);
+        binding.btCheckNotify.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.bt_checkNotify:
+                CommonUtils.mStartActivity(this, CheckNotifyActivity.class);
+                break;
             case R.id.bt_rvAdapter:
                 CommonUtils.mStartActivity(this, BaseRvAdapterActivity.class);
                 break;

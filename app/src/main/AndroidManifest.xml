@@ -341,6 +341,7 @@
         <activity android:name=".b_32_largeImage.LargeImageViewActivity" />
         <activity android:name=".c_01_customView.CustomViewActivity" />
         <activity android:name=".b_33_BaseRvAdapter.BaseRvAdapterActivity" />
+        <activity android:name=".b_34_checkNotify.CheckNotifyActivity" />
 
         <activity android:name=".TempActivity" />
 
