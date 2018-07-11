@@ -5,7 +5,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.cnpeng.cnpeng_demos2017_01"
-        minSdkVersion 16
+        minSdkVersion 18
         versionName "1.0"
         targetSdkVersion 27
         versionCode 1
@@ -24,18 +24,19 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:27.1.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:27.1.1'
-    compile 'com.android.support:design:27.1.1'
-    compile 'org.jsoup:jsoup:1.10.3'
-    compile 'org.apache.commons:commons-lang3:3.5'
-    compile 'com.android.support.constraint:constraint-layout:1.1.1'
-    compile 'jp.wasabeef:richeditor-android:1.2.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
+//    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    androidTestImplementation 'junit:junit:4.12'
+    implementation 'org.jsoup:jsoup:1.10.3'
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'jp.wasabeef:richeditor-android:1.2.0'
     //图片选择器（含视频音频的选择，含拍照录视频功能）
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
     //数据绑定插件
