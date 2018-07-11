@@ -2,7 +2,6 @@ package com.cnpeng.cnpeng_demos2017_01.b_34_checkNotify;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -13,11 +12,18 @@ import android.view.View;
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityCheckNotifyBinding;
 
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
+import static android.provider.Settings.EXTRA_CHANNEL_ID;
+
 /**
  * 作者：CnPeng
  * 时间：2018/7/11
  * 功用：检测在设置中是否开启了APP的推送
  * 其他：
+ *
+ * https://stackoverflow.com/questions/32366649/any-way-to-link-to-the-android-notification-settings-for-my-app
+ * https://blog.csdn.net/ysy950803/article/details/71910806
+ * https://juejin.im/post/5a2508656fb9a0450407b638
  */
 public class CheckNotifyActivity extends AppCompatActivity {
     @Override
@@ -43,9 +49,21 @@ public class CheckNotifyActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     // 根据isOpened结果，判断是否需要提醒用户跳转AppInfo页面，去打开App通知权限
                     Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    Uri uri = Uri.fromParts("package", getPackageName(), null);
-                    intent.setData(uri);
+
+
+                    intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                    //这种方案 API 26以上可以用
+                    intent.putExtra(EXTRA_APP_PACKAGE, getPackageName());
+                    intent.putExtra(EXTRA_CHANNEL_ID, getApplicationInfo().uid);
+
+                    //for Android 5-7
+                    intent.putExtra("app_package", getPackageName());
+                    intent.putExtra("app_uid", getApplicationInfo().uid);
+
+                    //https://blog.csdn.net/ysy950803/article/details/71910806
+                    // intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    // Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    // intent.setData(uri);
                     startActivity(intent);
                 }
             });
