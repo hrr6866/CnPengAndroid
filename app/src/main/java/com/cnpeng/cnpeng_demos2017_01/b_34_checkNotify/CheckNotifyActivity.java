@@ -32,7 +32,7 @@ public class CheckNotifyActivity extends AppCompatActivity {
         ActivityCheckNotifyBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_check_notify);
 
         NotificationManagerCompat manager = NotificationManagerCompat.from(this);
-        //        areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
+        // areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
         boolean isOpened = manager.areNotificationsEnabled();
 
         if (isOpened) {
@@ -52,14 +52,15 @@ public class CheckNotifyActivity extends AppCompatActivity {
 
 
                     intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                    //这种方案 API 26以上可以用
+                    //这种方案适用于 API 26, 即8.0（含8.0）以上可以用
                     intent.putExtra(EXTRA_APP_PACKAGE, getPackageName());
                     intent.putExtra(EXTRA_CHANNEL_ID, getApplicationInfo().uid);
 
-                    //for Android 5-7
+                    //这种方案适用于 API21——25，即 5.0——7.1 之间的版本可以使用
                     intent.putExtra("app_package", getPackageName());
                     intent.putExtra("app_uid", getApplicationInfo().uid);
 
+                    //下面这种方案是直接跳转到当前应用的设置界面。
                     //https://blog.csdn.net/ysy950803/article/details/71910806
                     // intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     // Uri uri = Uri.fromParts("package", getPackageName(), null);
