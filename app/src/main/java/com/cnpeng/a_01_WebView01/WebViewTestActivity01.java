@@ -1,4 +1,4 @@
-package com.cnpeng.cnpeng_demos2017_01.a_01_WebView01;
+package com.cnpeng.a_01_WebView01;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

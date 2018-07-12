@@ -2,7 +2,7 @@
 <layout>
     <data class="ShortCutBinding">
         <variable name="handler"
-                  type="com.cnpeng.cnpeng_demos2017_01.b_20_shortCut.ShortCutHandler"/>
+                  type="com.cnpeng.b_20_shortCut.ShortCutHandler"/>
 
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

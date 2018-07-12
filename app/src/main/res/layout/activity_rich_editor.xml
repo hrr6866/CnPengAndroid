@@ -2,7 +2,7 @@
 <layout>
     <data>
         <variable name="handler"
-                  type="com.cnpeng.cnpeng_demos2017_01.b_30_RichTextEditor.RichEditorHandler"/>
+                  type="com.cnpeng.b_30_RichTextEditor.RichEditorHandler"/>
     </data>
 
     <LinearLayout

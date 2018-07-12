@@ -198,98 +198,98 @@
         </provider>
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.cnpeng.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".a_01_WebView01.WebViewTestActivity01" />
+        <activity android:name="com.cnpeng.a_01_WebView01.WebViewTestActivity01" />
 
-        <activity android:name=".a_02_ViewStubTest.ViewStubTestActivitiy" />
+        <activity android:name="com.cnpeng.a_02_ViewStubTest.ViewStubTestActivitiy" />
 
-        <activity android:name=".a_03_CreateViewWithoutXML.CreateViewWithoutXMLActivity" />
+        <activity android:name="com.cnpeng.a_03_CreateViewWithoutXML.CreateViewWithoutXMLActivity" />
 
-        <activity android:name=".a_04_ImageBrowser_V1.ImageBrowserActivityV1" />
+        <activity android:name="com.cnpeng.a_04_ImageBrowser_V1.ImageBrowserActivityV1" />
 
-        <activity android:name=".a_05_scrollBallWithFinger.ScrollBallActivity" />
+        <activity android:name="com.cnpeng.a_05_scrollBallWithFinger.ScrollBallActivity" />
 
-        <activity android:name=".a_06_tablelayoutTest.TableLayoutTestActivity" />
+        <activity android:name="com.cnpeng.a_06_tablelayoutTest.TableLayoutTestActivity" />
 
-        <activity android:name=".a_07_frameLayout_NoenLamp.NeonLampActivity" />
+        <activity android:name="com.cnpeng.a_07_frameLayout_NoenLamp.NeonLampActivity" />
 
-        <activity android:name=".a_08_relativeLayout_plumBlossom.PlumBlossomActivity" />
+        <activity android:name="com.cnpeng.a_08_relativeLayout_plumBlossom.PlumBlossomActivity" />
 
-        <activity android:name=".a_09_gridLayout_caculater.CaculaterActivity" />
+        <activity android:name="com.cnpeng.a_09_gridLayout_caculater.CaculaterActivity" />
 
-        <activity android:name=".a_10_textView_01.TextView01Activtiy" />
+        <activity android:name="com.cnpeng.a_10_textView_01.TextView01Activtiy" />
 
-        <activity android:name=".a_11_9PatchTest.NinePatchActivity" />
+        <activity android:name="com.cnpeng.a_11_9PatchTest.NinePatchActivity" />
 
-        <activity android:name=".a_12_RadioButtonAndCheckBox.RadioButtonAndCheckBoxActivity" />
+        <activity android:name="com.cnpeng.a_12_RadioButtonAndCheckBox.RadioButtonAndCheckBoxActivity" />
 
-        <activity android:name=".a_13_ToogleButtonAndSwitch.TBAndSwitchActivity" />
+        <activity android:name="com.cnpeng.a_13_ToogleButtonAndSwitch.TBAndSwitchActivity" />
 
-        <activity android:name=".a_14_TextClockAndAnalogClock.TcAndAcActivity" />
+        <activity android:name="com.cnpeng.a_14_TextClockAndAnalogClock.TcAndAcActivity" />
 
-        <activity android:name=".a_15_chronometer.ChronometerActivity" />
+        <activity android:name="com.cnpeng.a_15_chronometer.ChronometerActivity" />
 
-        <activity android:name=".A_16_ImageBrowserV2.ImageBrowserV2Activtiy" />
+        <activity android:name="com.cnpeng.A_16_ImageBrowserV2.ImageBrowserV2Activtiy" />
 
-        <activity android:name=".a_17_imageButtonAndZoomButton.ImageButtonAndZoomButtonActivity" />
+        <activity android:name="com.cnpeng.a_17_imageButtonAndZoomButton.ImageButtonAndZoomButtonActivity" />
 
-        <activity android:name=".a_18_QuickContactBadge.QuickContactBadgeActivity" />
+        <activity android:name="com.cnpeng.a_18_QuickContactBadge.QuickContactBadgeActivity" />
 
-        <activity android:name=".a_19_ListView01.ListView01Activity" />
+        <activity android:name="com.cnpeng.a_19_ListView01.ListView01Activity" />
 
-        <activity android:name=".a_20_showLvWithArrayAdapter.ArrayAdapterActivity" />
+        <activity android:name="com.cnpeng.a_20_showLvWithArrayAdapter.ArrayAdapterActivity" />
 
-        <activity android:name=".a_21_ListActivity.MyListActivity" />
-        <activity android:name=".a_23_autoCompleteTextView.AutoCompleteTextViewActivity" />
-        <activity android:name=".a_24_gridView.GridViewActivity" />
-        <activity android:name=".a_25_expandableListView.ExpandableListViewActivity" />
+        <activity android:name="com.cnpeng.a_21_ListActivity.MyListActivity" />
+        <activity android:name="com.cnpeng.a_23_autoCompleteTextView.AutoCompleteTextViewActivity" />
+        <activity android:name="com.cnpeng.a_24_gridView.GridViewActivity" />
+        <activity android:name="com.cnpeng.a_25_expandableListView.ExpandableListViewActivity" />
         <activity
-            android:name=".a_26_spinner.SpinnerActivity"
+            android:name="com.cnpeng.a_26_spinner.SpinnerActivity"
             android:theme="@style/Base.Theme.AppCompat.Light" />
-        <activity android:name=".a_27_AdapterViewFlipper.AdapterViewFlipperActivity" />
-        <activity android:name=".a_28_stackView.StackViewActivity" />
-        <activity android:name=".a_29_progressBar.ProgressBarActivity" />
-        <activity android:name=".a_30_SeekBar.SeekBarActivtiy" />
-        <activity android:name=".a_31_RatingBar.RatingBarActivity" />
-        <activity android:name=".a_32_ViewSwitcher.ViewSwitcherActivity" />
-        <activity android:name=".a_32_ViewSwitcher.ViewSwitcherActivity2" />
-        <activity android:name=".a_33_ImageSwitcher.ImageSwitcherActivity" />
-        <activity android:name=".a_34_textSwitcher.TextSwitcherActvity" />
-        <activity android:name=".a_35_viewFlipper.ViewFlipperActviity" />
-        <activity android:name=".a_36_Toast.ImageToastActivity" />
-        <activity android:name=".a_37_calendarView.CalendarViewActivity" />
-        <activity android:name=".a_38_DatePiackerAndTimePicker.DatePickerAndTimerPickerActivity" />
-        <activity android:name=".a_39_DatePickerDialogAndTimerPickerDialg.DatePickerDialogAndTimerPickerDialogActvitiy" />
-        <activity android:name=".a_40_NumberPicker.NumberPickerActivity" />
-        <activity android:name=".a_41_SearchView.SearchViewActivtiy" />
-        <activity android:name=".a_42_tabHost.TabHostActivity" />
-        <activity android:name=".a_43_scrollView.ScrollViewActivity" />
-        <activity android:name=".a_44_notification.NotificationActivity" />
-        <activity android:name=".a_45_alertDialog.AlertDialogActivity" />
+        <activity android:name="com.cnpeng.a_27_AdapterViewFlipper.AdapterViewFlipperActivity" />
+        <activity android:name="com.cnpeng.a_28_stackView.StackViewActivity" />
+        <activity android:name="com.cnpeng.a_29_progressBar.ProgressBarActivity" />
+        <activity android:name="com.cnpeng.a_30_SeekBar.SeekBarActivtiy" />
+        <activity android:name="com.cnpeng.a_31_RatingBar.RatingBarActivity" />
+        <activity android:name="com.cnpeng.a_32_ViewSwitcher.ViewSwitcherActivity" />
+        <activity android:name="com.cnpeng.a_32_ViewSwitcher.ViewSwitcherActivity2" />
+        <activity android:name="com.cnpeng.a_33_ImageSwitcher.ImageSwitcherActivity" />
+        <activity android:name="com.cnpeng.a_34_textSwitcher.TextSwitcherActvity" />
+        <activity android:name="com.cnpeng.a_35_viewFlipper.ViewFlipperActviity" />
+        <activity android:name="com.cnpeng.a_36_Toast.ImageToastActivity" />
+        <activity android:name="com.cnpeng.a_37_calendarView.CalendarViewActivity" />
+        <activity android:name="com.cnpeng.a_38_DatePiackerAndTimePicker.DatePickerAndTimerPickerActivity" />
+        <activity android:name="com.cnpeng.a_39_DatePickerDialogAndTimerPickerDialg.DatePickerDialogAndTimerPickerDialogActvitiy" />
+        <activity android:name="com.cnpeng.a_40_NumberPicker.NumberPickerActivity" />
+        <activity android:name="com.cnpeng.a_41_SearchView.SearchViewActivtiy" />
+        <activity android:name="com.cnpeng.a_42_tabHost.TabHostActivity" />
+        <activity android:name="com.cnpeng.a_43_scrollView.ScrollViewActivity" />
+        <activity android:name="com.cnpeng.a_44_notification.NotificationActivity" />
+        <activity android:name="com.cnpeng.a_45_alertDialog.AlertDialogActivity" />
 
 
-        <activity android:name=".b_01_spannableString_ImageSpan.SpannableStringAndImageSpanActivity" />
+        <activity android:name="com.cnpeng.b_01_spannableString_ImageSpan.SpannableStringAndImageSpanActivity" />
         <activity
-            android:name=".b_02_DrawerLayoutAndImmersion.DrawerLayoutActivity"
+            android:name="com.cnpeng.b_02_DrawerLayoutAndImmersion.DrawerLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".b_04_suspendAndListView.SuspendAndListViewActivity" />
-        <activity android:name=".b_04_suspendAndListView.SuspendAndListViewActivity2" />
-        <activity android:name=".b_05_alertDialog_dismiss.DissmissAlertDialog" />
-        <activity android:name=".b_06_ObjectAnimator.ObjectAnimatorAndListViewActivity" />
-        <activity android:name=".b_07_bottomNavigationView.BottomNavigationViewActivity" />
+        <activity android:name="com.cnpeng.b_04_suspendAndListView.SuspendAndListViewActivity" />
+        <activity android:name="com.cnpeng.b_04_suspendAndListView.SuspendAndListViewActivity2" />
+        <activity android:name="com.cnpeng.b_05_alertDialog_dismiss.DissmissAlertDialog" />
+        <activity android:name="com.cnpeng.b_06_ObjectAnimator.ObjectAnimatorAndListViewActivity" />
+        <activity android:name="com.cnpeng.b_07_bottomNavigationView.BottomNavigationViewActivity" />
         <activity
-            android:name=".b_08_suspendRv1.SuspendRvActivity1"
+            android:name="com.cnpeng.b_08_suspendRv1.SuspendRvActivity1"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".b_09_TextureView.TextureViewActivity" />
-        <activity android:name=".b_10_AndroidDrawables.TransitionDrawableActivity" />
-        <activity android:name=".b_10_AndroidDrawables.CustomDrawableActivity" />
-        <activity android:name=".b_11_AddAppToSysShare.AddAppToSysShareActivity">
+        <activity android:name="com.cnpeng.b_09_TextureView.TextureViewActivity" />
+        <activity android:name="com.cnpeng.b_10_AndroidDrawables.TransitionDrawableActivity" />
+        <activity android:name="com.cnpeng.b_10_AndroidDrawables.CustomDrawableActivity" />
+        <activity android:name="com.cnpeng.b_11_AddAppToSysShare.AddAppToSysShareActivity">
             <!--将应用加入系统分享界面，并处理分享过来的数据-->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -305,18 +305,18 @@
                 <data android:mimeType="multipart/*" />
             </intent-filter>
         </activity>
-        <activity android:name=".b_12_customCalendar.CustomCalendarActivity" />
-        <activity android:name=".b_13_customUserAgent.CustomUserAgentActivity" />
-        <activity android:name=".b_14_screenShotInApp.ScreenShotActivity" />
-        <activity android:name=".b_15_cornerAlertDialog.CornerAlertDialogActivity" />
-        <activity android:name=".b_16_customDialog.CustomDialogActivity" />
+        <activity android:name="com.cnpeng.b_12_customCalendar.CustomCalendarActivity" />
+        <activity android:name="com.cnpeng.b_13_customUserAgent.CustomUserAgentActivity" />
+        <activity android:name="com.cnpeng.b_14_screenShotInApp.ScreenShotActivity" />
+        <activity android:name="com.cnpeng.b_15_cornerAlertDialog.CornerAlertDialogActivity" />
+        <activity android:name="com.cnpeng.b_16_customDialog.CustomDialogActivity" />
         <activity
-            android:name=".b_17_shake.ShakeActivity"
+            android:name="com.cnpeng.b_17_shake.ShakeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".b_18_customSwitchButton.CustomSwitchButtonActivity"
+            android:name="com.cnpeng.b_18_customSwitchButton.CustomSwitchButtonActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".b_20_shortCut.ShortCutActivity">
+        <activity android:name="com.cnpeng.b_20_shortCut.ShortCutActivity">
             <!--需要加意图过滤器，不加的话无法打开快捷方式指定的页面-->
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -327,25 +327,25 @@
 
         </activity>
 
-        <activity android:name=".b_21_listViewLocalRefresh.ListViewLocalRefreshActivity" />
-        <activity android:name=".b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity" />
-        <activity android:name=".b_24_showH5TextInTextView.ShowH5TextActivity" />
-        <activity android:name=".b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity" />
-        <activity android:name=".b_26_TakePhotoWithSysMethod.TakePhotoActivity" />
-        <activity android:name=".b_27_suspendRv.SuspendRvActivity2" />
+        <activity android:name="com.cnpeng.b_21_listViewLocalRefresh.ListViewLocalRefreshActivity" />
+        <activity android:name="com.cnpeng.b_23_RefreshFragmentInViewPager.RefreshFmInVpActivity" />
+        <activity android:name="com.cnpeng.b_24_showH5TextInTextView.ShowH5TextActivity" />
+        <activity android:name="com.cnpeng.b_25_clickSpanAndItemClick.ClickSpanAndItemClickActivity" />
+        <activity android:name="com.cnpeng.b_26_TakePhotoWithSysMethod.TakePhotoActivity" />
+        <activity android:name="com.cnpeng.b_27_suspendRv.SuspendRvActivity2" />
         <activity
-            android:name=".b_28_collspaningToolBar.CollapsingToolBarActivity"
+            android:name="com.cnpeng.b_28_collspaningToolBar.CollapsingToolBarActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".b_30_RichTextEditor.RichTextEditorActivity" />
-        <activity android:name=".b_31_picAndVideoSelector.PicSelectorActivity" />
-        <activity android:name=".b_32_largeImage.LargeImageViewActivity" />
-        <activity android:name=".c_01_customView.CustomViewActivity" />
-        <activity android:name=".b_33_BaseRvAdapter.BaseRvAdapterActivity" />
-        <activity android:name=".b_34_checkNotify.CheckNotifyActivity" />
+        <activity android:name="com.cnpeng.b_30_RichTextEditor.RichTextEditorActivity" />
+        <activity android:name="com.cnpeng.b_31_picAndVideoSelector.PicSelectorActivity" />
+        <activity android:name="com.cnpeng.b_32_largeImage.LargeImageViewActivity" />
+        <activity android:name="com.cnpeng.c_01_customView.CustomViewActivity" />
+        <activity android:name="com.cnpeng.b_33_BaseRvAdapter.BaseRvAdapterActivity" />
+        <activity android:name="com.cnpeng.b_34_checkNotify.CheckNotifyActivity" />
 
-        <activity android:name=".TempActivity" />
+        <activity android:name="com.cnpeng.TempActivity" />
 
-        <receiver android:name=".b_29_lockOrUnLockBroadCast.UnLockBroadCastReceiver">
+        <receiver android:name="com.cnpeng.b_29_lockOrUnLockBroadCast.UnLockBroadCastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>

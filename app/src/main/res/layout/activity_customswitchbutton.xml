@@ -16,7 +16,7 @@
                   android:paddingLeft="@dimen/dp10"
                   android:text="随便写的东西"/>
 
-        <com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton.CustomSwitchButton
+        <com.cnpeng.b_18_customSwitchButton.CustomSwitchButton
             android:padding="@dimen/dp20"
             android:id="@+id/cusSwitchBt"
             android:layout_width="50dp"
@@ -24,7 +24,7 @@
             android:layout_margin="@dimen/dp20"
             android:layout_gravity="center"/>
 
-        <com.cnpeng.cnpeng_demos2017_01.b_18_customSwitchButton.SlideSwitch
+        <com.cnpeng.b_18_customSwitchButton.SlideSwitch
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"

@@ -3,7 +3,7 @@
 
     <data>
         <variable name="handler"
-                  type="com.cnpeng.cnpeng_demos2017_01.b_25_clickSpanAndItemClick.ClickSpanAndItemClickHandler"/>
+                  type="com.cnpeng.b_25_clickSpanAndItemClick.ClickSpanAndItemClickHandler"/>
         <variable name="content" type="android.text.SpannableString"/>
     </data>
     <LinearLayout android:id="@+id/ll_parent"

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.cnpeng.cnpeng_demos2017_01.utils.CustomCalendar.CustomCalendar
+    <com.cnpeng.utils.CustomCalendar.CustomCalendar
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
