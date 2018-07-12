@@ -8,8 +8,13 @@
         <TextView
             android:id="@+id/tv_msg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="left" />
+            android:layout_height="200dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30"
+            android:background="@drawable/shape_bk_imagetoast"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp10" />
 
     </LinearLayout>
 </layout>
