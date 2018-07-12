@@ -22,6 +22,7 @@ import static android.provider.Settings.EXTRA_CHANNEL_ID;
  * 功用：检测在设置中是否开启了APP的推送
  * 其他：
  *
+ * 参考链接：
  * https://stackoverflow.com/questions/32366649/any-way-to-link-to-the-android-notification-settings-for-my-app
  * https://blog.csdn.net/ysy950803/article/details/71910806
  * https://juejin.im/post/5a2508656fb9a0450407b638
