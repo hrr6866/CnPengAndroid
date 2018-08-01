@@ -84,6 +84,7 @@ import com.cnpeng.b_31_picAndVideoSelector.PicSelectorActivity;
 import com.cnpeng.b_32_largeImage.LargeImageViewActivity;
 import com.cnpeng.b_33_BaseRvAdapter.BaseRvAdapterActivity;
 import com.cnpeng.b_34_checkNotify.CheckNotifyActivity;
+import com.cnpeng.b_35_rippleDrawable.RippleDrawableActivity;
 import com.cnpeng.c_01_customView.CustomViewActivity;
 import com.cnpeng.cnpeng_demos2017_01.R;
 import com.cnpeng.cnpeng_demos2017_01.databinding.ActivityMainBinding;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btTcAndAc.setOnClickListener(this);
         binding.btChronometer.setOnClickListener(this);
         binding.btImageBrowserV2.setOnClickListener(this);
-        binding.btImageButtonAndZoomButton.setOnClickListener(this);
+//        binding.btImageButtonAndZoomButton.setOnClickListener(this);
         binding.btQucikContactBadge.setOnClickListener(this);
         binding.btListView01.setOnClickListener(this);
         binding.btArrayAdapter01.setOnClickListener(this);
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btCornerAlertDialog.setOnClickListener(this);
         binding.btCustomDialog.setOnClickListener(this);
         binding.btShake.setOnClickListener(this);
-        binding.btCustomSwitchButton.setOnClickListener(this);
+//        binding.btCustomSwitchButton.setOnClickListener(this);
         binding.btVector.setOnClickListener(this);
         binding.btShortCut.setOnClickListener(this);
         binding.btLvLoacalRefresh.setOnClickListener(this);
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding.btLargeImg.setOnClickListener(this);
         binding.btRvAdapter.setOnClickListener(this);
         binding.btCheckNotify.setOnClickListener(this);
+        binding.btRipple.setOnClickListener(this);
     }
 
     @Override
@@ -238,9 +240,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_ImageBrowserV2:
                 CommonUtils.mStartActivity(this, ImageBrowserV2Activtiy.class);
                 break;
-            case R.id.bt_ImageButtonAndZoomButton:
-                CommonUtils.mStartActivity(this, ImageButtonAndZoomButtonActivity.class);
-                break;
+//            case R.id.bt_ImageButtonAndZoomButton:
+//                CommonUtils.mStartActivity(this, ImageButtonAndZoomButtonActivity.class);
+//                break;
             case R.id.bt_QucikContactBadge:
                 CommonUtils.mStartActivity(this, QuickContactBadgeActivity.class);
                 break;
@@ -382,9 +384,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_CustomView:
                 CommonUtils.mStartActivity(this, CustomViewActivity.class);
                 break;
-            case R.id.bt_customSwitchButton:
-                CommonUtils.mStartActivity(this, CustomSwitchButtonActivity.class);
-                break;
+//            case R.id.bt_customSwitchButton:
+//                CommonUtils.mStartActivity(this, CustomSwitchButtonActivity.class);
+//                break;
 
             case R.id.bt_shake:
                 CommonUtils.mStartActivity(this, ShakeActivity.class);
@@ -425,6 +427,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.bt_largeImg:
                 CommonUtils.mStartActivity(this, LargeImageViewActivity.class);
+                break;
+            case R.id.bt_ripple:
+                CommonUtils.mStartActivity(this, RippleDrawableActivity.class);
                 break;
             default:
                 break;

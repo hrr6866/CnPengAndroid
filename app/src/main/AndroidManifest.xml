@@ -342,7 +342,7 @@
         <activity android:name="com.cnpeng.c_01_customView.CustomViewActivity" />
         <activity android:name="com.cnpeng.b_33_BaseRvAdapter.BaseRvAdapterActivity" />
         <activity android:name="com.cnpeng.b_34_checkNotify.CheckNotifyActivity" />
-
+        <activity android:name="com.cnpeng.b_35_rippleDrawable.RippleDrawableActivity" />
         <activity android:name="com.cnpeng.TempActivity" />
 
         <receiver android:name="com.cnpeng.b_29_lockOrUnLockBroadCast.UnLockBroadCastReceiver">

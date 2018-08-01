@@ -36,7 +36,7 @@ public class TextureViewActivity extends AppCompatActivity implements TextureVie
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        camera = Camera.open();
+        camera = Camera.open(0);
         try {
             camera.setPreviewTexture(surface);  //设置预览监听
         } catch (IOException e) {
