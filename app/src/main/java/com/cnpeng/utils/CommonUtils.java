@@ -4,10 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
@@ -60,33 +68,33 @@ public class CommonUtils {
         context.startActivity(intent);
     }
 
-//    /**
-//     * 自定义开启Activity的方法，携带数据
-//     *
-//     * @param activity      当前activity类
-//     * @param activityClass 要开启的activity.class
-//     * @param bundle        要传递的数据
-//     * @param key           传递数据时使用的键名
-//     * @param requestCode   请求码
-//     */
-//    public static void mStartActivityForResult(Activity activity, Class activityClass, Bundle bundle, String key,
-//                                               int requestCode) {
-//        Intent intent = new Intent(activity, activityClass);
-//        intent.putExtra(key, bundle);
-//        activity.startActivityForResult(intent,requestCode);
-//    }
+    //    /**
+    //     * 自定义开启Activity的方法，携带数据
+    //     *
+    //     * @param activity      当前activity类
+    //     * @param activityClass 要开启的activity.class
+    //     * @param bundle        要传递的数据
+    //     * @param key           传递数据时使用的键名
+    //     * @param requestCode   请求码
+    //     */
+    //    public static void mStartActivityForResult(Activity activity, Class activityClass, Bundle bundle, String key,
+    //                                               int requestCode) {
+    //        Intent intent = new Intent(activity, activityClass);
+    //        intent.putExtra(key, bundle);
+    //        activity.startActivityForResult(intent,requestCode);
+    //    }
 
 
-//    /**
-//     * 备选颜色的数组
-//     */
-//    public static int[] colors  = {R.color.blue_14a5ef, R.color.green_02bd89, R.color.red_f6584f, R.color
-//            .orange_eb9e21};
-//    /**
-//     * 备选颜色的数组2
-//     */
-//    public static int[] colors2 = {R.color.blue_14a5ef, R.color.green_02bd89, R.color.red_f6584f, R.color
-//            .orange_eb9e21, R.color.blue_14a5ef, R.color.orange_eb9e21, R.color.red_f6584f};
+    //    /**
+    //     * 备选颜色的数组
+    //     */
+    //    public static int[] colors  = {R.color.blue_14a5ef, R.color.green_02bd89, R.color.red_f6584f, R.color
+    //            .orange_eb9e21};
+    //    /**
+    //     * 备选颜色的数组2
+    //     */
+    //    public static int[] colors2 = {R.color.blue_14a5ef, R.color.green_02bd89, R.color.red_f6584f, R.color
+    //            .orange_eb9e21, R.color.blue_14a5ef, R.color.orange_eb9e21, R.color.red_f6584f};
 
     /**
      * 获取完全随机的颜色
@@ -175,30 +183,30 @@ public class CommonUtils {
     }
 
 
-//    /**
-//     * 自定义方法生成圆形的图片，对应的xml中的shape标签
-//     *
-//     * @param rgb   int型颜色
-//     * @param radiu 半径
-//     * @return 返回drawable类型的图片
-//     */
-//    public static Drawable generateCircleDrawable(int rgb, float radiu) {
-//        GradientDrawable drawable = new GradientDrawable();
-//        drawable.setShape(GradientDrawable.OVAL);//椭圆
-//        drawable.setColor(ContextCompat.getColor(AntLinkApplication.getAppContext(), R.color.background_color));
-//        //传入的是一个int 类型的RGB颜色值,这是设置背景颜色
-//        drawable.setCornerRadius(radiu);
-//        drawable.setStroke(1, rgb);     //边框
-//        return drawable;
-//    }
-//
-//    public static Drawable generateCircleDrawable() {
-//        GradientDrawable drawable = new GradientDrawable();
-//        drawable.setShape(GradientDrawable.OVAL);//椭圆
-//        drawable.setSize(32, 32);
-//        drawable.setColor(ContextCompat.getColor(AntLinkApplication.getAppContext(), R.color.major_ffc000));
-//        return drawable;
-//    }
+    //    /**
+    //     * 自定义方法生成圆形的图片，对应的xml中的shape标签
+    //     *
+    //     * @param rgb   int型颜色
+    //     * @param radiu 半径
+    //     * @return 返回drawable类型的图片
+    //     */
+    //    public static Drawable generateCircleDrawable(int rgb, float radiu) {
+    //        GradientDrawable drawable = new GradientDrawable();
+    //        drawable.setShape(GradientDrawable.OVAL);//椭圆
+    //        drawable.setColor(ContextCompat.getColor(AntLinkApplication.getAppContext(), R.color.background_color));
+    //        //传入的是一个int 类型的RGB颜色值,这是设置背景颜色
+    //        drawable.setCornerRadius(radiu);
+    //        drawable.setStroke(1, rgb);     //边框
+    //        return drawable;
+    //    }
+    //
+    //    public static Drawable generateCircleDrawable() {
+    //        GradientDrawable drawable = new GradientDrawable();
+    //        drawable.setShape(GradientDrawable.OVAL);//椭圆
+    //        drawable.setSize(32, 32);
+    //        drawable.setColor(ContextCompat.getColor(AntLinkApplication.getAppContext(), R.color.major_ffc000));
+    //        return drawable;
+    //    }
 
     /**
      * Set集合转换成字符串
@@ -310,14 +318,6 @@ public class CommonUtils {
     }
 
     /**
-     * 利用android提供的原生工具类实现转换
-     */
-    public int dp2px(Context context, int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
-                .getDisplayMetrics());
-    }
-
-    /**
      * PX 转dp
      *
      * @param context 上下文
@@ -344,14 +344,6 @@ public class CommonUtils {
         }
     }
 
-//    /**
-//     * 获取设备id
-//     */
-//    public static String getDeviceId() {
-//        return Settings.Secure.getString(AntLinkApplication.getAppContext().getContentResolver(), Settings.Secure
-//                .ANDROID_ID);
-//    }
-
     /**
      * 170627 获取状态栏的高度 单位PX
      *
@@ -365,6 +357,14 @@ public class CommonUtils {
         }
         return result;
     }
+
+    //    /**
+    //     * 获取设备id
+    //     */
+    //    public static String getDeviceId() {
+    //        return Settings.Secure.getString(AntLinkApplication.getAppContext().getContentResolver(), Settings.Secure
+    //                .ANDROID_ID);
+    //    }
 
     /**
      * 实现沉浸式状态栏，适用于5.0及以上版本
@@ -430,26 +430,6 @@ public class CommonUtils {
     }
 
     /**
-     * 获取状态栏高度
-     */
-//    public static int getStatusBarHeight() {
-//        Class<?> c;
-//        Object obj;
-//        Field field;
-//        int x, sbar = 0;
-//        try {
-//            c = Class.forName("com.android.internal.R$dimen");
-//            obj = c.newInstance();
-//            field = c.getField("status_bar_height");
-//            x = Integer.parseInt(field.get(obj).toString());
-//            sbar = AntLinkApplication.getAppContext().getResources().getDimensionPixelSize(x);
-//        } catch (Exception e1) {
-//            e1.printStackTrace();
-//        }
-//        return sbar;
-//    }
-
-    /**
      * 指定字符串中某部分带有下划线且具有点击事件
      *
      * @param str             源字符串
@@ -463,13 +443,33 @@ public class CommonUtils {
         SpannableString spannableString = new SpannableString(str);
 
         if (isShowUnderLine) {
-            spannableString.setSpan(new UnderlineSpan(), start, end, SPAN_EXCLUSIVE_EXCLUSIVE);     //下划线
+            spannableString.setSpan(new UnderlineSpan(), start, end, SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        spannableString.setSpan(new ForegroundColorSpan(colorInt), start, end, SPAN_EXCLUSIVE_EXCLUSIVE); //下划线及文字颜色
+        spannableString.setSpan(new ForegroundColorSpan(colorInt), start, end, SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannableString;
     }
+
+    /**
+     * 获取状态栏高度
+     */
+    //    public static int getStatusBarHeight() {
+    //        Class<?> c;
+    //        Object obj;
+    //        Field field;
+    //        int x, sbar = 0;
+    //        try {
+    //            c = Class.forName("com.android.internal.R$dimen");
+    //            obj = c.newInstance();
+    //            field = c.getField("status_bar_height");
+    //            x = Integer.parseInt(field.get(obj).toString());
+    //            sbar = AntLinkApplication.getAppContext().getResources().getDimensionPixelSize(x);
+    //        } catch (Exception e1) {
+    //            e1.printStackTrace();
+    //        }
+    //        return sbar;
+    //    }
 
     /**
      * 提供精确的小数位四舍五入处理。
@@ -486,6 +486,111 @@ public class CommonUtils {
         } else {
             return Math.round(data);
         }
+    }
+
+//    /**
+//     * 作者：CnPeng
+//     * 时间：2018/7/9 下午8:56
+//     * 功用：绘制一个shape图片
+//     * 说明：
+//     *
+//     * @param shape          {@link GradientDrawable.RECTANGLE}等
+//     * @param solidColorRes  填充线的颜色，R.color.xxx
+//     * @param radius         半径的数组 8个参数 如{8,8,16,16,8,8,16,16},两个一组,按顺序分别控制 左上角,右上角,右下角,左下角的弧度
+//     * @param strokeWidth    边线的宽度
+//     * @param strokeColorRes 边线的颜色 R.color.xxx
+//     */
+//    public static Drawable getShapeDrawable(@ColorRes int shape, int solidColorRes, float[] radius, int strokeWidth, @ColorRes int strokeColorRes) {
+//        Context context = AntLinkApplication.getAppContext();
+//        GradientDrawable drawable = new GradientDrawable();
+//        drawable.setShape(shape);
+//        drawable.setColor(ContextCompat.getColor(context, solidColorRes));
+//        drawable.setCornerRadii(radius);
+//        drawable.setStroke(strokeWidth, ContextCompat.getColor(context, strokeColorRes));
+//        return drawable;
+//    }
+
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/19 下午9:04
+     * 功用：获取不带圆角的LayerDrawable——即 xml 中的layerList
+     * 说明：
+     *
+     * @param bgColorInt 底层/背景颜色色值。格式 0xfff000。非该格式的可以使用Color.parseColor("#ffc000")、或 getResources().getColor(colorRes)进行格式化
+     * @param fgColorInt 上层/前景颜色色值
+     * @param layerInset 上层图片相对于下层图片的缩进。该数组必须有四个元素！
+     */
+    public static LayerDrawable getRectLayerDrawable(@ColorInt int bgColorInt, @ColorInt int fgColorInt, int[] layerInset) {
+
+        if (null == layerInset) {
+            layerInset = new int[]{0, 0, 0, 0};
+        }
+
+        // TODO: CnPeng 2018/7/19 下午9:18 后期补充数组元素不足四个或者超过四个的处理
+
+        RectShape rectShape = new RectShape();
+        ShapeDrawable shapeDrawableBG = new ShapeDrawable(rectShape);
+        shapeDrawableBG.getPaint().setStyle(Paint.Style.FILL);
+        shapeDrawableBG.getPaint().setColor(bgColorInt);
+
+        ShapeDrawable shapeDrawableFG = new ShapeDrawable(rectShape);
+        shapeDrawableFG.getPaint().setStyle(Paint.Style.FILL);
+        shapeDrawableFG.getPaint().setColor(fgColorInt);
+
+        LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{shapeDrawableBG, shapeDrawableFG});
+        layerDrawable.setLayerInset(1, layerInset[0], layerInset[1], layerInset[2], layerInset[3]);
+
+        return layerDrawable;
+    }
+
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/19 下午9:30
+     * 功用：获取StateListDrawable
+     * 说明：
+     * 当给View、TextView、ImageView、ViewGroup等类型的默认没有按下事件的控件添加StateListDrawable时，控件需要设置上click事件，否则按下效果不起作用
+     *
+     * @param statedColorInt 格式：0xffcccccc
+     */
+    public static StateListDrawable getStateListDrawable(@ColorInt int statedColorInt, @ColorInt int normalColorInt) {
+
+        StateListDrawable stateListDrawable = new StateListDrawable();
+
+        int[] stated = new int[]{android.R.attr.state_pressed};
+        Drawable statedDrawable = getShapeDrawable(statedColorInt);
+        stateListDrawable.addState(stated, statedDrawable);
+
+        int[] stateNormal = new int[]{};
+        Drawable normalDrawable = getShapeDrawable(normalColorInt);
+        stateListDrawable.addState(stateNormal, normalDrawable);
+
+        return stateListDrawable;
+    }
+
+    /**
+     * 作者：CnPeng
+     * 时间：2018/7/19 下午9:37
+     * 功用：根据传入的颜色值获取一个直角矩形shape
+     * 说明： // TODO: CnPeng 2018/7/19 下午9:40 补充一下 RoundRectShape的创建，使用它创建圆角图片
+     */
+    public static ShapeDrawable getShapeDrawable(@ColorInt int colorInt) {
+        RectShape rectShape = new RectShape();
+        ShapeDrawable shapeDrawable = new ShapeDrawable(rectShape);
+        shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
+        shapeDrawable.getPaint().setColor(colorInt);
+        return shapeDrawable;
+    }
+
+    public static int getMax(int a, int b) {
+        return a > b ? a : b;
+    }
+
+    /**
+     * 利用android提供的原生工具类实现转换
+     */
+    public int dp2px(Context context, int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
+                .getDisplayMetrics());
     }
 
 }
